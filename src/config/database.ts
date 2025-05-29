@@ -1,14 +1,12 @@
 import { Sequelize } from 'sequelize';
+import path from 'path';
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME || '',
-  process.env.DB_USER || '',
-  process.env.DB_PASSWORD || '',
-  {
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'postgres',
-    logging: false,
-  }
-);
+const dbPath = path.join(__dirname, '..', 'database', 'development.sqlite');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: dbPath,
+  logging: false,
+});
 
 export default sequelize;
