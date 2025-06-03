@@ -2,20 +2,20 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
 interface UserAttributes {
-    id: number;
+    id?: number;
     username: string;
     email: string;
     first_name: string;
     last_name: string;
     password_hash: string;
     is_verified: boolean;
-    verify_token: string;
-    verify_token_expiration: Date;
+    verify_token?: string | null;
+    verify_token_expiration?: Date | null;
     rol: 'admin' | 'client' | 'inner_user' | 'viewer_user';
-    is_active: boolean;
-    last_login: Date;
-    last_password_change: Date;
-    login_attempts: number;
+    is_active?: boolean;
+    last_login?: Date | null;
+    last_password_change?: Date | null;
+    login_attempts?: number;
     group_id: number;
     createdAt?: Date;
     updatedAt?: Date;
@@ -29,12 +29,12 @@ class User extends Model<UserAttributes> implements UserAttributes {
     public last_name!: string;
     public password_hash!: string;
     public is_verified!: boolean;
-    public verify_token!: string;
-    public verify_token_expiration!: Date;
+    public verify_token!: string | null;
+    public verify_token_expiration!: Date | null;
     public rol!: 'admin' | 'client' | 'inner_user' | 'viewer_user';
     public is_active!: boolean;
-    public last_login!: Date;
-    public last_password_change!: Date;
+    public last_login!: Date | null;
+    public last_password_change!: Date | null;
     public login_attempts!: number;
     public group_id!: number;
 
@@ -57,6 +57,7 @@ User.init(
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         first_name: {
             type: DataTypes.STRING,
@@ -102,24 +103,16 @@ User.init(
             type: DataTypes.INTEGER,
             defaultValue: 0,
         },
-        createdAt: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-        },
-        updatedAt: {
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
-        },
         group_id: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
         },
     },
     {
         sequelize,
         modelName: 'User',
         tableName: 'users',
-        timestamps: false,
+        timestamps: true,
     }
 );
 export default User;
