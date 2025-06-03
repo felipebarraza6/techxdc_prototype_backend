@@ -3,6 +3,7 @@ import cors from 'cors';
 import path from 'path';
 import exampleRoutes from './routes/exampleRoutes';
 import sequelize from './config/database';
+import userRouter from './routes/userRoute';
 
 const app = express();
 
@@ -11,7 +12,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/examples', exampleRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRouter);
 
 // Ruta de prueba
 app.get('/', (_req, res) => {
