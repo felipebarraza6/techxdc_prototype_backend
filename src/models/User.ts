@@ -1,8 +1,8 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
 
 interface UserAttributes {
-    id?: number;
+    id: number;
     username: string;
     email: string;
     first_name: string;
@@ -12,30 +12,31 @@ interface UserAttributes {
     verify_token?: string | null;
     verify_token_expiration?: Date | null;
     rol: 'admin' | 'client' | 'inner_user' | 'viewer_user';
-    is_active?: boolean;
+    is_active: boolean;
     last_login?: Date | null;
     last_password_change?: Date | null;
-    login_attempts?: number;
+    login_attempts: number;
     group_id: number;
     createdAt?: Date;
     updatedAt?: Date;
 };
 
-class User extends Model<UserAttributes> implements UserAttributes {
+interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'is_verified' | 'verify_token' | 'verify_token_expiration' | 'is_active' | 'last_login' | 'last_password_change' | 'login_attempts' | 'createdAt' | 'updatedAt'> { }
+class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public id!: number;
     public username!: string;
     public email!: string;
     public first_name!: string;
     public last_name!: string;
     public password_hash!: string;
-    public is_verified!: boolean;
+    public is_verified: boolean = false;
     public verify_token!: string | null;
     public verify_token_expiration!: Date | null;
     public rol!: 'admin' | 'client' | 'inner_user' | 'viewer_user';
-    public is_active!: boolean;
+    public is_active: boolean = true;
     public last_login!: Date | null;
     public last_password_change!: Date | null;
-    public login_attempts!: number;
+    public login_attempts: number = 0;
     public group_id!: number;
 
     // Timestamps
@@ -86,6 +87,7 @@ User.init(
         rol: {
             type: DataTypes.ENUM('admin', 'client', 'inner_user', 'viewer_user'),
             allowNull: false,
+            defaultValue: 'client',
         },
         is_active: {
             type: DataTypes.BOOLEAN,
