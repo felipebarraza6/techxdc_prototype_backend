@@ -21,7 +21,10 @@ interface UserAttributes {
     updatedAt?: Date;
 };
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'is_verified' | 'verify_token' | 'verify_token_expiration' | 'is_active' | 'last_login' | 'last_password_change' | 'login_attempts' | 'createdAt' | 'updatedAt'> { }
+interface UserCreationAttributes extends Optional<UserAttributes, 
+'id' | 'is_verified' | 'verify_token' | 'verify_token_expiration' | 'is_active' | 'last_login' | 
+'last_password_change' | 'login_attempts' | 'createdAt' | 'updatedAt'
+> { }
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public id!: number;
     public username!: string;
