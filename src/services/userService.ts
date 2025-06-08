@@ -1,6 +1,7 @@
 import User from "../models/User";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import { CreateUserRequest } from '../types/userTypes';
 
 export const UserService = {
     findAllUsers: async () => {
@@ -11,7 +12,7 @@ export const UserService = {
         return await User.findByPk(id);
     },
 
-    createUser: async (userData: any) => {
+    createUser: async (userData: CreateUserRequest) => {
         if (!userData.group_id) {
             throw new Error("El usuario debe asignarse a un grupo");
         }
@@ -28,7 +29,7 @@ export const UserService = {
         });
     },
 
-    updateUser: async (id: number, userData: any) => {
+    updateUser: async (id: number, userData: Partial<CreateUserRequest>) => {
         const user = await User.findByPk(id);
         if (!user) {
             throw new Error("Usuario no encontrado");
