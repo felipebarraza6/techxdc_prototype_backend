@@ -4,6 +4,7 @@ import path from 'path';
 import exampleRoutes from './routes/exampleRoutes';
 import sequelize from './config/database';
 import userRouter from './routes/userRoute';
+import groupRouter from './routes/groupRoute';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 // Rutas
 app.use('/api/examples', exampleRoutes);
 app.use("/api/users", userRouter);
+app.use('/api/groups', groupRouter);
 
 // Ruta de prueba
 app.get('/', (_req, res) => {
