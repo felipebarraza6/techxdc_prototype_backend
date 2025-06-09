@@ -17,6 +17,8 @@ export interface FileAttributes {
     is_valid?: boolean;
     response_ticket_id?: number | null;
     uploaded_by: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 };
 
-export type FileCreationAttributes = Omit<FileAttributes, 'id' | 'description' | 'expiration_date' | 'is_valid' | 'response_ticket_id'>;
+export type FileCreationAttributes = Omit<FileAttributes, 'id' | 'createdAt' | 'updatedAt' >;
