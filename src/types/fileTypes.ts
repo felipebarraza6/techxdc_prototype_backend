@@ -5,3 +5,18 @@ export enum FileType {
     IMAGE = "image",
     OTHER = "other",
 };
+
+export interface FileAttributes {
+    id: number;
+    catchment_point_id: number;
+    file_name: string;
+    file_path: string;
+    file_type_id: number;
+    description?: string | null;
+    expiration_date?: Date | null;
+    is_valid?: boolean;
+    response_ticket_id?: number | null;
+    uploaded_by: number;
+};
+
+export type FileCreationAttributes = Omit<FileAttributes, 'id' | 'description' | 'expiration_date' | 'is_valid' | 'response_ticket_id'>;
