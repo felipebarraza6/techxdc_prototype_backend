@@ -1,4 +1,5 @@
 import Group from '../models/Group';
+import { CreateGroupRequest } from '../types/groupTypes';
 
 export const GroupService = {
     getAllGroups: async () => {
@@ -8,16 +9,10 @@ export const GroupService = {
     getGroupById: async (id: number) => {
         return await Group.findByPk(id);
     },
-    createGroup: async (groupData: {
-        name: string;
-        description?: string;
-    }) => {
+    createGroup: async (groupData: CreateGroupRequest) => {
         return await Group.create(groupData);
     },
-    updateGroup: async (id: number, groupData: {
-        name?: string;
-        description?: string;
-    }) => {
+    updateGroup: async (id: number, groupData: Partial<CreateGroupRequest>) => {
         const group = await Group.findByPk(id);
         if (!group) {
             throw new Error('No existe un grupo con este ID');
@@ -30,6 +25,6 @@ export const GroupService = {
             throw new Error('No existe un grupo con este ID');
         }
         await group.destroy();
-        return group
+        return { message: 'Grupo eliminado correctamente' };
     }
 }
