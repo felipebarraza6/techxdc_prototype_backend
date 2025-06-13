@@ -1,6 +1,7 @@
 import Task from '../models/Task';
 import User from '../models/User';
 import { CreateTaskRequest } from '../types/taskTypes';
+import { TaskStatus, CreateTaskRequest } from "../types/taskTypes";
 
 export const TaskService = {
     getAllTasks: async () => {
@@ -8,11 +9,13 @@ export const TaskService = {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
         });
     },
+
     getTaskById: async (id: number) => {
         return await Task.findByPk(id, {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
         });
     },
+
     createTask: async (taskData: CreateTaskRequest) => {
         return await Task.create(taskData);
     },
