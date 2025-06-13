@@ -1,7 +1,6 @@
 import Task from '../models/Task';
 import User from '../models/User';
 import { CreateTaskRequest } from '../types/taskTypes';
-import { TaskStatus, CreateTaskRequest } from "../types/taskTypes";
 
 export const TaskService = {
     getAllTasks: async () => {
