@@ -12,11 +12,10 @@ export const getAllGroups = async (_req: Request, res: Response<ApiResponse>) =>
             data: groups
         });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Error desconocido";
         return res.status(500).json({
             success: false,
             message: "Error al obtener los grupos",
-            error: errorMessage
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -37,11 +36,10 @@ export const getGroupById = async (req: Request, res: Response<ApiResponse>) => 
             data: group
         });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Error desconocido";
         return res.status(500).json({
             success: false,
             message: "Error al obtener el grupo",
-            error: errorMessage
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -55,11 +53,10 @@ export const createGroup = async (req: Request<{}, {}, CreateGroupRequest>, res:
             data: newGroup
         });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Error desconocido";
         return res.status(500).json({
             success: false,
             message: "Error al crear el grupo",
-            error: errorMessage
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -80,11 +77,10 @@ export const updateGroup = async (req: Request, res: Response<ApiResponse>) => {
             data: updatedGroup
         });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Error desconocido";
         return res.status(500).json({
             success: false,
             message: "Error al actualizar el grupo",
-            error: errorMessage
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -105,11 +101,10 @@ export const deleteGroup = async (req: Request, res: Response<ApiResponse>) => {
             data: deleteGroup
         });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Error desconocido";
         return res.status(500).json({
             success: false,
             message: "Error al eliminar el grupo",
-            error: errorMessage
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
