@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { TaskService } from "../services/taskService";
 import { CreateTaskRequest } from "../types/taskTypes";
 import { ApiResponse } from "../types/apiTypes";
+import { formatError } from '../utils/formatError';
 
 export const getAllTasks = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -15,7 +16,7 @@ export const getAllTasks = async (_req: Request, res: Response<ApiResponse>) => 
         return res.status(500).json({
             success: false,
             message: "Error al obtener las tareas",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -39,7 +40,7 @@ export const getTaskById = async (req: Request, res: Response<ApiResponse>) => {
         return res.status(500).json({
             success: false,
             message: "Error al obtener la tarea",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -56,7 +57,7 @@ export const createTask = async (req: Request<{}, {}, CreateTaskRequest>, res: R
         return res.status(500).json({
             success: false,
             message: "Error al crear la tarea",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -74,7 +75,7 @@ export const updateTask = async (req: Request<{ id: number }, {}, Partial<Create
         return res.status(500).json({
             success: false,
             message: "Error al actualizar la tarea",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -91,7 +92,7 @@ export const deleteTask = async (req: Request<{ id: number }>, res: Response<Api
         return res.status(500).json({
             success: false,
             message: "Error al eliminar la tarea",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
