@@ -15,7 +15,7 @@ export const getAllGroups = async (_req: Request, res: Response<ApiResponse>) =>
         return res.status(500).json({
             success: false,
             message: "Error al obtener los grupos",
-            error: error.message
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -39,7 +39,7 @@ export const getGroupById = async (req: Request, res: Response<ApiResponse>) => 
         return res.status(500).json({
             success: false,
             message: "Error al obtener el grupo",
-            error: error.message
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -56,7 +56,7 @@ export const createGroup = async (req: Request<{}, {}, CreateGroupRequest>, res:
         return res.status(500).json({
             success: false,
             message: "Error al crear el grupo",
-            error: error.message
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -80,7 +80,7 @@ export const updateGroup = async (req: Request, res: Response<ApiResponse>) => {
         return res.status(500).json({
             success: false,
             message: "Error al actualizar el grupo",
-            error: error.message
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
@@ -104,7 +104,7 @@ export const deleteGroup = async (req: Request, res: Response<ApiResponse>) => {
         return res.status(500).json({
             success: false,
             message: "Error al eliminar el grupo",
-            error: error.message
+            error: error instanceof Error ? error.message : String(error)
         });
     }
 };
