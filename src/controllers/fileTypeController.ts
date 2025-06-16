@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { FileTypeService } from "../services/fileTypeService";
 import { ApiResponse } from "../types/apiTypes";
 import { formatError } from '../utils/formatError';
-import { parse } from "path";
+import { FileTypeService } from "../services/fileTypeService";
 
 export const getAllTypesFiles = async (_req: Request, res: Response<ApiResponse>) => {
     try {
