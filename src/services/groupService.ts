@@ -1,7 +1,6 @@
 import Group from '../models/Group';
 import { CreateGroupRequest } from '../types/groupTypes';
 
-
 export const GroupService = {
     getAllGroups: async () => {
        return await Group.findAll();
