@@ -26,6 +26,5 @@ export const GroupService = {
         }
         await group.destroy();
         return { message: 'Grupo eliminado correctamente' };
-
     }
 }

@@ -4,3 +4,10 @@ export enum TaskStatus {
     COMPLETED = "completed",
     CANCELLED = "cancelled",
 };
+
+export interface CreateTaskRequest {
+    title: string;
+    description?: string;
+    status?: TaskStatus;
+    created_by: number;
+}
