@@ -1,5 +1,7 @@
 import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
+import Group from "./Group";
+import Module from "./Modules";
 
 interface PermissionAttributes {
     id: number;
@@ -27,7 +29,13 @@ class Permission extends Model<PermissionAttributes, PermissionCreationAttribute
     // timestamps!
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    static associate() {
+        Permission.belongsTo(Group, { foreignKey: 'group_id', as: 'group' });
+        Permission.belongsTo(Module, { foreignKey: 'module_id', as: 'module' });
 };
+} 
+
 
 Permission.init(
     {
@@ -58,11 +66,19 @@ Permission.init(
         },
         group_id: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: Group,
+                key: 'id',
+            }
         },
         module_id: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            references: {
+                model: Module,
+                key: 'id',
+            }
         }
 },
 {
