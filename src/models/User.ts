@@ -1,5 +1,7 @@
 import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
+import { UserRole } from "../types/userTypes";
+import Group from "./Group";
 
 interface UserAttributes {
     id: number;
@@ -21,9 +23,9 @@ interface UserAttributes {
     updatedAt?: Date;
 };
 
-interface UserCreationAttributes extends Optional<UserAttributes, 
-'id' | 'is_verified' | 'verify_token' | 'verify_token_expiration' | 'is_active' | 'last_login' | 
-'last_password_change' | 'login_attempts' | 'createdAt' | 'updatedAt'
+interface UserCreationAttributes extends Optional<UserAttributes,
+    'id' | 'is_verified' | 'verify_token' | 'verify_token_expiration' | 'is_active' | 'last_login' |
+    'last_password_change' | 'login_attempts' | 'createdAt' | 'updatedAt'
 > { }
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public id!: number;
@@ -35,7 +37,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public is_verified: boolean = false;
     public verify_token!: string | null;
     public verify_token_expiration!: Date | null;
-    public rol!: 'admin' | 'client' | 'inner_user' | 'viewer_user';
+    public rol!: UserRole;
     public is_active: boolean = true;
     public last_login!: Date | null;
     public last_password_change!: Date | null;
@@ -45,6 +47,11 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    static associate() {
+        User.belongsTo(Group, { foreignKey: "group_id", as: "group" });
+        Group.hasMany(User, { foreignKey: "group_id", as: "users" });
+    };
 };
 
 User.init(
@@ -88,9 +95,9 @@ User.init(
             allowNull: true,
         },
         rol: {
-            type: DataTypes.ENUM('admin', 'client', 'inner_user', 'viewer_user'),
+            type: DataTypes.ENUM(...Object.values(UserRole)),
             allowNull: false,
-            defaultValue: 'client',
+            defaultValue: UserRole.CLIENT,
         },
         is_active: {
             type: DataTypes.BOOLEAN,
@@ -111,6 +118,10 @@ User.init(
         group_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: Group,
+                key: 'id',
+            },
         },
     },
     {
