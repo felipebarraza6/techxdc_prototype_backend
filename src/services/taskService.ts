@@ -8,6 +8,10 @@ export const TaskService = {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
         });
     },
+<<<<<<< feature/controller-task
+=======
+
+>>>>>>> main
     getTaskById: async (id: number) => {
         return await Task.findByPk(id, {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
@@ -24,17 +28,17 @@ export const TaskService = {
 
     updateTask: async (id: number, taskData: Partial<CreateTaskRequest>) => {
         const task = await Task.findByPk(id);
-        if (task) {
-            return await task.update(taskData);
+        if (!task) {
+            throw new Error('Tarea no encontrada');
         }
-        throw new Error('Tarea no encontrada');
+        return await task.update(taskData);
     },
-
     deleteTask: async (id: number) => {
         const task = await Task.findByPk(id);
-        if (task) {
-            return await task.destroy();
+        if (!task) {
+            throw new Error('Tarea no encontrada');
         }
+<<<<<<< feature/controller-task
         throw new Error('Tarea no encontrada');
     },
 
@@ -45,3 +49,8 @@ export const TaskService = {
         });
     } 
 }
+=======
+        return await task.destroy();
+    }
+};
+>>>>>>> main
