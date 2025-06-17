@@ -5,7 +5,6 @@ export const GroupService = {
     getAllGroups: async () => {
        return await Group.findAll();
     },
-
     getGroupById: async (id: number) => {
         return await Group.findByPk(id);
     },

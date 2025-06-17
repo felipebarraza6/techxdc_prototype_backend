@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ApiResponse } from "../types/apiTypes";
 import { CreatePermissionRequest } from "../types/authTypes";
 import { PermissionService } from "../services/permissionService";
+import { formatError } from '../utils/formatError';
 
 export const getAllPermissions = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -21,7 +22,7 @@ export const getAllPermissions = async (_req: Request, res: Response<ApiResponse
         return res.status(500).json({
             success: false,
             message: "Error al obtener los permisos",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -46,7 +47,7 @@ export const getPermissionById = async (req: Request, res: Response<ApiResponse>
         return res.status(500).json({
             success: false,
             message: "Error al obtener el permiso",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -63,7 +64,7 @@ export const createPermission = async (req: Request<{}, {}, CreatePermissionRequ
     return res.status(500).json({
         success: false,
         message: "Error al crear el permiso",
-        error: error.message,
+        error: formatError(error),
     });
  }
 };
@@ -88,7 +89,7 @@ export const updatePermission = async (req: Request<{id: number}, {}, Partial<Cr
         return res.status(500).json({
             success: false,
             message: "Error al actualizar el permiso",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };
@@ -105,7 +106,7 @@ export const deletePermission = async (req: Request, res: Response<ApiResponse>)
         return res.status(500).json({
             success: false,
             message: "Error al eliminar el permiso",
-            error: error.message,
+            error: formatError(error),
         });
     }
 };

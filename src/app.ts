@@ -4,11 +4,14 @@ import path from 'path';
 import exampleRoutes from './routes/exampleRoutes';
 import sequelize from './config/database';
 import userRouter from './routes/userRoute';
+import groupRouter from './routes/groupRoute';
 import taskRouter from './routes/taskRoute';
 import permissionRouter from './routes/permissionRoute';
 import ticketRouter from './routes/TicketRoute';
 import clientRouter
  from './routes/clientRoute';
+import fileRouter from './routes/fileRoute';
+
 const app = express();
 
 app.use(cors());
@@ -16,11 +19,13 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/examples', exampleRoutes);
-app.use("/api/users", userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/groups', groupRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/permissions', permissionRouter);
 app.use('/api/tickets', ticketRouter);
 app.use('/api/clients', clientRouter);
+app.use('/api/files', fileRouter);
 
 
 // Ruta de prueba
