@@ -7,6 +7,7 @@ import userRouter from './routes/userRoute';
 import groupRouter from './routes/groupRoute';
 import taskRouter from './routes/taskRoute';
 import permissionRouter from './routes/permissionRoute';
+import fileRouter from './routes/fileRoute';
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/permissions', permissionRouter);
+app.use('/api/files', fileRouter);
 
 
 // Ruta de prueba
