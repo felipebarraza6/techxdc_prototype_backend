@@ -1,22 +1,24 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
 
 interface ComunaAttributes {
-  id: bigint;
+  id: number;
   name: string;
-  code_location: string;   //puede almacenar el ubigeo (Peru) o el codigo_Dga de Chile
+  codeLocation: string;   //puede almacenar el ubigeo (Peru) o el codigo_Dga de Chile
 }
 
-class Comuna extends Model<ComunaAttributes> implements ComunaAttributes {
-  public id!: bigint;
+export type ComunaCreationAttributes = Optional<ComunaAttributes, 'id'>;
+
+class Comuna extends Model<ComunaAttributes, ComunaCreationAttributes> implements ComunaAttributes {
+  public id!: number;
   public name!: string;
-  public code_location!: string;
+  public codeLocation!: string;
 }
 
 Comuna.init(
   {
     id: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -24,7 +26,7 @@ Comuna.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    code_location: {
+    codeLocation: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -33,6 +35,7 @@ Comuna.init(
     sequelize,
     modelName: 'Comuna',
     tableName: 'comuna',
+    timestamps: true,
   }
 );
 

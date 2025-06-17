@@ -11,7 +11,10 @@
     "lint:fix": "eslint . --ext .ts --fix"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "sequelize": "^6.31.0",

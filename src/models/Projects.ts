@@ -1,55 +1,59 @@
-import { Model, DataTypes, DateOnlyDataType, DecimalDataType, DecimalDataTypeOptions } from "sequelize";
+import { Model, DataTypes, DateOnlyDataType, DecimalDataType, ForeignKey, Optional } from "sequelize";
 import sequelize from "../config/database";
 import { Json } from "sequelize/types/utils";
+import Comuna from "./Comuna";
+import Client from "./Client"
 
 interface ProjectsAttributes {
-    id: bigint;
-    client: bigint;   //llave foranea con Clients
-    code_internal: string;
+    id: number;
+    clientId: ForeignKey<Client['id']>;   //llave foranea con Clients
+    codeInternal: string;
     name: string;
     description: Text;
-    comuna: bigint;
-    start_date: DateOnlyDataType;
-    end_date: DateOnlyDataType;
-    budget_estimate: DecimalDataType;
-    cost_real: DecimalDataType;
-    margin_real: DecimalDataType;
-    custom_fields: Json;
-    createdAt?: Date;
-    updatedAt?: Date;
+    comunaId: ForeignKey<Comuna['id']>;
+    startDate: DateOnlyDataType;
+    endDate: DateOnlyDataType;
+    budgetEstimate: DecimalDataType;
+    costReal: DecimalDataType;
+    marginReal: DecimalDataType;
+    customFields: Json;
 };
 
-class Project extends Model<ProjectsAttributes> implements ProjectsAttributes {
-    public id!: bigint;
-    public client!: bigint;   //llave foranea con Clients
-    public code_internal!: string;
+export type ProjectCreationAttributes = Optional<ProjectsAttributes, 'id'>;
+
+class Project extends Model<ProjectsAttributes, ProjectCreationAttributes> implements ProjectsAttributes {
+    public id!: number;
+    public clientId!: ForeignKey<Client['id']>;   //llave foranea con Clients
+    public codeInternal!: string;
     public name!: string;
     public description!: Text;
-    public comuna!: bigint;
-    public start_date!: DateOnlyDataType;
-    public end_date!: DateOnlyDataType;
-    public budget_estimate!: DecimalDataType;
-    public cost_real!: DecimalDataType;
-    public margin_real!: DecimalDataType;
-    public custom_fields!: Json;   //opcional?
-
-    // Timestamps
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    public comunaId!: ForeignKey<Comuna['id']>;
+    public startDate!: DateOnlyDataType;
+    public endDate!: DateOnlyDataType;
+    public budgetEstimate!: DecimalDataType;
+    public costReal!: DecimalDataType;
+    public marginReal!: DecimalDataType;
+    public customFields!: Json;   //opcional?
 };
 
 Project.init(
     {
         id: {
-            type: DataTypes.BIGINT,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        client: {
-            type: DataTypes.BIGINT,
+        clientId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: 'Client', 
+                key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'RESTRICT',
         },
-        code_internal: {
+        codeInternal: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -61,40 +65,70 @@ Project.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        comuna: {
-            type: DataTypes.BIGINT,
+        comunaId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: 'Comuna', 
+                key: 'id',
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'RESTRICT',
         },
-        start_date: {
+        startDate: {
             type: DataTypes.DATEONLY,
             allowNull: false,
         },
-        end_date: {
+        endDate: {
             type: DataTypes.DATEONLY,
             allowNull: true,
         },
-        budget_estimate: {
+        budgetEstimate: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: true,
         },
-        cost_real: {
+        costReal: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: true,
         },
-        margin_real: {
+        marginReal: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: true,
         },
-        custom_fields: {
+        customFields: {
             type: DataTypes.JSON,
             allowNull: true,
         },
     },
     {
         sequelize,
-        modelName: 'User',
-        tableName: 'users',
-        timestamps: false,
+        modelName: 'Project',
+        tableName: 'projects',
+        timestamps: true,
     }
 );
+
+Comuna.hasMany(Project, {
+    foreignKey: "comunaId",
+    sourceKey: 'id',
+    as: "projectComuna",
+});
+
+Project.belongsTo(Comuna, {
+    foreignKey: "comunaId",
+    targetKey: "id",
+    as: "comuna",
+});
+
+Client.hasMany(Project, {
+    foreignKey: "clientId",
+    sourceKey: 'id',
+    as: "projectClient",
+});
+
+Project.belongsTo(Client, {
+    foreignKey: "clientId",
+    targetKey: "id",
+    as: "client",
+});
 export default Project;
