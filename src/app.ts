@@ -4,6 +4,7 @@ import path from 'path';
 import exampleRoutes from './routes/exampleRoutes';
 import sequelize from './config/database';
 import userRouter from './routes/userRoute';
+import groupRouter from './routes/groupRoute';
 import taskRouter from './routes/taskRoute';
 import permissionRouter from './routes/permissionRoute';
 
@@ -14,7 +15,8 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/examples', exampleRoutes);
-app.use("/api/users", userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/groups', groupRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/permissions', permissionRouter);
 
