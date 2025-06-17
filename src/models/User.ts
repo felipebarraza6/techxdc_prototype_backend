@@ -50,7 +50,6 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
 
     static associate() {
         User.belongsTo(Group, { foreignKey: "group_id", as: "group" });
-        Group.hasMany(User, { foreignKey: "group_id", as: "users" });
     };
 };
 
