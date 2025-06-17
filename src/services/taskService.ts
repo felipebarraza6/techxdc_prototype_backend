@@ -36,5 +36,11 @@ export const TaskService = {
             throw new Error('Tarea no encontrada');
         }
         return await task.destroy();
+    },
+    getTasksByStatus: async (status: TaskStatus) => {
+        return await Task.findAll({
+            where: { status },
+            include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
+        });
     }
 };
