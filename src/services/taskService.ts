@@ -8,7 +8,10 @@ export const TaskService = {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
         });
     },
+<<<<<<< feature/controller-task
+=======
 
+>>>>>>> main
     getTaskById: async (id: number) => {
         return await Task.findByPk(id, {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
@@ -35,6 +38,25 @@ export const TaskService = {
         if (!task) {
             throw new Error('Tarea no encontrada');
         }
+<<<<<<< feature/controller-task
+        throw new Error('Tarea no encontrada');
+    },
+
+    getTasksByStatus: async (status: TaskStatus) => {
+        return await Task.findAll({
+            where: { status },
+            include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
+        });
+    } 
+}
+=======
         return await task.destroy();
+    },
+    getTasksByStatus: async (status: TaskStatus) => {
+        return await Task.findAll({
+            where: { status },
+            include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
+        });
     }
 };
+>>>>>>> main

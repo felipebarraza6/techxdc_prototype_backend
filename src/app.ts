@@ -7,7 +7,13 @@ import userRouter from './routes/userRoute';
 import groupRouter from './routes/groupRoute';
 import taskRouter from './routes/taskRoute';
 import permissionRouter from './routes/permissionRoute';
+<<<<<<< feature/routes-typefile
 import fileTypeRouter from './routes/fileTypeRoute';
+=======
+import ticketRouter from './routes/TicketRoute';
+import clientRouter
+ from './routes/clientRoute';
+>>>>>>> main
 import fileRouter from './routes/fileRoute';
 
 const app = express();
@@ -20,8 +26,13 @@ app.use('/api/examples', exampleRoutes);
 app.use('/api/users', userRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/permissions', permissionRouter);
+<<<<<<< feature/routes-typefile
 app.use('/api/file-types', fileTypeRouter);
 app.use('/api/groups', groupRouter);
+=======
+app.use('/api/tickets', ticketRouter);
+app.use('/api/clients', clientRouter);
+>>>>>>> main
 app.use('/api/files', fileRouter);
 
 
