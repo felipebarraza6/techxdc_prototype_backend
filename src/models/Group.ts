@@ -1,6 +1,7 @@
 import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
 import User from "./User";
+import Permission from "./Permission";
 
 interface GroupAttributes {
     id: number;
@@ -21,8 +22,9 @@ class Group extends Model<GroupAttributes, GroupCreationAttributes> implements G
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    static associate(models: any) {
-        Group.hasMany(User, { foreignKey: "group_id", as: "users" });
+    static associate(models: { User: typeof User; Permission: typeof Permission }) {
+        Group.hasMany(models.User, { foreignKey: "group_id", as: "users" });
+        Group.hasMany(models.Permission, { foreignKey: "group_id", as: "permissions" });
     }
 };
 
