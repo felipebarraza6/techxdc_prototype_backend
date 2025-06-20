@@ -74,7 +74,7 @@ Contact.init(
       allowNull: true,
     },
     custom_fields: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: true,
     },
     type: {
@@ -98,8 +98,6 @@ Contact.init(
   }
 );
 
-// Relaciones
-
 // Relación con Client
 Contact.belongsTo(Client, {
   foreignKey: "id_client",
@@ -119,5 +117,21 @@ TypeContact.hasMany(Contact, {
   foreignKey: "type",
   as: "contactsWithThisType",
 });
+
+// ESTE BLOQUE SOLO ES PARA DESARROLLO. en .env se define NODE_ENV=development
+// No debe ejecutarse en producción. Usa NODE_ENV=development para pasarlo a producción se cambia a NODE_ENV=production
+// En producción, este bloque no corre, no afecta nada.Las migraciones se gestionarán con Sequelize CLI (u otra herramienta)
+ //para garantizar control de versiones de la base de datos.
+
+if (process.env.NODE_ENV === 'development') {
+  (async () => {
+    try {
+      await Contact.sync({ alter: true });
+      console.log("✅ Modelo 'Contacts' sincronizado individualmente.");
+    } catch (error) {
+      console.error("❌ Error al sincronizar modelo 'Contacts':", error);
+    }
+  })();
+}
 
 export default Contact;
