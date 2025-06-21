@@ -1,14 +1,22 @@
+import { Request } from "express";
 import { UserRole } from "./userTypes";
 
-export interface AuthRequest extends Request {
-    user?: {
-        id: number;
-        username: string;
-        email: string;
-        rol: UserRole;
-        group_id: number;
-    };
-};
+export interface AuthUser {
+    id: number;
+    username: string;
+    email: string;
+    rol: UserRole;
+    group_id: number;
+}
+// Permite definir los genericos de la petición de autenticación como en `Request<Params, ResBody, ReqBody, Query>`
+export type AuthRequest<
+    Params = any,
+    ResBody = any,
+    ReqBody = any,
+    ReqQuery = any
+> = Request<
+    Params, ResBody, ReqBody, ReqQuery
+> & { user?: AuthUser };
 
 export interface CreatePermissionRequest {
     can_create: boolean;
