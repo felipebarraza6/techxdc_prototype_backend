@@ -1,13 +1,13 @@
 import Task from '../models/Task';
 import User from '../models/User';
-import { TaskStatus, CreateTaskRequest } from "../types/taskTypes";
+import { CreateTaskRequest, TaskStatus } from '../types/taskTypes';
 
 export const TaskService = {
     getAllTasks: async () => {
         return await Task.findAll({
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
-        })
-},
+        });
+    },
     getTaskById: async (id: number) => {
         return await Task.findByPk(id, {
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
@@ -15,29 +15,31 @@ export const TaskService = {
     },
 
     createTask: async (taskData: CreateTaskRequest) => {
-        return await Task.create(taskData);
+        const newTaskData = {
+            ...taskData,
+            status: taskData.status ?? TaskStatus.PENDING, 
+        };
+        return await Task.create(newTaskData);
     },
 
     updateTask: async (id: number, taskData: Partial<CreateTaskRequest>) => {
         const task = await Task.findByPk(id);
-        if (task) {
-            return await task.update(taskData);
+        if (!task) {
+            throw new Error('Tarea no encontrada');
         }
-        throw new Error('Tarea no encontrada');
+        return await task.update(taskData);
     },
-
     deleteTask: async (id: number) => {
         const task = await Task.findByPk(id);
-        if (task) {
-            return await task.destroy();
+        if (!task) {
+            throw new Error('Tarea no encontrada');
         }
-        throw new Error('Tarea no encontrada');
+        return await task.destroy();
     },
-
     getTasksByStatus: async (status: TaskStatus) => {
         return await Task.findAll({
             where: { status },
             include: [{model: User, as: 'creator', attributes: ['id', 'username', 'email']}],
         });
-    } 
-}
+    }
+};

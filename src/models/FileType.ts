@@ -1,34 +1,28 @@
 import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
-import User from "./User";
-import Permission from "./Permission";
 
-interface GroupAttributes {
+interface FileTypeAttributes {
     id: number;
     name: string;
     description?: string | null;
     createdAt?: Date;
     updatedAt?: Date;
-}
+};
 
-interface GroupCreationAttributes extends Optional<GroupAttributes, 'id' | 'createdAt' | 'updatedAt'> { }
+interface FileTypeCreationAttributes extends Optional<FileTypeAttributes, 'id' | 'description' | 'createdAt' | 'updatedAt'> {}
 
-class Group extends Model<GroupAttributes, GroupCreationAttributes> implements GroupAttributes {
+class FileType extends Model<FileTypeAttributes, FileTypeCreationAttributes> implements FileTypeAttributes {
     public id!: number;
     public name!: string;
-    public description?: string | null = null;
+    public description!: string | null;
 
     // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    static associate(models: { User: typeof User; Permission: typeof Permission }) {
-        Group.hasMany(models.User, { foreignKey: "group_id", as: "users" });
-        Group.hasMany(models.Permission, { foreignKey: "group_id", as: "permissions" });
-    }
 };
 
-Group.init(
+FileType.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -38,6 +32,7 @@ Group.init(
         name: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         description: {
             type: DataTypes.STRING,
@@ -46,10 +41,10 @@ Group.init(
     },
     {
         sequelize,
-        modelName: 'Group',
-        tableName: 'groups',
+        modelName: "FileType",
+        tableName: "type_files",
         timestamps: true,
     }
 );
 
-export default Group;
+export default FileType;
