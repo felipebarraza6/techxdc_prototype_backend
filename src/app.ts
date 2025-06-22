@@ -4,12 +4,15 @@ import path from 'path';
 import exampleRoutes from './routes/exampleRoutes';
 import sequelize from './config/database';
 import userRouter from './routes/userRoute';
+import groupRouter from './routes/groupRoute';
+import taskRouter from './routes/taskRoute';
 import permissionRouter from './routes/permissionRoute';
-import comunaRouter from './routes/comunaRoutes';
-import projectRouter from './routes/projectRoutes'
-import financeMovementRouter from './routes/financeMovementRoutes'
-import quotationRouter from './routes/quotationRoutes';
-import catchmentPointRouter from './routes/catchmentPointRoutes';
+import fileTypeRouter from './routes/fileTypeRoute';
+import ticketRouter from './routes/TicketRoute';
+import clientRouter  from './routes/clientRoute';
+import contactRouter from './routes/contactRoute';
+import fileRouter from './routes/fileRoute';
+import moduleRouter from './routes/moduleRoute';
 
 const app = express();
 
@@ -19,12 +22,16 @@ app.use(express.json());
 // Rutas
 app.use('/api/examples', exampleRoutes);
 app.use('/api/users', userRouter);
+app.use('/api/tasks', taskRouter);
 app.use('/api/permissions', permissionRouter);
-app.use('/api/comunas', comunaRouter);
-app.use('/api/projects', projectRouter);
-app.use('/api/financeMovements', financeMovementRouter);
-app.use('/api/quotations', quotationRouter);
-app.use('/api/catchmentPoint', catchmentPointRouter);
+app.use('/api/file-types', fileTypeRouter);
+app.use('/api/groups', groupRouter);
+app.use('/api/tickets', ticketRouter);
+app.use('/api/clients', clientRouter);
+app.use('/api/contacts', contactRouter);
+app.use('/api/modules', moduleRouter);
+app.use('/api/files', fileRouter);
+
 
 // Ruta de prueba
 app.get('/', (_req, res) => {
