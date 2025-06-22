@@ -4,6 +4,7 @@ import User from "./User";
 import CatchmentPoint from "./CatchmentPoint";
 import FileType from "./FileType";
 import ResponseTicket from "./ResponseTicket";
+import Quotation from "./Quotation";
 
 
 interface FileAttributes {
@@ -16,6 +17,7 @@ interface FileAttributes {
     expiration_date?: Date | null;
     is_valid?: boolean;
     response_ticket_id?: number | null;
+    quotation_id?: number | null;
     uploaded_by: number;
     createdAt?: Date;
     updatedAt?: Date;
@@ -32,7 +34,8 @@ class File extends Model<FileAttributes, FileCreationAttributes> implements File
     public description!: string | null;
     public expiration_date!: Date | null;
     public is_valid!: boolean;
-    public response_ticket_id!: number | null;
+    public response_ticket_id?: number | null;
+    public quotation_id?: number | null;
     public uploaded_by!: number;
 
     public readonly createdAt!: Date;
@@ -43,6 +46,7 @@ class File extends Model<FileAttributes, FileCreationAttributes> implements File
         File.belongsTo(CatchmentPoint, { foreignKey: 'catchment_point_id', as: 'catchmentPoint' });
         File.belongsTo(FileType, { foreignKey: 'file_type_id', as: 'fileType' });
         File.belongsTo(ResponseTicket, { foreignKey: 'response_ticket_id', as: 'responseTicket' });
+        File.belongsTo(Quotation, { foreignKey: 'quotation_id', as: 'quotation' });
     }
 };
 
@@ -106,6 +110,14 @@ File.init(
                 key: 'id',
             }
         },
+        quotation_id: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            references: {
+                model: Quotation,
+                key: 'id',
+            }
+        }
     },
     {
         sequelize,

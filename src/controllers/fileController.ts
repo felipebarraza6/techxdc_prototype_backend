@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import {FileService} from '../services/fileService';
 import { FileAttributes, FileCreationAttributes } from '../types/fileTypes';
 import { ApiResponse } from '../types/apiTypes';
+import { formatError } from '../utils/formatError';
 
 export const getAllFiles = async (_req: Request, res: Response<ApiResponse<FileAttributes[]>>) => {
     try {
@@ -15,7 +16,8 @@ export const getAllFiles = async (_req: Request, res: Response<ApiResponse<FileA
         return res.status(500).json({
             success: false,
             message: "Error al obtener los archivos", 
-            error: error.message});
+            error: formatError(error)
+        });
     }
 };
 
@@ -37,7 +39,7 @@ export const getFileById = async (req: Request, res: Response<ApiResponse<FileAt
         return res.status(500).json({
             success: false,
             message: "Error al obtener el archivo",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -55,7 +57,7 @@ export const createFile = async (req: Request, res: Response<ApiResponse<FileAtt
         return res.status(500).json({
             success: false,
             message: 'Error al crear el archivo',
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -78,7 +80,7 @@ export const updateFile = async (req: Request, res: Response<ApiResponse<FileAtt
         return res.status(500).json({
             success: false,
             message: "Error al actualizar el archivo",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -100,7 +102,7 @@ export const deleteFile = async (req: Request, res: Response<ApiResponse>) => {
         return res.status(500).json({
             success: false,
             message: "Error al eliminar el archivo",
-            error: error.message 
+            error: formatError(error) 
         });
     }
 };

@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { UserService } from '../services/userService';
 import { CreateUserRequest } from '../types/userTypes';
 import { ApiResponse } from '../types/apiTypes';
 import { AuthRequest } from '../types/authTypes';
+import { formatError } from "../utils/formatError";
 
 
 export const getUsers = async (_req: AuthRequest, res: Response<ApiResponse>) => {
@@ -17,30 +18,30 @@ export const getUsers = async (_req: AuthRequest, res: Response<ApiResponse>) =>
         return res.status(500).json({
             success: false,
             message: "Error al obtener los usuarios",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
 
-export const createUser = async (req: Request<{}, {}, CreateUserRequest>, res: Response<ApiResponse>) => {
+export const createUser = async (req: AuthRequest<{}, ApiResponse, CreateUserRequest>, res: Response<ApiResponse>) => {
     try {
-        const user = await UserService.createUser(req.body);
+        const newUser = await UserService.createUser(req.body);
 
         return res.status(201).json({
             success: true,
             message: 'Usuario creado exitosamente',
-            data: user
+            data: newUser
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: 'Error al crear usuario',
-            error: error.message
+            error: formatError(error),
         });
     }
 };
 
-export const getUserById = async (req: AuthRequest, res: Response<ApiResponse>) => {
+export const getUserById = async (req: AuthRequest<{ id: string }>, res: Response<ApiResponse>) => {
     try {
         const id = parseInt(req.params.id);
         const user = await UserService.findUserById(id);
@@ -59,16 +60,16 @@ export const getUserById = async (req: AuthRequest, res: Response<ApiResponse>) 
         return res.status(500).json({
             success: false,
             message: "Error al obtener el usuario",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
 
-export const updateUser = async (req: AuthRequest, res: Response<ApiResponse>) => {
+export const updateUser = async (req: AuthRequest<{ id: string }, ApiResponse, Partial<CreateUserRequest>>, res: Response<ApiResponse>) => {
     try {
         const id = parseInt(req.params.id);
-        const user = await UserService.updateUser(id, req.body);
-        if (!user) {
+        const updateUser = await UserService.updateUser(id, req.body);
+        if (!updateUser) {
             return res.status(404).json({
                 success: false,
                 message: "Usuario no encontrado"
@@ -77,18 +78,18 @@ export const updateUser = async (req: AuthRequest, res: Response<ApiResponse>) =
         return res.status(200).json({
             success: true,
             message: "Usuario actualizado exitosamente",
-            data: user,
+            data: updateUser,
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
             message: "Error al actualizar el usuario",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
 
-export const deleteUser = async (req: AuthRequest, res: Response<ApiResponse>) => {
+export const deleteUser = async (req: AuthRequest<{ id: string }>, res: Response<ApiResponse>) => {
     try {
         const id = parseInt(req.params.id);
         const user = await UserService.findUserById(id);
@@ -107,7 +108,7 @@ export const deleteUser = async (req: AuthRequest, res: Response<ApiResponse>) =
         return res.status(500).json({
             success: false,
             message: "Error al eliminar el usuario",
-            error: error.message
+            error: formatError(error)
         });
     }
 };

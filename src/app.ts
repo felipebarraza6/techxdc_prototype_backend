@@ -9,8 +9,10 @@ import taskRouter from './routes/taskRoute';
 import permissionRouter from './routes/permissionRoute';
 import fileTypeRouter from './routes/fileTypeRoute';
 import ticketRouter from './routes/TicketRoute';
-import clientRouter from './routes/clientRoute';
+import clientRouter  from './routes/clientRoute';
+import contactRouter from './routes/contactRoute';
 import fileRouter from './routes/fileRoute';
+import moduleRouter from './routes/moduleRoute';
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use('/api/file-types', fileTypeRouter);
 app.use('/api/groups', groupRouter);
 app.use('/api/tickets', ticketRouter);
 app.use('/api/clients', clientRouter);
+app.use('/api/contacts', contactRouter);
+app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
 
 

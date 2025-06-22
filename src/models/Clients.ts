@@ -57,7 +57,7 @@ Client.init(
       allowNull: true,
     },
     custom_fields: {
-      type: DataTypes.JSONB,
+      type: DataTypes.JSON,
       allowNull: true,
     },
     created_at: {
