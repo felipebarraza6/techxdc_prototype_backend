@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { TaskService } from "../services/taskService";
-import { CreateTaskRequest } from "../types/taskTypes";
+import { CreateTaskRequest, TaskStatus } from "../types/taskTypes";
 import { ApiResponse } from "../types/apiTypes";
 import { formatError } from '../utils/formatError';
 
@@ -96,3 +96,28 @@ export const deleteTask = async (req: Request<{ id: number }>, res: Response<Api
         });
     }
 };
+
+export const getTasksByStatus = async (req: Request<{ status: string }>, res: Response<ApiResponse>) => {
+    try {
+        const { status } = req.params;
+        const allowedStatus: TaskStatus[] = Object.values(TaskStatus);
+        if (!allowedStatus.includes(status as TaskStatus)) {
+            return res.status(400).json({
+                success: false,
+                message: `Estado de tarea inválido: '${status}'`,
+            });
+        }
+        const tasks = await TaskService.getTasksByStatus(status as TaskStatus);
+        return res.status(200).json({
+            success: true,
+            message: "Tareas obtenidas exitosamente por estado",
+            data: tasks,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error al obtener las tareas por estado",
+            error: formatError(error),
+        });
+    }
+}
