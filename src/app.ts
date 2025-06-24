@@ -14,6 +14,7 @@ import contactRouter from './routes/contactRoute';
 import fileRouter from './routes/fileRoute';
 import moduleRouter from './routes/moduleRoute';
 import statusTicketRouter from './routes/statusTicketRoute';
+import feedbackRouter from './routes/feedbackRoute';
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/api/contacts', contactRouter);
 app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
 app.use('/api/status-tickets', statusTicketRouter); 
+app.use('/api/feedbacks', feedbackRouter);
 
 
 // Ruta de prueba
