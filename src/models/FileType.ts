@@ -9,7 +9,7 @@ interface FileTypeAttributes {
     updatedAt?: Date;
 };
 
-interface FileTypeCreationAttributes extends Optional<FileTypeAttributes, 'id' | 'description' | 'createdAt' | 'updatedAt'> {}
+interface FileTypeCreationAttributes extends Optional<FileTypeAttributes, 'id' | 'description' | 'createdAt' | 'updatedAt'> { }
 
 class FileType extends Model<FileTypeAttributes, FileTypeCreationAttributes> implements FileTypeAttributes {
     public id!: number;

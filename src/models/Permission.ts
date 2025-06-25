@@ -15,7 +15,7 @@ interface PermissionAttributes {
     updated_at?: Date;
 };
 
-interface PermissionCreationAttributes extends Optional<PermissionAttributes, 'id' | 'created_at' | 'updated_at'> {}
+interface PermissionCreationAttributes extends Optional<PermissionAttributes, 'id' | 'created_at' | 'updated_at'> { }
 
 class Permission extends Model<PermissionAttributes, PermissionCreationAttributes> implements PermissionAttributes {
     public id!: number;
@@ -30,16 +30,12 @@ class Permission extends Model<PermissionAttributes, PermissionCreationAttribute
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    static associate() {
-        Permission.belongsTo(Group, { foreignKey: 'group_id', as: 'group' });
-        Permission.belongsTo(Module, { foreignKey: 'module_id', as: 'module' });
 };
-} 
 
 
 Permission.init(
     {
-        id:{
+        id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -80,12 +76,12 @@ Permission.init(
                 key: 'id',
             }
         }
-},
-{
-    sequelize,
-    modelName: 'Permission',
-    tableName: 'permissions',
-    timestamps: true,
-});
+    },
+    {
+        sequelize,
+        modelName: 'Permission',
+        tableName: 'permissions',
+        timestamps: true,
+    });
 
 export default Permission;
