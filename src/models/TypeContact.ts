@@ -1,9 +1,26 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
 
-class TypeContact extends Model {
+// Atributos del modelo
+interface TypeContactAttributes {
+  id: number;
+  type: string;
+}
+
+interface TypeContactCreationAttributes extends Optional<TypeContactAttributes, "id"> {}
+
+class TypeContact extends Model<TypeContactAttributes, TypeContactCreationAttributes>
+  implements TypeContactAttributes {
   public id!: number;
   public type!: string;
+
+  static associate(models: any) {
+    // Se accede a Contact desde models (evita import circular)
+    TypeContact.hasMany(models.Contact, {
+      foreignKey: "type",
+      as: "contactsWithThisType",
+    });
+  }
 }
 
 TypeContact.init(
@@ -22,7 +39,7 @@ TypeContact.init(
     sequelize,
     modelName: "TypeContact",
     tableName: "type_contact",
-    timestamps: false, // no tiene created_at ni modified_at
+    timestamps: false,
   }
 );
 
