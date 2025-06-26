@@ -1,13 +1,14 @@
 // src/models/StatusTicket.ts
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
-import Ticket from './Tickets'; // importa tu modelo Ticket
+import Ticket from './Tickets';
+import { StatusTicketState } from '../types/TicketType';
 
 // Atributos del modelo
 interface StatusTicketAttributes {
   id: number;
   ticketId: number;
-  status: 'open' | 'in_progress' | 'closed' | 'on_hold';
+  status: StatusTicketState;
   name: string;
   description?: string;
   created_at?: Date;
@@ -23,11 +24,22 @@ class StatusTicket
   implements StatusTicketAttributes {
   public id!: number;
   public ticketId!: number;
-  public status!: 'open' | 'in_progress' | 'closed' | 'on_hold';
+  public status!: StatusTicketState;
   public name!: string;
   public description?: string;
   public readonly created_at!: Date;
   public readonly modified_at!: Date;
+
+  static associate() {
+    StatusTicket.belongsTo(Ticket, {
+      foreignKey: 'ticketId',
+      as: 'ticket',
+    });
+    Ticket.hasMany(StatusTicket, {
+      foreignKey: 'ticketId',
+      as: 'statusHistory',
+    });
+  }
 }
 
 StatusTicket.init(
@@ -45,7 +57,12 @@ StatusTicket.init(
       onDelete: 'CASCADE',
     },
     status: {
-      type: DataTypes.ENUM('open', 'in_progress', 'closed', 'on_hold'),
+      type: DataTypes.ENUM(
+        StatusTicketState.OPEN,
+        StatusTicketState.IN_PROGRESS,
+        StatusTicketState.CLOSED,
+        StatusTicketState.ON_HOLD
+      ),
       allowNull: false,
     },
     name: {
@@ -70,18 +87,8 @@ StatusTicket.init(
     sequelize,
     modelName: 'StatusTicket',
     tableName: 'status_ticket',
-    timestamps: false, // usamos campos manuales
+    timestamps: false, 
   }
 );
-
-// Asociación: un estado pertenece a un ticket, y un ticket tiene muchos estados
-StatusTicket.belongsTo(Ticket, {
-  foreignKey: 'ticketId',
-  as: 'ticket',
-});
-Ticket.hasMany(StatusTicket, {
-  foreignKey: 'ticketId',
-  as: 'statusHistory',
-});
 
 export default StatusTicket;
