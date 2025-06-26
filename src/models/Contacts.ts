@@ -3,59 +3,61 @@ import sequelize from "../config/database";
 import Client from "./Clients";
 import TypeContact from "./TypeContact";
 
-/**
- * Atributos del modelo Contact
- */
 interface ContactAttributes {
-  id_contacts: number;
+  id: number;
   id_client: number;
   name: string;
   email: string;
   phone?: string;
   position?: string;
-  custom_fields?: object;
+  custom_fields?: object | null;
   type: number;
-  created_at?: Date;
-  modified_at?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-/**
- * Atributos requeridos para creación (omitimos los autogenerados)
- */
-interface ContactCreationAttributes extends Optional<ContactAttributes, "id_contacts" | "created_at" | "modified_at"> {}
+interface ContactCreationAttributes extends Optional<
+  ContactAttributes,
+  "id" | "phone" | "position" | "custom_fields" | "createdAt" | "updatedAt"
+> {}
 
-/**
- * Modelo Sequelize para `contacts`
- */
-class Contact extends Model<ContactAttributes, ContactCreationAttributes> implements ContactAttributes {
-  public id_contacts!: number;
+class Contact extends Model<ContactAttributes, ContactCreationAttributes>
+  implements ContactAttributes {
+  public id!: number;
   public id_client!: number;
   public name!: string;
   public email!: string;
-  public phone!: string;
-  public position!: string;
-  public custom_fields!: object;
+  public phone?: string;
+  public position?: string;
+  public custom_fields?: object | null;
   public type!: number;
-  public readonly created_at!: Date;
-  public readonly modified_at!: Date;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  static associate() {
+    Contact.belongsTo(Client, {
+      foreignKey: "id_client",
+      as: "client",
+    });
+
+    Contact.belongsTo(TypeContact, {
+      foreignKey: "type",
+      as: "typeContact",
+    });
+  }
 }
 
 Contact.init(
   {
-    id_contacts: {
-      type: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
     },
     id_client: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
-      references: {
-        model: "clients", // nombre real de la tabla en la DB
-        key: "id_clients",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "CASCADE",
     },
     name: {
       type: DataTypes.STRING,
@@ -80,12 +82,6 @@ Contact.init(
     type: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      references: {
-        model: "type_contact", // el nombre exacto de la tabla en SQLite
-        key: "id",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
     },
   },
   {
@@ -97,41 +93,5 @@ Contact.init(
     updatedAt: "modified_at",
   }
 );
-
-// Relación con Client
-Contact.belongsTo(Client, {
-  foreignKey: "id_client",
-  as: "client",
-});
-Client.hasMany(Contact, {
-  foreignKey: "id_client",
-  as: "contacts",
-});
-
-// Relación con TypeContact
-Contact.belongsTo(TypeContact, {
-  foreignKey: "type",
-  as: "typeContact",
-});
-TypeContact.hasMany(Contact, {
-  foreignKey: "type",
-  as: "contactsWithThisType",
-});
-
-// ESTE BLOQUE SOLO ES PARA DESARROLLO. en .env se define NODE_ENV=development
-// No debe ejecutarse en producción. Usa NODE_ENV=development para pasarlo a producción se cambia a NODE_ENV=production
-// En producción, este bloque no corre, no afecta nada.Las migraciones se gestionarán con Sequelize CLI (u otra herramienta)
- //para garantizar control de versiones de la base de datos.
-
-if (process.env.NODE_ENV === 'development') {
-  (async () => {
-    try {
-      await Contact.sync({ alter: true });
-      console.log("✅ Modelo 'Contacts' sincronizado individualmente.");
-    } catch (error) {
-      console.error("❌ Error al sincronizar modelo 'Contacts':", error);
-    }
-  })();
-}
 
 export default Contact;
