@@ -15,6 +15,9 @@ import fileRouter from './routes/fileRoute';
 import moduleRouter from './routes/moduleRoute';
 import statusTicketRouter from './routes/statusTicketRoute';
 import responseTicketRouter from './routes/responseTicketRoutes';
+import { applyAssociations } from './models/associations';
+
+applyAssociations(); // Aquí se aplican las asociaciones entre modelos
 
 const app = express();
 
