@@ -13,6 +13,7 @@ export interface CreateTicketRequest {
   priority: TicketPriority;
   custom_fields?: object;
 }
+
 export interface UpdateTicketRequest {
   title?: string;
   description?: string;

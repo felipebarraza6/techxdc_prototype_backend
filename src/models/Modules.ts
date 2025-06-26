@@ -1,14 +1,25 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import ClientModule from "./ClientModule";
 
-/**
- * Modelo Sequelize para `modules`
- */
-class Module extends Model {
+interface ModuleAttributes {
+  id: number;
+  slug: string;
+  description: string;
+}
+
+interface ModuleCreationAttributes extends Optional<ModuleAttributes, "id"> {}
+
+class Module extends Model<ModuleAttributes, ModuleCreationAttributes> implements ModuleAttributes {
   public id!: number;
   public slug!: string;
   public description!: string;
+
+  static associate(models: any) {
+    Module.hasMany(models.ClientModule, {
+      foreignKey: "module_id",
+      as: "clientModules",
+    });
+  }
 }
 
 Module.init(
@@ -31,26 +42,8 @@ Module.init(
     sequelize,
     modelName: "Module",
     tableName: "modules",
-    timestamps: false, // el modelo NO tiene created_at ni updated_at
+    timestamps: false, // confirmado por el modelo
   }
 );
 
-Module.hasMany(ClientModule, {
-  foreignKey: "module_id",
-  as: "clientModules",
-});
-ClientModule.belongsTo(Module, {
-  foreignKey: "module_id",
-  as: "module",
-});
-// Sincronizar el modelo con la base de datos
-(async () => {  
-    try {
-        await sequelize.sync({ alter: true });
-        console.log("✅ Modelo 'Module' sincronizado con la base de datos.");
-    } catch (error) {
-        console.error("❌ Error al sincronizar el modelo 'Module':", error);
-    }
-    })();
-    
 export default Module;
