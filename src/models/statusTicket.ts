@@ -2,7 +2,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
 import Ticket from './Tickets';
-import { StatusTicketState } from '../types/TicketType';
+import { StatusTicketState } from '../types/statusTicketType';
 
 // Atributos del modelo
 interface StatusTicketAttributes {
