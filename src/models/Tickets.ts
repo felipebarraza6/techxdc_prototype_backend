@@ -30,7 +30,7 @@ class Ticket extends Model<TicketAttributes, TicketCreationAttributes>
   public designated!: number;
   public priority!: TicketPriority;
   public custom_fields?: object | null;
-
+    // Timestamps
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
