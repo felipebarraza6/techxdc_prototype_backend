@@ -13,7 +13,7 @@ interface UserAttributes {
     is_verified: boolean;
     verify_token?: string | null;
     verify_token_expiration?: Date | null;
-    rol: 'admin' | 'client' | 'inner_user' | 'viewer_user';
+    rol: UserRole;
     is_active: boolean;
     last_login?: Date | null;
     last_password_change?: Date | null;
@@ -48,9 +48,6 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    static associate() {
-        User.belongsTo(Group, { foreignKey: "group_id", as: "group" });
-    };
 };
 
 User.init(

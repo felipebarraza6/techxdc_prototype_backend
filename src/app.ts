@@ -15,6 +15,10 @@ import fileRouter from './routes/fileRoute';
 import moduleRouter from './routes/moduleRoute';
 import statusTicketRouter from './routes/statusTicketRoute';
 import feedbackRouter from './routes/feedbackRoute';
+import responseTicketRouter from './routes/responseTicketRoutes';
+import { applyAssociations } from './models/associations';
+
+applyAssociations(); // Aquí se aplican las asociaciones entre modelos
 
 const app = express();
 
@@ -35,6 +39,7 @@ app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
 app.use('/api/status-tickets', statusTicketRouter); 
 app.use('/api/feedbacks', feedbackRouter);
+app.use('/api/response-tickets', responseTicketRouter);
 
 
 // Ruta de prueba

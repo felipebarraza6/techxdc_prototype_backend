@@ -23,7 +23,7 @@ interface FileAttributes {
     updatedAt?: Date;
 }
 
-interface FileCreationAttributes extends Optional<FileAttributes, 'id' | 'description' | 'expiration_date' | 'is_valid' | 'response_ticket_id' | 'createdAt' | 'updatedAt'> {}
+interface FileCreationAttributes extends Optional<FileAttributes, 'id' | 'description' | 'expiration_date' | 'is_valid' | 'response_ticket_id' | 'createdAt' | 'updatedAt'> { }
 
 class File extends Model<FileAttributes, FileCreationAttributes> implements FileAttributes {
     public id!: number;
@@ -41,13 +41,6 @@ class File extends Model<FileAttributes, FileCreationAttributes> implements File
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    static associate( ){
-        File.belongsTo(User,{foreignKey: 'uploaded_by', as: 'uploader'});
-        File.belongsTo(CatchmentPoint, { foreignKey: 'catchment_point_id', as: 'catchmentPoint' });
-        File.belongsTo(FileType, { foreignKey: 'file_type_id', as: 'fileType' });
-        File.belongsTo(ResponseTicket, { foreignKey: 'response_ticket_id', as: 'responseTicket' });
-        File.belongsTo(Quotation, { foreignKey: 'quotation_id', as: 'quotation' });
-    }
 };
 
 File.init(
@@ -60,7 +53,7 @@ File.init(
         catchment_point_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references:{
+            references: {
                 model: CatchmentPoint,
                 key: 'id',
             }
@@ -105,7 +98,7 @@ File.init(
         uploaded_by: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            references:{
+            references: {
                 model: User,
                 key: 'id',
             }

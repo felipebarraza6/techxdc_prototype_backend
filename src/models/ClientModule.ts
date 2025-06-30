@@ -1,75 +1,71 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import Module from "./Modules"; 
+import Module from "./Modules";
 
-class ClientModule extends Model {
+interface ClientModuleAttributes {
+  id: number;
+  module_id: number;
+  enabled_to_type: 'project' | 'client' | 'quote';
+  reference_id: number;
+  is_enabled: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+interface ClientModuleCreationAttributes
+  extends Optional<ClientModuleAttributes, "id" | "createdAt" | "updatedAt"> {}
+
+class ClientModule extends Model<ClientModuleAttributes, ClientModuleCreationAttributes>
+  implements ClientModuleAttributes {
   public id!: number;
-  public name!: string;
-  public client_id!: number;
-  public is_active!: boolean;
   public module_id!: number;
+  public enabled_to_type!: 'project' | 'client' | 'quote';
+  public reference_id!: number;
+  public is_enabled!: boolean;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  static associate() {
+    ClientModule.belongsTo(Module, {
+      foreignKey: "module_id",
+      as: "module",
+    });
+  }
 }
 
 ClientModule.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    client_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "clients",
-        key: "id_clients",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "CASCADE",
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
-    },
     module_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
-      references: {
-        model: "modules", // importante: el nombre exacto de la tabla
-        key: "id",
-      },
-      onUpdate: "CASCADE",
-      onDelete: "CASCADE",
+    },
+    enabled_to_type: {
+      type: DataTypes.ENUM("project", "client", "quote"),
+      allowNull: false,
+    },
+    reference_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    is_enabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
     },
   },
   {
     sequelize,
     modelName: "ClientModule",
-    tableName: "client_modules",
+    tableName: "modules_enabled",
     timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "modified_at",
   }
 );
-
-// Relación con Modules
-ClientModule.belongsTo(Module, {
-  foreignKey: "module_id",
-  as: "module",
-});
-
-// Sincronizar el modelo con la base de datos
-(async () => {  
-    try {
-        await sequelize.sync({ alter: true });
-        console.log("✅ Modelo 'ClientModule' sincronizado con la base de datos.");
-    } catch (error) {
-        console.error("❌ Error al sincronizar el modelo 'ClientModule':", error);
-    }
-})();
-// Exportar el modelo para usarlo en otros archivos 
 
 export default ClientModule;

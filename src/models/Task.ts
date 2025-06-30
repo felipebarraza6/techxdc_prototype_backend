@@ -13,7 +13,7 @@ interface TaskAttributes {
     updatedAt?: Date;
 }
 
-interface TaskCreationAttributes extends Optional<TaskAttributes, "id" | "description" | "createdAt" | "updatedAt"> {}
+interface TaskCreationAttributes extends Optional<TaskAttributes, "id" | "description" | "createdAt" | "updatedAt"> { }
 
 class Task extends Model<TaskAttributes, TaskCreationAttributes> implements TaskAttributes {
     public id!: number;
@@ -26,11 +26,7 @@ class Task extends Model<TaskAttributes, TaskCreationAttributes> implements Task
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    // Define associations
-    static associate() {
-        Task.belongsTo(User, { foreignKey: "created_by", as: "creator" });
-    }
-}
+};
 
 Task.init(
     {

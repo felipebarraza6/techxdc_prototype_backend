@@ -1,28 +1,55 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
 
-class Client extends Model {
-  public id_clients!: number;
+interface ClientAttributes {
+  id: number;
+  name: string;
+  dni: string;
+  address?: string;
+  comuna?: number;
+  phone?: string;
+  industry?: string;
+  status?: string;
+  score?: number;
+  custom_fields?: object | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+interface ClientCreationAttributes extends Optional<
+  ClientAttributes,
+  "id" | "address" | "comuna" | "phone" | "industry" | "status" | "score" | "custom_fields" | "createdAt" | "updatedAt"
+> {}
+
+class Client extends Model<ClientAttributes, ClientCreationAttributes> implements ClientAttributes {
+  public id!: number;
   public name!: string;
   public dni!: string;
-  public address!: string;
-  public comuna!: string;
-  public phone!: string;
-  public industry!: string;
-  public status!: string;
-  public score!: number;
-  public custom_fields!: object;
+  public address?: string;
+  public comuna?: number;
+  public phone?: string;
+  public industry?: string;
+  public status?: string;
+  public score?: number;
+  public custom_fields?: object | null;
 
-  public readonly created_at!: Date;
-  public readonly modified_at!: Date;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  static associate(models: any) {
+    Client.hasMany(models.Contact, {
+      foreignKey: "id_client",
+      as: "contacts",
+    });
+  }
 }
 
 Client.init(
   {
-    id_clients: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+    id: {
+      type: DataTypes.BIGINT,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -37,7 +64,7 @@ Client.init(
       allowNull: true,
     },
     comuna: {
-      type: DataTypes.STRING,
+      type: DataTypes.BIGINT,
       allowNull: true,
     },
     phone: {
@@ -60,21 +87,14 @@ Client.init(
       type: DataTypes.JSON,
       allowNull: true,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    modified_at: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
   },
   {
     sequelize,
     modelName: "Client",
     tableName: "clients",
-    timestamps: false,
+    timestamps: true,
+    createdAt: "created_at",
+    updatedAt: "modified_at",
   }
 );
 
