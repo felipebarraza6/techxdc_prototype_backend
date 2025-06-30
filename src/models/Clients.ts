@@ -6,7 +6,7 @@ interface ClientAttributes {
   name: string;
   dni: string;
   address?: string;
-  comuna?: number;
+  comuna?: string;
   phone?: string;
   industry?: string;
   status?: string;
@@ -26,7 +26,7 @@ class Client extends Model<ClientAttributes, ClientCreationAttributes> implement
   public name!: string;
   public dni!: string;
   public address?: string;
-  public comuna?: number;
+  public comuna?: string;
   public phone?: string;
   public industry?: string;
   public status?: string;
@@ -64,7 +64,7 @@ Client.init(
       allowNull: true,
     },
     comuna: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     phone: {
