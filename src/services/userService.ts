@@ -16,7 +16,9 @@ export const UserService = {
         if (!userData.group_id) {
             throw new Error("El usuario debe asignarse a un grupo");
         }
-
+        if (!userData.password) {
+            throw new Error("La contraseña es requerida");
+        }
         const hashedPassword = await bcrypt.hash(userData.password, 10);
         const generateToken = (length = 32): string => {
             return crypto.randomBytes(length).toString('hex');
