@@ -7,7 +7,7 @@ interface TypeContactAttributes {
   type: string;
 }
 
-interface TypeContactCreationAttributes extends Optional<TypeContactAttributes, "id"> {}
+interface TypeContactCreationAttributes extends Optional<TypeContactAttributes, "id"> { }
 
 class TypeContact extends Model<TypeContactAttributes, TypeContactCreationAttributes>
   implements TypeContactAttributes {

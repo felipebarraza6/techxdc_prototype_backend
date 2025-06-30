@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { FinanceMovementService } from "../services/financeMovementeService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateFinanceMovementRequest } from '../types/financeMovementTypes';
+import { formatError } from "../utils/formatError";
 
 export const getAllFinanceMovement = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -15,7 +16,7 @@ export const getAllFinanceMovement = async (_req: Request, res: Response<ApiResp
         return res.status(500).json({
             success: false,
             message: "Error al obtener Movimientos Financieros",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -39,7 +40,7 @@ export const getFinanceMovementById = async (req: Request, res: Response<ApiResp
         return res.status(500).json({
             success: false,
             message: "Error al obtener Movimiento Financiero",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -56,7 +57,7 @@ export const createFinanceMovement = async (req: Request<{}, {}, CreateFinanceMo
         return res.status(500).json({
             success: false,
             message: "Error al crear Movimiento Financiero",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -80,7 +81,7 @@ export const updateFinanceMovement = async (req: Request, res: Response<ApiRespo
         return res.status(500).json({
             success: false,
             message: "Error al actualizar Movimiento Financiero",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -104,7 +105,7 @@ export const deleteFinanceMovement = async (req: Request, res: Response<ApiRespo
         return res.status(500).json({
             success: false,
             message: "Error al eliminar Movimiento Financiero",
-            error: error.message
+            error: formatError(error)
         });
     }
 };

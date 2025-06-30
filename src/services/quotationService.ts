@@ -1,5 +1,4 @@
-import { QuotationCreationAttributes } from "../models/Quotation";
-import quotation from "../models/Quotation";
+import quotation, { QuotationCreationAttributes } from "../models/Quotation";
 import { CreateQuotationRequest } from "../types/quotationTypes";
 
 export const QuotationService = {

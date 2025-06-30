@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ComunaService } from "../services/comunaService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateComunaRequest } from '../types/comunaTypes';
+import { formatError } from "../utils/formatError";
 
 export const getAllComuna = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -15,7 +16,7 @@ export const getAllComuna = async (_req: Request, res: Response<ApiResponse>) =>
         return res.status(500).json({
             success: false,
             message: "Error al obtener Comunas",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -39,7 +40,7 @@ export const getComunaById = async (req: Request, res: Response<ApiResponse>) =>
         return res.status(500).json({
             success: false,
             message: "Error al obtener la Comuna",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -56,7 +57,7 @@ export const createComuna = async (req: Request<{}, {}, CreateComunaRequest>, re
         return res.status(500).json({
             success: false,
             message: "Error al crear Comuna",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -68,7 +69,7 @@ export const updateComuna = async (req: Request, res: Response<ApiResponse>) => 
         if (!updatedComuna) {
             return res.status(404).json({
                 success: false,
-                message: "Comuna no Actualizada"
+                message: "Comuna no actualizada"
             });
         }
         return res.status(200).json({
@@ -80,7 +81,7 @@ export const updateComuna = async (req: Request, res: Response<ApiResponse>) => 
         return res.status(500).json({
             success: false,
             message: "Error al actualizar Comuna",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -92,7 +93,7 @@ export const deleteComuna = async (req: Request, res: Response<ApiResponse>) => 
         if (!deletedComuna) {
             return res.status(404).json({
                 success: false,
-                message: "Comuna no Pudo Ser Eliminada"
+                message: "Comuna no pudo ser eliminada"
             });
         }
         return res.status(200).json({
@@ -104,7 +105,7 @@ export const deleteComuna = async (req: Request, res: Response<ApiResponse>) => 
         return res.status(500).json({
             success: false,
             message: "Error al eliminar Comuna",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
