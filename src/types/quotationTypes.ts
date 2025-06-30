@@ -1,6 +1,4 @@
-import { DateOnlyDataType, DecimalDataType } from "sequelize";
-
-export enum typeQuotation {
+export enum TypeQuotation {
     DRAFT = "draft",
     SENT = "sent",
     APPROVED = "approved",
@@ -10,10 +8,10 @@ export enum typeQuotation {
 export interface CreateQuotationRequest{
     clientId: number;
     linkedProject: number;
-    estimatedAmount: DecimalDataType;
-    marginEstimate: DecimalDataType;
-    date: DateOnlyDataType;
-    status: typeQuotation;
+    estimatedAmount: number;
+    marginEstimate: number;
+    date: Date;
+    status: TypeQuotation;
     createdBy: number;
     file: number;
 }

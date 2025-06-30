@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CatchmentPointService } from "../services/catchmentPointService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateCatchmentPointRequest } from '../types/catchmentPointTypes';
+import { formatError } from "../utils/formatError";
 
 export const getAllCatchmentPoint = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -15,7 +16,7 @@ export const getAllCatchmentPoint = async (_req: Request, res: Response<ApiRespo
         return res.status(500).json({
             success: false,
             message: "Error al obtener Puntos de Captacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -39,7 +40,7 @@ export const getCatchmentPointById = async (req: Request, res: Response<ApiRespo
         return res.status(500).json({
             success: false,
             message: "Error al obtener Puntos de Captacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -56,7 +57,7 @@ export const createCatchmentPoint = async (req: Request<{}, {}, CreateCatchmentP
         return res.status(500).json({
             success: false,
             message: "Error al crear Puntos de Captacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -80,7 +81,7 @@ export const updateCatchmentPoint = async (req: Request, res: Response<ApiRespon
         return res.status(500).json({
             success: false,
             message: "Error al actualizar Punto de Captacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -104,7 +105,7 @@ export const deleteCatchmentPoint = async (req: Request, res: Response<ApiRespon
         return res.status(500).json({
             success: false,
             message: "Error al eliminar Punto de Captacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };

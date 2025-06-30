@@ -1,28 +1,28 @@
-import { Model, DataTypes, DateOnlyDataType, DecimalDataType, ForeignKey, Optional } from "sequelize";
+import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
-import Project from "./Projects";
+import { TypeFinanceMovement } from "../types/financeMovementTypes"
 
 interface financeMovementsAttributes {
     id: number;
-    type: 'income' | 'expense' | 'advance';
-    amount: DecimalDataType;
-    projectId: ForeignKey<Project['id']>;
-    description: Text;
-    date: DateOnlyDataType;
+    type: TypeFinanceMovement;
+    amount: number;
+    projectId: number;
+    description: string;
+    date: Date;
 };
 
 export type FinanceMovementCreationAttributes = Optional<financeMovementsAttributes, 'id'>;
 
-class financeMovement extends Model<financeMovementsAttributes, FinanceMovementCreationAttributes> implements financeMovementsAttributes {
+class FinanceMovement extends Model<financeMovementsAttributes, FinanceMovementCreationAttributes> implements financeMovementsAttributes {
     public id!: number;
-    public type!: 'income' | 'expense' | 'advance';
-    public projectId!: ForeignKey<Project['id']>;
-    public amount!: DecimalDataType;   
-    public description!: Text;
-    public date!: DateOnlyDataType;
+    public type!: TypeFinanceMovement;
+    public projectId!: number;
+    public amount!: number;   
+    public description!: string;
+    public date!: Date;
 };
 
-financeMovement.init(
+FinanceMovement.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -30,7 +30,7 @@ financeMovement.init(
             primaryKey: true,
         },
         type: {
-            type: DataTypes.ENUM('income', 'expense', 'advance'),
+            type: DataTypes.ENUM(...Object.values(TypeFinanceMovement)),
             allowNull: false,
         },
         description: {
@@ -41,11 +41,9 @@ financeMovement.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Project', 
+                model: 'Projects', 
                 key: 'id',
             },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
         },
         date: {
             type: DataTypes.DATEONLY,
@@ -53,7 +51,7 @@ financeMovement.init(
         },
         amount: {
             type: DataTypes.DECIMAL(10, 2),
-            allowNull: true,
+            allowNull: false,
         },
     },
     {
@@ -64,16 +62,5 @@ financeMovement.init(
     }
 );
 
-Project.hasMany(financeMovement, {
-    foreignKey: "projectId",
-    sourceKey: 'id',
-    as: "projectFinanceMovement",
-});
 
-financeMovement.belongsTo(Project, {
-    foreignKey: "projectId",
-    targetKey: "id",
-    as: "Project",
-});
-
-export default financeMovement;
+export default FinanceMovement;

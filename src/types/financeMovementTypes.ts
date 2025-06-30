@@ -1,6 +1,4 @@
-import { DateOnlyDataType, DecimalDataType } from "sequelize";
-
-export enum typeFinanceMovemente {
+export enum TypeFinanceMovement {
     INCOME = "income",
     EXPENSE = "expense",
     ADVANCE = "advance"
@@ -8,8 +6,8 @@ export enum typeFinanceMovemente {
 
 export interface CreateFinanceMovementRequest{
     projectId: number;
-    description: Text;
-    amount: DecimalDataType;
-    date: DateOnlyDataType;
-    type: typeFinanceMovemente;
+    description: string;
+    amount: number;
+    date: Date;
+    type: TypeFinanceMovement;
 }

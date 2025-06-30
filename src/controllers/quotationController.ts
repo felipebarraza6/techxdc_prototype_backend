@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { QuotationService } from "../services/quotationService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateQuotationRequest } from '../types/quotationTypes';
+import { formatError } from "../utils/formatError";
 
 export const getAllQuotation = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -15,7 +16,7 @@ export const getAllQuotation = async (_req: Request, res: Response<ApiResponse>)
         return res.status(500).json({
             success: false,
             message: "Error al obtener Cotizaciones",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -39,7 +40,7 @@ export const getQuotationById = async (req: Request, res: Response<ApiResponse>)
         return res.status(500).json({
             success: false,
             message: "Error al obtener Cotizacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -56,7 +57,7 @@ export const createQuotation = async (req: Request<{}, {}, CreateQuotationReques
         return res.status(500).json({
             success: false,
             message: "Error al crear Cotizacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -80,7 +81,7 @@ export const updateQuotation = async (req: Request, res: Response<ApiResponse>) 
         return res.status(500).json({
             success: false,
             message: "Error al actualizar Cotizacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -104,7 +105,7 @@ export const deleteQuotation = async (req: Request, res: Response<ApiResponse>) 
         return res.status(500).json({
             success: false,
             message: "Error al eliminar Cotizacion",
-            error: error.message
+            error: formatError(error)
         });
     }
 };

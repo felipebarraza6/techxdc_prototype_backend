@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { ProjectService } from "../services/projectService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateProjectRequest } from '../types/projectTypes';
+import { formatError } from "../utils/formatError";
+import * as ClientService from "../services/clientService";
 
 export const getAllProjects = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -15,7 +17,7 @@ export const getAllProjects = async (_req: Request, res: Response<ApiResponse>) 
         return res.status(500).json({
             success: false,
             message: "Error al obtener Proyectos",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -39,13 +41,17 @@ export const getProjectById = async (req: Request, res: Response<ApiResponse>) =
         return res.status(500).json({
             success: false,
             message: "Error al obtener Proyecto",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
 
 export const createProject = async (req: Request<{}, {}, CreateProjectRequest>, res: Response<ApiResponse>) => {
     try {
+
+        // const client1 = await ClientService.getClientById(req.body.clientId);
+        // console.log('ClientID', req.body.clientId)
+        // console.log('Client:', client1)
         const newProject = await ProjectService.createProject(req.body);
         return res.status(201).json({
             success: true,
@@ -56,7 +62,7 @@ export const createProject = async (req: Request<{}, {}, CreateProjectRequest>, 
         return res.status(500).json({
             success: false,
             message: "Error al crear Proyecto",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -80,7 +86,7 @@ export const updateProject = async (req: Request, res: Response<ApiResponse>) =>
         return res.status(500).json({
             success: false,
             message: "Error al actualizar Proyecto",
-            error: error.message
+            error: formatError(error)
         });
     }
 };
@@ -104,7 +110,7 @@ export const deleteProject = async (req: Request, res: Response<ApiResponse>) =>
         return res.status(500).json({
             success: false,
             message: "Error al eliminar Proyecto",
-            error: error.message
+            error: formatError(error)
         });
     }
 };

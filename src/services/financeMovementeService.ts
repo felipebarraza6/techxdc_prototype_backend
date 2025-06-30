@@ -24,7 +24,7 @@ export const FinanceMovementService = {
         if (!financeMovement) {
             throw new Error("Movimiento Financiero No Existe");
         }
-        await FinanceMovement.destroy();
+        await financeMovement.destroy();
         return { message: 'Movimiento Finaciero Eliminado correctamente' };
     }
 };
