@@ -9,7 +9,7 @@ interface UserAttributes {
     email: string;
     first_name: string;
     last_name: string;
-    password_hash: string;
+    password: string;
     is_verified: boolean;
     verify_token?: string | null;
     verify_token_expiration?: Date | null;
@@ -33,7 +33,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public email!: string;
     public first_name!: string;
     public last_name!: string;
-    public password_hash!: string;
+    public password!: string;
     public is_verified: boolean = false;
     public verify_token!: string | null;
     public verify_token_expiration!: Date | null;
@@ -74,7 +74,7 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        password_hash: {
+        password: {
             type: DataTypes.STRING,
             allowNull: true,
         },
