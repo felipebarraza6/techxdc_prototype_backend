@@ -76,7 +76,7 @@ User.init(
         },
         password_hash: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         is_verified: {
             type: DataTypes.BOOLEAN,

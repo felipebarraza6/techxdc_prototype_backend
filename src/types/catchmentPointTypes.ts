@@ -1,13 +1,10 @@
-import { DecimalDataType } from "sequelize";
-import { Json } from "sequelize/types/utils";
-
 export interface CreateCatchmentPointRequest{
     projectId: number;
     title: string;
-    latitude: DecimalDataType;
-    longitude: DecimalDataType;
+    latitude: number;
+    longitude: number;
     ownerUser: number;
-    viewersUser: Json;
+    viewersUser: object;
     nettra: boolean;
     twin: boolean;
     novus: boolean;

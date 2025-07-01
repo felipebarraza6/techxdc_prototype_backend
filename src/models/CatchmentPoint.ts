@@ -1,40 +1,37 @@
-import { Model, DataTypes, DecimalDataType, ForeignKey, Optional } from "sequelize";
+import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
-import Project from "./Projects";
-import User from "./User";
-import { Json } from "sequelize/types/utils";
 
 interface catchmentPointAttributes {
     id: number;
-    projectId: ForeignKey<Project['id']>;
+    projectId: number;
     title: string;
-    latitude: DecimalDataType;
-    longitude: DecimalDataType;
-    ownerUser: ForeignKey<User['id']>;
-    viewersUser: Json;
-    nettra: boolean;
-    twin: boolean;
-    novus: boolean;
-    frecuency: string;
+    latitude: number;
+    longitude: number;
+    ownerUser: number;
+    viewersUser?: object | null;
+    nettra?: boolean | null;
+    twin?: boolean | null;
+    novus?: boolean | null;
+    frecuency?: string  | null;
 };
 
 export type CatchmentPointCreationAttributes = Optional<catchmentPointAttributes, 'id'>;
 
-class catchmentPoint extends Model<catchmentPointAttributes, CatchmentPointCreationAttributes> implements catchmentPointAttributes {
+class CatchmentPoint extends Model<catchmentPointAttributes, CatchmentPointCreationAttributes> implements catchmentPointAttributes {
     public id!: number;
-    public projectId!: ForeignKey<Project['id']>;;
+    public projectId!: number;
     public title!: string;
-    public latitude!: DecimalDataType;
-    public longitude!: DecimalDataType;
-    public ownerUser!: ForeignKey<User['id']>;
-    public viewersUser!: Json
-    public nettra!: boolean;
-    public twin!: boolean;
-    public novus!: boolean;
-    public frecuency!: string
+    public latitude!: number;
+    public longitude!: number;
+    public ownerUser!: number;
+    public viewersUser?: object | null
+    public nettra?: boolean | null;
+    public twin?: boolean | null;
+    public novus?: boolean | null;
+    public frecuency!: string | null;
 };
 
-catchmentPoint.init(
+CatchmentPoint.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -45,11 +42,9 @@ catchmentPoint.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Project', 
+                model: 'Projects', 
                 key: 'id',
             },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
         },
         title: {
             type: DataTypes.STRING,
@@ -67,34 +62,32 @@ catchmentPoint.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'User', 
+                model: 'Users', 
                 key: 'id',
             },
-            onUpdate: 'CASCADE',
-            onDelete: 'CASCADE',
         }, 
         viewersUser: {
             type: DataTypes.JSON,
-            allowNull: false,
+            allowNull: true,
         }, 
         nettra: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true,
+            defaultValue: false,
         },
         twin: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true,
+            defaultValue: false,
         },
         novus: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true,
+            defaultValue: false,
         },
         frecuency: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
     },
     {
@@ -105,28 +98,6 @@ catchmentPoint.init(
     }
 );
 
-Project.hasMany(catchmentPoint, {
-    foreignKey: "projectId",
-    sourceKey: 'id',
-    as: "projectCatchmentPoint",
-});
 
-catchmentPoint.belongsTo(Project, {
-    foreignKey: "projectId",
-    targetKey: "id",
-    as: "Project",
-});
 
-User.hasMany(catchmentPoint, {
-    foreignKey: "ownerUser",
-    sourceKey: 'id',
-    as: "userQuotation",
-});
-
-catchmentPoint.belongsTo(User, {
-    foreignKey: "ownerUser",
-    targetKey: "id",
-    as: "User",
-});
-
-export default catchmentPoint;
+export default CatchmentPoint;
