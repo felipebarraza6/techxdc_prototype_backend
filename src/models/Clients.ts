@@ -64,7 +64,7 @@ Client.init(
       allowNull: true,
     },
     comuna: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.NUMBER,
       allowNull: true,
     },
     phone: {

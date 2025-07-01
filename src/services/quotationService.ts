@@ -23,7 +23,7 @@ export const QuotationService = {
         if (!quotation1) {
             throw new Error("Cotizacion No Existe");
         }
-        await quotation.destroy();
+        await quotation1.destroy();
         return { message: 'Cotizacion Eliminada correctamente' };
     }
 };

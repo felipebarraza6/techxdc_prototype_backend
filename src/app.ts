@@ -14,8 +14,15 @@ import contactRouter from './routes/contactRoute';
 import fileRouter from './routes/fileRoute';
 import moduleRouter from './routes/moduleRoute';
 import statusTicketRouter from './routes/statusTicketRoute';
+import feedbackRouter from './routes/feedbackRoute';
 import responseTicketRouter from './routes/responseTicketRoutes';
 import { applyAssociations } from './models/associations';
+import comunaRouter from './routes/comunaRoutes';
+import projectRouter from './routes/projectRoutes'
+import financeMovementRouter from './routes/financeMovementRoutes'
+import quotationRouter from './routes/quotationRoutes';
+import catchmentPointRouter from './routes/catchmentPointRoutes';
+
 
 applyAssociations(); // Aquí se aplican las asociaciones entre modelos
 
@@ -37,7 +44,13 @@ app.use('/api/contacts', contactRouter);
 app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
 app.use('/api/status-tickets', statusTicketRouter); 
+app.use('/api/feedbacks', feedbackRouter);
 app.use('/api/response-tickets', responseTicketRouter);
+app.use('/api/comunas', comunaRouter);
+app.use('/api/projects', projectRouter);
+app.use('/api/financeMovements', financeMovementRouter);
+app.use('/api/quotations', quotationRouter);
+app.use('/api/catchmentPoint', catchmentPointRouter);
 
 
 // Ruta de prueba
@@ -55,7 +68,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ Conexión a SQLite establecida correctamente.');
     
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     console.log('✅ Modelos sincronizados con SQLite.');
 
     app.listen(PORT, () => {

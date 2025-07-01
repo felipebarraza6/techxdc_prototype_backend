@@ -16,14 +16,16 @@ export const UserService = {
         if (!userData.group_id) {
             throw new Error("El usuario debe asignarse a un grupo");
         }
-
+        if (!userData.password) {
+            throw new Error("La contraseña es requerida");
+        }
         const hashedPassword = await bcrypt.hash(userData.password, 10);
         const generateToken = (length = 32): string => {
             return crypto.randomBytes(length).toString('hex');
         }
         return await User.create({
             ...userData,
-            password_hash: hashedPassword,
+            password: hashedPassword,
             verify_token: generateToken(),
             verify_token_expiration: new Date(Date.now() + 1000 * 60 * 60 * 24) // duración de 24 horas
         });

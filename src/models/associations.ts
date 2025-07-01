@@ -7,6 +7,10 @@ import File from "./File";
 import CatchmentPoint from "./CatchmentPoint";
 import ResponseTicket from "./ResponseTicket";
 import Quotation from "./Quotation";
+import clients from "./Clients";
+import Comuna from "./Comuna";
+import Project from "./Projects";
+import FinanceMovement from "./financeMovement";
 
 export const applyAssociations = () => {
     // User --- Group
@@ -69,5 +73,101 @@ export const applyAssociations = () => {
     File.belongsTo(Quotation, {
         foreignKey: 'quotation_id',
         as: 'quotation',
+    });
+
+    Comuna.hasMany(Project, {
+        foreignKey: "comunaId",
+        sourceKey: 'id',
+        as: "projectComuna",
+    });
+    
+    Project.belongsTo(Comuna, {
+        foreignKey: "comunaId",
+        targetKey: "id",
+        as: "comuna",
+    });
+    
+    clients.hasMany(Project, {
+        foreignKey: "clientId",
+        sourceKey: 'id',
+        as: "projectClient",
+    });
+    
+    Project.belongsTo(clients, {
+        foreignKey: "clientId",
+        targetKey: "id",
+        as: "Clients",
+    });
+
+    Project.hasMany(CatchmentPoint, {
+        foreignKey: "projectId",
+        sourceKey: 'id',
+        as: "projectCatchmentPoint",
+    });
+    
+    CatchmentPoint.belongsTo(Project, {
+        foreignKey: "projectId",
+        targetKey: "id",
+        as: "Project",
+    });
+    
+    User.hasMany(CatchmentPoint, {
+        foreignKey: "ownerUser",
+        sourceKey: 'id',
+        as: "userCatchmentPoint",
+    });
+    
+    CatchmentPoint.belongsTo(User, {
+        foreignKey: "ownerUser",
+        targetKey: "id",
+        as: "User",
+    });
+
+    Project.hasMany(FinanceMovement, {
+        foreignKey: "projectId",
+        sourceKey: 'id',
+        as: "projectFinanceMovement",
+    });
+    
+    FinanceMovement.belongsTo(Project, {
+        foreignKey: "projectId",
+        targetKey: "id",
+        as: "Project",
+    });
+
+    Project.hasMany(Quotation, {
+        foreignKey: "linkedProject",
+        sourceKey: 'id',
+        as: "projectQuotation",
+    });
+    
+    Quotation.belongsTo(Project, {
+        foreignKey: "linkedProject",
+        targetKey: "id",
+        as: "Project",
+    });
+    
+    User.hasMany(Quotation, {
+        foreignKey: "createdBy",
+        sourceKey: 'id',
+        as: "userQuotation",
+    });
+    
+    Quotation.belongsTo(User, {
+        foreignKey: "createdBy",
+        targetKey: "id",
+        as: "User",
+    });
+    
+    clients.hasMany(Quotation, {
+        foreignKey: "clientId",
+        sourceKey: 'id',
+        as: "clientQuotation",
+    });
+    
+    Quotation.belongsTo(clients, {
+        foreignKey: "clientId",
+        targetKey: "id",
+        as: "Client",
     });
 }

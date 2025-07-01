@@ -1,5 +1,4 @@
 import Comuna from "../models/Comuna";
-// import { ComunaCreationAttributes } from '../models/Comuna';
 import { CreateComunaRequest } from "../types/comunaTypes";
 
 export const ComunaService = {

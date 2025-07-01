@@ -3,6 +3,7 @@ import { ProjectService } from "../services/projectService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateProjectRequest } from '../types/projectTypes';
 import { formatError } from "../utils/formatError";
+//import * as ClientService from "../services/clientService";
 
 export const getAllProjects = async (_req: Request, res: Response<ApiResponse>) => {
     try {
@@ -47,6 +48,10 @@ export const getProjectById = async (req: Request, res: Response<ApiResponse>) =
 
 export const createProject = async (req: Request<{}, {}, CreateProjectRequest>, res: Response<ApiResponse>) => {
     try {
+
+        // const client1 = await ClientService.getClientById(req.body.clientId);
+        // console.log('ClientID', req.body.clientId)
+        // console.log('Client:', client1)
         const newProject = await ProjectService.createProject(req.body);
         return res.status(201).json({
             success: true,

@@ -14,7 +14,7 @@ interface GroupCreationAttributes extends Optional<GroupAttributes, 'id' | 'crea
 class Group extends Model<GroupAttributes, GroupCreationAttributes> implements GroupAttributes {
     public id!: number;
     public name!: string;
-    public description?: string | null = null;
+    public description?: string | null;
 
     // Timestamps
     public readonly createdAt!: Date;
