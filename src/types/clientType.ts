@@ -3,7 +3,7 @@ export interface ClientAttributes {
   name: string;
   dni: string;
   address?: string;
-  comuna?: string;
+  comuna?: number;
   phone?: string;
   industry?: string;
   status?: string;
@@ -17,7 +17,7 @@ export interface CreateClientRequest {
   name: string;
   dni: string;
   address?: string;
-  comuna?: string;
+  comuna?: number;
   phone?: string;
   industry?: string;
   status?: string;
@@ -29,7 +29,7 @@ export interface UpdateClientRequest {
   name?: string;
   dni?: string;
   address?: string;
-  comuna?: string;
+  comuna?: number;
   phone?: string;
   industry?: string;
   status?: string;
@@ -41,7 +41,7 @@ export interface ClientResponse {
   name: string;
   dni: string;
   address?: string;
-  comuna?: string;
+  comuna?: number;
   phone?: string;
   industry?: string;
   status?: string;
