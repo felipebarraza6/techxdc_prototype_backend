@@ -1,6 +1,7 @@
 // services/responseTicketService.ts
+
 import ResponseTicket from "../models/ResponseTicket";
-import { CreateResponseTicketRequest, UpdateResponseTicketRequest } from "../types/responseTicketType";
+import {CreateResponseTicketRequest, UpdateResponseTicketRequest} from "../types/responseTicketType";
 
 // Crear nueva respuesta a un ticket
 export const createResponseTicket = async (data: CreateResponseTicketRequest) => {
