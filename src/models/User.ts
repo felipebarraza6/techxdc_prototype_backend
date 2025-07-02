@@ -17,7 +17,7 @@ interface UserAttributes {
     is_active: boolean;
     last_login?: Date | null;
     last_password_change?: Date | null;
-    login_attempts: number;
+    login_attempts?: number;
     group_id: number;
     createdAt?: Date;
     updatedAt?: Date;

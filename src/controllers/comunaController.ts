@@ -69,7 +69,7 @@ export const updateComuna = async (req: Request, res: Response<ApiResponse>) => 
         if (!updatedComuna) {
             return res.status(404).json({
                 success: false,
-                message: "Comuna no Actualizada"
+                message: "Comuna no actualizada"
             });
         }
         return res.status(200).json({
@@ -93,7 +93,7 @@ export const deleteComuna = async (req: Request, res: Response<ApiResponse>) => 
         if (!deletedComuna) {
             return res.status(404).json({
                 success: false,
-                message: "Comuna no Pudo Ser Eliminada"
+                message: "Comuna no pudo ser eliminada"
             });
         }
         return res.status(200).json({

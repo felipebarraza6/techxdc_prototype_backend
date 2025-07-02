@@ -3,7 +3,7 @@ import { ProjectService } from "../services/projectService";
 import { ApiResponse } from '../types/apiTypes';
 import { CreateProjectRequest } from '../types/projectTypes';
 import { formatError } from "../utils/formatError";
-import * as ClientService from "../services/clientService";
+//import * as ClientService from "../services/clientService";
 
 export const getAllProjects = async (_req: Request, res: Response<ApiResponse>) => {
     try {

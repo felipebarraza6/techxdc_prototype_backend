@@ -1,5 +1,4 @@
-import FinanceMovement from "../models/financeMovement";
-import { FinanceMovementCreationAttributes } from '../models/financeMovement';
+import FinanceMovement, { FinanceMovementCreationAttributes } from "../models/financeMovement";
 import { CreateFinanceMovementRequest } from "../types/financeMovementTypes";
 
 export const FinanceMovementService = {

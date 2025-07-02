@@ -1,5 +1,5 @@
 import File from "../models/File";
-import { FileAttributes, FileCreationAttributes } from "../types/fileTypes";
+import { CreateFileRequest, FileAttributes } from "../types/fileTypes";
 
 export const FileService = {
     getAllFiles: async () => {
@@ -14,7 +14,7 @@ export const FileService = {
         });
     },
 
-    createFile: async (fileData: FileCreationAttributes) => {
+    createFile: async (fileData: CreateFileRequest) => {
         return await File.create(fileData);
     },
 

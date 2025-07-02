@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import * as ContactService from "../services/contactService";
 import { CreateContactRequest, UpdateContactRequest } from "../types/contactTypes";
+import { formatError } from "../utils/formatError";
+import { ApiResponse } from "../types/apiTypes";
 
 // Crear contacto
 export const createContact = async (req: Request, res: Response) => {
@@ -115,25 +117,41 @@ export const getContactsByPhone = async (req: Request, res: Response) => {
   }
 };
 
-export const getContactsByName = async (req: Request, res: Response) => {
+export const getContactsByName = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const name = req.query.name as string;
     const contacts = await ContactService.getContactsByName(name);
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente",
+      data: contacts
+    });
   } catch (error) {
     console.error("Error al obtener contactos por nombre:", error);
-    return res.status(500).json({ message: "Error al obtener contactos por nombre" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos por nombre",
+      error: formatError(error)
+    });
   }
 };
 
-export const getContactsByCustomField = async (req: Request, res: Response) => {
+export const getContactsByCustomField = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const field = req.query.field as string;
     const value = req.query.value;
     const contacts = await ContactService.getContactsByCustomField(field, value);
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente por campo personalizado",
+      data: contacts
+    });
   } catch (error) {
     console.error("Error al obtener contactos por campo personalizado:", error);
-    return res.status(500).json({ message: "Error al obtener contactos por campo personalizado" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos por campo personalizado",
+      error: formatError(error)
+    });
   }
 };
