@@ -1,5 +1,4 @@
 import Ticket from "../models/Tickets";
-import { Op } from "sequelize";
 import { CreateTicketRequest, UpdateTicketRequest } from "../types/TicketType";
 
 export const createTicket = async (data: CreateTicketRequest) => {

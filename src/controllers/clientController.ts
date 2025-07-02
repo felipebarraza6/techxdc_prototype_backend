@@ -4,67 +4,114 @@ import {
   CreateClientRequest,
   UpdateClientRequest,
 } from "../types/clientType";
+import { ApiResponse } from "../types/apiTypes";
+import { formatError } from "../utils/formatError";
 
-export const createClient = async (req: Request, res: Response) => {
+export const createClient = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const data: CreateClientRequest = req.body;
     const newClient = await ClientService.createClient(data);
-    return res.status(201).json(newClient);
+    return res.status(201).json({
+      success: true,
+      message: "Cliente creado exitosamente",
+      data: newClient,
+    });
   } catch (error) {
     console.error("Error al crear cliente:", error);
-    return res.status(500).json({ message: "Error al crear el cliente" });
+    return res.status(500).json({ 
+      success: false,
+      message: "Error al crear cliente",
+      error: formatError(error),
+    });
   }
 };
 
-export const getAllClients = async (_req: Request, res: Response) => {
+export const getAllClients = async (_req: Request, res: Response<ApiResponse>) => {
   try {
     const clients = await ClientService.getAllClients();
-    return res.status(200).json(clients);
+    return res.status(200).json({
+      success: true,
+      message: "Clientes obtenidos exitosamente",
+      data: clients,
+    });
   } catch (error) {
     console.error("Error al obtener clientes:", error);
-    return res.status(500).json({ message: "Error al obtener clientes" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener clientes",
+      error: formatError(error),
+    });
   }
 };
 
-export const getClientById = async (req: Request, res: Response) => {
+export const getClientById = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const id = Number(req.params.id);
     const client = await ClientService.getClientById(id);
     if (!client) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
+      return res.status(404).json({
+        success: false,
+        message: "Cliente no encontrado",
+      });
     }
-    return res.status(200).json(client);
+    return res.status(200).json({
+      success: true,
+      message: "Cliente obtenido exitosamente",
+      data: client,
+    });
   } catch (error) {
     console.error("Error al obtener cliente:", error);
-    return res.status(500).json({ message: "Error al obtener cliente" });
+    return res.status(500).json({ 
+      success: false,
+      message: "Error al obtener cliente",
+      error: formatError(error),
+    });
   }
 };
 
-export const updateClient = async (req: Request, res: Response) => {
+export const updateClient = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const id = Number(req.params.id);
     const data: UpdateClientRequest = req.body;
     const updated = await ClientService.updateClient(id, data);
     if (!updated) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
+      return res.status(404).json({
+        success: false,
+        message: "Cliente no encontrado o no actualizado",
+      });
     }
-    return res.status(200).json(updated);
+    return res.status(200).json({
+      success: true,
+      message: "Cliente actualizado exitosamente",
+      data: updated,
+    });
   } catch (error) {
     console.error("Error al actualizar cliente:", error);
-    return res.status(500).json({ message: "Error al actualizar cliente" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al actualizar cliente",
+      error: formatError(error),
+    });
   }
 };
 
-export const deleteClient = async (req: Request, res: Response) => {
+export const deleteClient = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const id = Number(req.params.id);
     const deleted = await ClientService.deleteClient(id);
     if (!deleted) {
-      return res.status(404).json({ message: "Cliente no encontrado" });
+      return res.status(404).json({
+        success: false,
+        message: "Cliente no encontrado",
+      });
     }
     return res.status(204).send(); // Nada que devolver, pero todo bien
   } catch (error) {
     console.error("Error al eliminar cliente:", error);
-    return res.status(500).json({ message: "Error al eliminar cliente" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al eliminar cliente",
+      error: formatError(error),
+    });
   }
 };

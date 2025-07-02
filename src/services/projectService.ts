@@ -1,5 +1,4 @@
-import Project from "../models/Projects";
-import { ProjectCreationAttributes } from '../models/Projects';
+import Project, { ProjectCreationAttributes } from "../models/Projects";
 import { CreateProjectRequest } from "../types/projectTypes";
 
 export const ProjectService = {

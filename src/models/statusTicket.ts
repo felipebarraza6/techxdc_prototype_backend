@@ -17,7 +17,7 @@ interface StatusTicketAttributes {
 
 // Atributos requeridos para creación
 interface StatusTicketCreationAttributes
-  extends Optional<StatusTicketAttributes, 'id' | 'created_at' | 'modified_at'> {}
+  extends Optional<StatusTicketAttributes, 'id' | 'created_at' | 'modified_at'> { }
 
 class StatusTicket
   extends Model<StatusTicketAttributes, StatusTicketCreationAttributes>
@@ -52,18 +52,14 @@ StatusTicket.init(
     ticketId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'tickets', key: 'id' },
+      references: { model: Ticket, key: 'id' },
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
     },
     status: {
-      type: DataTypes.ENUM(
-        StatusTicketState.OPEN,
-        StatusTicketState.IN_PROGRESS,
-        StatusTicketState.CLOSED,
-        StatusTicketState.ON_HOLD
-      ),
+      type: DataTypes.ENUM(...Object.values(StatusTicketState)),
       allowNull: false,
+      defaultValue: StatusTicketState.OPEN, // Valor por defecto
     },
     name: {
       type: DataTypes.STRING,
@@ -87,7 +83,7 @@ StatusTicket.init(
     sequelize,
     modelName: 'StatusTicket',
     tableName: 'status_ticket',
-    timestamps: false, 
+    timestamps: false,
   }
 );
 

@@ -28,18 +28,18 @@ export const getQuotationById = async (req: Request, res: Response<ApiResponse>)
         if (!quotation) {
             return res.status(404).json({
                 success: false,
-                message: "Cotizacion no encontrada"
+                message: "Cotización no encontrada"
             });
         }
         return res.status(200).json({
             success: true,
-            message: "Cotizacion obtenida exitosamente",
+            message: "Cotización obtenida exitosamente",
             data: quotation
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error al obtener Cotizacion",
+            message: "Error al obtener Cotización",
             error: formatError(error)
         });
     }
@@ -50,13 +50,13 @@ export const createQuotation = async (req: Request<{}, {}, CreateQuotationReques
         const newQuotation = await QuotationService.createQuotation(req.body);
         return res.status(201).json({
             success: true,
-            message: "Cotizacion creada exitosamente",
+            message: "Cotización creada exitosamente",
             data: newQuotation
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error al crear Cotizacion",
+            message: "Error al crear Cotización",
             error: formatError(error)
         });
     }
@@ -69,7 +69,7 @@ export const updateQuotation = async (req: Request, res: Response<ApiResponse>) 
         if (!updatedQuotation) {
             return res.status(404).json({
                 success: false,
-                message: "Cotizacion No Actualizada"
+                message: "Cotización No Actualizada"
             });
         }
         return res.status(200).json({
@@ -80,7 +80,7 @@ export const updateQuotation = async (req: Request, res: Response<ApiResponse>) 
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error al actualizar Cotizacion",
+            message: "Error al actualizar Cotización",
             error: formatError(error)
         });
     }
@@ -93,18 +93,18 @@ export const deleteQuotation = async (req: Request, res: Response<ApiResponse>) 
         if (!deletedQuotation) {
             return res.status(404).json({
                 success: false,
-                message: "Cotizacion no Pudo Ser Eliminada"
+                message: "Cotización no pudo ser eliminada"
             });
         }
         return res.status(200).json({
             success: true,
-            message: "Cotizacion eliminada exitosamente",
+            message: "Cotización eliminada exitosamente",
             data: deletedQuotation
         });
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error al eliminar Cotizacion",
+            message: "Error al eliminar Cotización",
             error: formatError(error)
         });
     }

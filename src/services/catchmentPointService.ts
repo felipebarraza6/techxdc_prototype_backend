@@ -1,5 +1,4 @@
-import CatchmentPoint from "../models/CatchmentPoint";
-import { CatchmentPointCreationAttributes } from '../models/CatchmentPoint';
+import CatchmentPoint, { CatchmentPointCreationAttributes } from "../models/CatchmentPoint";
 import { CreateCatchmentPointRequest } from "../types/catchmentPointTypes";
 
 export const CatchmentPointService = {

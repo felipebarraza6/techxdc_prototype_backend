@@ -7,7 +7,7 @@ import File from "./File";
 import CatchmentPoint from "./CatchmentPoint";
 import ResponseTicket from "./ResponseTicket";
 import Quotation from "./Quotation";
-import clients from "./Clients";
+import Clients from "./Clients";
 import Comuna from "./Comuna";
 import Project from "./Projects";
 import FinanceMovement from "./financeMovement";
@@ -37,6 +37,17 @@ export const applyAssociations = () => {
         foreignKey: "group_id", as: "group"
     });
 
+    // User --- File (uploader)
+    User.hasMany(File, {
+        foreignKey: 'uploaded_by',
+        as: 'uploadedFiles',
+    });
+    File.belongsTo(User, {
+        foreignKey: 'uploaded_by',
+        as: 'uploader',
+    });
+
+
     // FileType --- File
     FileType.hasMany(File, {
         foreignKey: "file_type_id", as: "files"
@@ -44,7 +55,7 @@ export const applyAssociations = () => {
     File.belongsTo(FileType, {
         foreignKey: "file_type_id", as: "fileType"
     });
-    
+
     // CatchmentPoint --- File
     CatchmentPoint.hasMany(File, {
         foreignKey: 'catchment_point_id',
@@ -80,20 +91,20 @@ export const applyAssociations = () => {
         sourceKey: 'id',
         as: "projectComuna",
     });
-    
+
     Project.belongsTo(Comuna, {
         foreignKey: "comunaId",
         targetKey: "id",
         as: "comuna",
     });
-    
-    clients.hasMany(Project, {
+
+    Clients.hasMany(Project, {
         foreignKey: "clientId",
         sourceKey: 'id',
         as: "projectClient",
     });
-    
-    Project.belongsTo(clients, {
+
+    Project.belongsTo(Clients, {
         foreignKey: "clientId",
         targetKey: "id",
         as: "Clients",
@@ -104,19 +115,19 @@ export const applyAssociations = () => {
         sourceKey: 'id',
         as: "projectCatchmentPoint",
     });
-    
+
     CatchmentPoint.belongsTo(Project, {
         foreignKey: "projectId",
         targetKey: "id",
         as: "Project",
     });
-    
+
     User.hasMany(CatchmentPoint, {
         foreignKey: "ownerUser",
         sourceKey: 'id',
         as: "userCatchmentPoint",
     });
-    
+
     CatchmentPoint.belongsTo(User, {
         foreignKey: "ownerUser",
         targetKey: "id",
@@ -128,7 +139,7 @@ export const applyAssociations = () => {
         sourceKey: 'id',
         as: "projectFinanceMovement",
     });
-    
+
     FinanceMovement.belongsTo(Project, {
         foreignKey: "projectId",
         targetKey: "id",
@@ -140,32 +151,32 @@ export const applyAssociations = () => {
         sourceKey: 'id',
         as: "projectQuotation",
     });
-    
+
     Quotation.belongsTo(Project, {
         foreignKey: "linkedProject",
         targetKey: "id",
         as: "Project",
     });
-    
+
     User.hasMany(Quotation, {
         foreignKey: "createdBy",
         sourceKey: 'id',
         as: "userQuotation",
     });
-    
+
     Quotation.belongsTo(User, {
         foreignKey: "createdBy",
         targetKey: "id",
         as: "User",
     });
-    
-    clients.hasMany(Quotation, {
+
+    Clients.hasMany(Quotation, {
         foreignKey: "clientId",
         sourceKey: 'id',
         as: "clientQuotation",
     });
-    
-    Quotation.belongsTo(clients, {
+
+    Quotation.belongsTo(Clients, {
         foreignKey: "clientId",
         targetKey: "id",
         as: "Client",

@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import {FileService} from '../services/fileService';
-import { FileAttributes, FileCreationAttributes } from '../types/fileTypes';
+import { FileAttributes, CreateFileRequest } from '../types/fileTypes';
 import { ApiResponse } from '../types/apiTypes';
 import { formatError } from '../utils/formatError';
 
@@ -44,9 +44,9 @@ export const getFileById = async (req: Request, res: Response<ApiResponse<FileAt
     }
 };
 
-export const createFile = async (req: Request, res: Response<ApiResponse<FileAttributes>>) => {
+export const createFile = async (req: Request<{}, {}, CreateFileRequest>, res: Response<ApiResponse>) => {
     try {
-        const fileData: FileCreationAttributes = req.body;
+        const fileData: CreateFileRequest = req.body;
         const file = await FileService.createFile(fileData);
         return res.status(201).json({
             success: true,
