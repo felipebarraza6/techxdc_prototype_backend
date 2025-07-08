@@ -23,7 +23,7 @@ interface FileAttributes {
     updatedAt?: Date;
 }
 
-interface FileCreationAttributes extends Optional<FileAttributes, 'id' | 'description' | 'expiration_date' | 'is_valid' | 'response_ticket_id' | 'createdAt' | 'updatedAt'> { }
+interface FileCreationAttributes extends Optional<FileAttributes, 'id' | 'description' | 'expiration_date' | 'is_valid' | 'response_ticket_id' | 'quotation_id' | 'createdAt' | 'updatedAt'> { }
 
 class File extends Model<FileAttributes, FileCreationAttributes> implements FileAttributes {
     public id!: number;
@@ -31,9 +31,9 @@ class File extends Model<FileAttributes, FileCreationAttributes> implements File
     public file_name!: string;
     public file_path!: string;
     public file_type_id!: number;
-    public description!: string | null;
-    public expiration_date!: Date | null;
-    public is_valid!: boolean;
+    public description?: string | null;
+    public expiration_date?: Date | null;
+    public is_valid?: boolean;
     public response_ticket_id?: number | null;
     public quotation_id?: number | null;
     public uploaded_by!: number;

@@ -14,7 +14,7 @@ interface UserAttributes {
     verify_token?: string | null;
     verify_token_expiration?: Date | null;
     rol: UserRole;
-    is_active: boolean;
+    is_active?: boolean;
     last_login?: Date | null;
     last_password_change?: Date | null;
     login_attempts?: number;
@@ -35,12 +35,12 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public last_name!: string;
     public password!: string;
     public is_verified: boolean = false;
-    public verify_token!: string | null;
-    public verify_token_expiration!: Date | null;
+    public verify_token?: string | null;
+    public verify_token_expiration?: Date | null;
     public rol!: UserRole;
     public is_active: boolean = true;
     public last_login!: Date | null;
-    public last_password_change!: Date | null;
+    public last_password_change?: Date | null;
     public login_attempts: number = 0;
     public group_id!: number;
 
@@ -76,7 +76,7 @@ User.init(
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
         is_verified: {
             type: DataTypes.BOOLEAN,

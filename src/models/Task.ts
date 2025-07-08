@@ -18,7 +18,7 @@ interface TaskCreationAttributes extends Optional<TaskAttributes, "id" | "descri
 class Task extends Model<TaskAttributes, TaskCreationAttributes> implements TaskAttributes {
     public id!: number;
     public title!: string;
-    public description!: string;
+    public description?: string;
     public status!: TaskStatus;
     public created_by!: number;
 
