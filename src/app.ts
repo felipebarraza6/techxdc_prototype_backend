@@ -22,6 +22,7 @@ import projectRouter from './routes/projectRoutes'
 import financeMovementRouter from './routes/financeMovementRoutes'
 import quotationRouter from './routes/quotationRoutes';
 import catchmentPointRouter from './routes/catchmentPointRoutes';
+import customerProfileRouter from './routes/customerProfileRoute';
 
 
 applyAssociations(); // Aquí se aplican las asociaciones entre modelos
@@ -40,6 +41,7 @@ app.use('/api/file-types', fileTypeRouter);
 app.use('/api/groups', groupRouter);
 app.use('/api/tickets', ticketRouter);
 app.use('/api/clients', clientRouter);
+app.use('/api/customer-profile', customerProfileRouter);
 app.use('/api/contacts', contactRouter);
 app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
