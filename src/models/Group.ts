@@ -9,7 +9,7 @@ interface GroupAttributes {
     updatedAt?: Date;
 };
 
-interface GroupCreationAttributes extends Optional<GroupAttributes, 'id' | 'createdAt' | 'updatedAt'> { }
+interface GroupCreationAttributes extends Optional<GroupAttributes, 'id' | 'description' | 'createdAt' | 'updatedAt'> { }
 
 class Group extends Model<GroupAttributes, GroupCreationAttributes> implements GroupAttributes {
     public id!: number;

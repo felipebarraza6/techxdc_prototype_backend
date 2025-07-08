@@ -14,7 +14,7 @@ interface FileTypeCreationAttributes extends Optional<FileTypeAttributes, 'id' |
 class FileType extends Model<FileTypeAttributes, FileTypeCreationAttributes> implements FileTypeAttributes {
     public id!: number;
     public name!: string;
-    public description!: string | null;
+    public description?: string | null;
 
     // Timestamps
     public readonly createdAt!: Date;
