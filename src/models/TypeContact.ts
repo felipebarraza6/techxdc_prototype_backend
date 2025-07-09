@@ -14,13 +14,6 @@ class TypeContact extends Model<TypeContactAttributes, TypeContactCreationAttrib
   public id!: number;
   public type!: string;
 
-  static associate(models: any) {
-    // Se accede a Contact desde models (evita import circular)
-    TypeContact.hasMany(models.Contact, {
-      foreignKey: "type",
-      as: "contactsWithThisType",
-    });
-  }
 }
 
 TypeContact.init(

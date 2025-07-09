@@ -56,7 +56,9 @@ File.init(
             references: {
                 model: CatchmentPoint,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         file_name: {
             type: DataTypes.STRING,
@@ -72,7 +74,9 @@ File.init(
             references: {
                 model: FileType,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         description: {
             type: DataTypes.TEXT,
@@ -93,7 +97,9 @@ File.init(
             references: {
                 model: ResponseTicket,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         uploaded_by: {
             type: DataTypes.INTEGER,
@@ -101,7 +107,9 @@ File.init(
             references: {
                 model: User,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         quotation_id: {
             type: DataTypes.INTEGER,
@@ -109,7 +117,9 @@ File.init(
             references: {
                 model: Quotation,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         }
     },
     {

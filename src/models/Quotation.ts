@@ -2,7 +2,7 @@ import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
 import { TypeQuotation } from "../types/quotationTypes";
 
-interface quotationAttributes {
+interface QuotationAttributes {
     id: number;
     clientId: number;
     status: TypeQuotation;
@@ -12,14 +12,14 @@ interface quotationAttributes {
     createdBy: number;
 };
 
-export type QuotationCreationAttributes = Optional<quotationAttributes, 'id'>;
+export type QuotationCreationAttributes = Optional<QuotationAttributes, 'id'>;
 
-class Quotation extends Model<quotationAttributes, QuotationCreationAttributes> implements quotationAttributes {
+class Quotation extends Model<QuotationAttributes, QuotationCreationAttributes> implements QuotationAttributes {
     public id!: number;
     public clientId!: number;
     public status!: TypeQuotation;
     public linkedProject!: number;
-    public estimatedAmount!: number;   
+    public estimatedAmount!: number;
     public marginEstimate!: number;
     public createdBy!: number;
 };
@@ -35,9 +35,11 @@ Quotation.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Clients', 
+                model: 'Clients',
                 key: 'id',
             },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         status: {
             type: DataTypes.ENUM(...Object.values(TypeQuotation)),
@@ -47,9 +49,11 @@ Quotation.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Projects', 
+                model: 'Projects',
                 key: 'id',
             },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         estimatedAmount: {
             type: DataTypes.INTEGER,
@@ -63,10 +67,12 @@ Quotation.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Users', 
+                model: 'Users',
                 key: 'id',
             },
-        },     
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
+        },
     },
     {
         sequelize,

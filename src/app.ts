@@ -23,6 +23,9 @@ import financeMovementRouter from './routes/financeMovementRoutes'
 import quotationRouter from './routes/quotationRoutes';
 import catchmentPointRouter from './routes/catchmentPointRoutes';
 import customerProfileRouter from './routes/customerProfileRoute';
+import clientModuleRouter from './routes/clientModuleRoute';
+import typeContactRouter from './routes/typeContactRoutes';
+import authRouter from './routes/authRoutes';
 
 
 applyAssociations(); // Aquí se aplican las asociaciones entre modelos
@@ -34,6 +37,7 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/examples', exampleRoutes);
+app.use("/api/auth", authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/tasks', taskRouter);
 app.use('/api/permissions', permissionRouter);
@@ -41,8 +45,10 @@ app.use('/api/file-types', fileTypeRouter);
 app.use('/api/groups', groupRouter);
 app.use('/api/tickets', ticketRouter);
 app.use('/api/clients', clientRouter);
+app.use('/api/client-modules', clientModuleRouter);
 app.use('/api/customer-profile', customerProfileRouter);
 app.use('/api/contacts', contactRouter);
+app.use('/api/type-contacts', typeContactRouter);
 app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
 app.use('/api/status-tickets', statusTicketRouter); 

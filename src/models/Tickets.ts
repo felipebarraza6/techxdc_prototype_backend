@@ -18,7 +18,7 @@ interface TicketAttributes {
 interface TicketCreationAttributes extends Optional<
   TicketAttributes,
   "id" | "description" | "custom_fields" | "createdAt" | "updatedAt"
-> {}
+> { }
 
 class Ticket extends Model<TicketAttributes, TicketCreationAttributes>
   implements TicketAttributes {
@@ -30,16 +30,10 @@ class Ticket extends Model<TicketAttributes, TicketCreationAttributes>
   public designated!: number;
   public priority!: TicketPriority;
   public custom_fields?: object | null;
-    // Timestamps
+  // Timestamps
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  static associate(models: any) {
-    Ticket.belongsTo(models.Client, { foreignKey: "client_id", as: "client" });
-    Ticket.belongsTo(models.User, { foreignKey: "created_by", as: "creator" });
-    Ticket.belongsTo(models.User, { foreignKey: "designated", as: "designatedUser" });
-    Ticket.hasMany(models.ResponseTicket, { foreignKey: "ticket_id", as: "responses" });
-  }
 }
 
 Ticket.init(
@@ -60,13 +54,19 @@ Ticket.init(
     created_by: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "users",
+        key: "id"
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
     client_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: "clients",
-        key: "id_clients",
+        key: "id",
       },
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
@@ -74,14 +74,18 @@ Ticket.init(
     designated: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "users",
+        key: "id"
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
     priority: {
-      type: DataTypes.ENUM(
-        TicketPriority.LOW,
-        TicketPriority.MEDIUM,
-        TicketPriority.HIGH
+      type: DataTypes.ENUM(...Object.values(TicketPriority)
       ),
       allowNull: false,
+      defaultValue: TicketPriority.MEDIUM,
     },
     custom_fields: {
       type: DataTypes.JSON,

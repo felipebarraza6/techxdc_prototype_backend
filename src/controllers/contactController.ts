@@ -5,115 +5,193 @@ import { formatError } from "../utils/formatError";
 import { ApiResponse } from "../types/apiTypes";
 
 // Crear contacto
-export const createContact = async (req: Request, res: Response) => {
+export const createContact = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const data: CreateContactRequest = req.body;
     if (!data.name || !data.email) {
-      return res.status(400).json({ message: "Se requiere name y email" });
+      return res.status(400).json({
+        success: false,
+        message: "El nombre y el email son obligatorios",
+        error: "Validation Error"
+      });
     }
     const newContact = await ContactService.createContact(data);
-    return res.status(201).json(newContact);
+    return res.status(201).json({
+      success: true,
+      message: "Contacto creado exitosamente",
+      data: newContact
+    });
   } catch (error) {
-    console.error("Error al crear contacto:", error);
-    return res.status(500).json({ message: "Error al crear el contacto" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al crear contacto",
+      error: formatError(error)
+    });
   }
 };
 
 // Obtener todos
-export const getAllContacts = async (_req: Request, res: Response) => {
+export const getAllContacts = async (_req: Request, res: Response<ApiResponse>) => {
   try {
     const contacts = await ContactService.getAllContacts();
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente",
+      data: contacts
+    });
   } catch (error) {
-    console.error("Error al obtener contactos:", error);
-    return res.status(500).json({ message: "Error al obtener contactos" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos",
+      error: formatError(error)
+    });
   }
 };
 
 // Obtener por ID
-export const getContactById = async (req: Request, res: Response) => {
+export const getContactById = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const id = Number(req.params.id);
     const contact = await ContactService.getContactById(id);
-    if (!contact) return res.status(404).json({ message: "Contacto no encontrado" });
-    return res.status(200).json(contact);
+    if (!contact) return res.status(404).json({
+      success: false,
+      message: "Contacto no encontrado",
+      error: "No se encontró contacto con el ID proporcionado"
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Contacto obtenido exitosamente",
+      data: contact
+    });
   } catch (error) {
-    console.error("Error al obtener contacto:", error);
-    return res.status(500).json({ message: "Error al obtener contacto" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contacto",
+      error: formatError(error)
+    });
   }
 };
 
 // Actualizar
-export const updateContact = async (req: Request, res: Response) => {
+export const updateContact = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const id = Number(req.params.id);
     const data: UpdateContactRequest = req.body;
     const updated = await ContactService.updateContact(id, data);
-    if (!updated) return res.status(404).json({ message: "Contacto no encontrado" });
-    return res.status(200).json(updated);
+    if (!updated) return res.status(404).json({
+      success: false,
+      message: "Contacto no encontrado",
+      error: "No se encontró contacto con el ID proporcionado"
+    });
+    return res.status(200).json({
+      success: true,
+      message: "Contacto actualizado exitosamente",
+      data: updated
+    });
   } catch (error) {
-    console.error("Error al actualizar contacto:", error);
-    return res.status(500).json({ message: "Error al actualizar contacto" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al actualizar contacto",
+      error: formatError(error)
+    });
   }
 };
 
 // Eliminar
-export const deleteContact = async (req: Request, res: Response) => {
+export const deleteContact = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const id = Number(req.params.id);
     const deleted = await ContactService.deleteContact(id);
-    if (!deleted) return res.status(404).json({ message: "Contacto no encontrado" });
-    return res.status(204).send();
+    if (!deleted) return res.status(404).json({
+      success: false,
+      message: "Contacto no encontrado",
+      error: "No se encontró contacto con el ID proporcionado"
+    });
+    return res.status(204).send({
+      success: true,
+      message: "Contacto eliminado exitosamente"
+    });
   } catch (error) {
-    console.error("Error al eliminar contacto:", error);
-    return res.status(500).json({ message: "Error al eliminar contacto" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al eliminar contacto",
+      error: formatError(error)
+    });
   }
 };
 
 // Filtrar por clientId
-export const getContactsByClientId = async (req: Request, res: Response) => {
+export const getContactsByClientId = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const clientId = Number(req.params.clientId);
     const contacts = await ContactService.getContactsByClientId(clientId);
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente por clientId",
+      data: contacts
+    });
   } catch (error) {
-    console.error("Error al obtener contactos por cliente:", error);
-    return res.status(500).json({ message: "Error al obtener contactos por cliente" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos por clientId",
+      error: formatError(error)
+    });
   }
 };
 
 // Filtrar por type
-export const getContactsByType = async (req: Request, res: Response) => {
+export const getContactsByType = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const typeId = Number(req.params.typeId);
     const contacts = await ContactService.getContactsByType(typeId);
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente por tipo",
+      data: contacts
+    });
   } catch (error) {
-    console.error("Error al obtener contactos por tipo:", error);
-    return res.status(500).json({ message: "Error al obtener contactos por tipo" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos por tipo",
+      error: formatError(error)
+    });
   }
 };
 
 // Filtros vía query params
-export const getContactsByEmail = async (req: Request, res: Response) => {
+export const getContactsByEmail = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const email = req.query.email as string;
     const contacts = await ContactService.getContactsByEmail(email);
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente por email",
+      data: contacts
+    });
   } catch (error) {
-    console.error("Error al obtener contactos por email:", error);
-    return res.status(500).json({ message: "Error al obtener contactos por email" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos por email",
+      error: formatError(error)
+    });
   }
 };
 
-export const getContactsByPhone = async (req: Request, res: Response) => {
+export const getContactsByPhone = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const phone = req.query.phone as string;
     const contacts = await ContactService.getContactsByPhone(phone);
-    return res.status(200).json(contacts);
+    return res.status(200).json({
+      success: true,
+      message: "Contactos obtenidos exitosamente por teléfono",
+      data: contacts
+    });
   } catch (error) {
-    console.error("Error al obtener contactos por teléfono:", error);
-    return res.status(500).json({ message: "Error al obtener contactos por teléfono" });
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener contactos por teléfono",
+      error: formatError(error)
+    });
   }
 };
 
@@ -127,7 +205,6 @@ export const getContactsByName = async (req: Request, res: Response<ApiResponse>
       data: contacts
     });
   } catch (error) {
-    console.error("Error al obtener contactos por nombre:", error);
     return res.status(500).json({
       success: false,
       message: "Error al obtener contactos por nombre",
@@ -147,7 +224,6 @@ export const getContactsByCustomField = async (req: Request, res: Response<ApiRe
       data: contacts
     });
   } catch (error) {
-    console.error("Error al obtener contactos por campo personalizado:", error);
     return res.status(500).json({
       success: false,
       message: "Error al obtener contactos por campo personalizado",

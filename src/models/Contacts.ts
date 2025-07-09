@@ -1,7 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import Client from "./Clients";
-import TypeContact from "./TypeContact";
 
 interface ContactAttributes {
   id: number;
@@ -35,17 +33,6 @@ class Contact extends Model<ContactAttributes, ContactCreationAttributes>
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  static associate() {
-    Contact.belongsTo(Client, {
-      foreignKey: "id_client",
-      as: "client",
-    });
-
-    Contact.belongsTo(TypeContact, {
-      foreignKey: "type",
-      as: "typeContact",
-    });
-  }
 }
 
 Contact.init(
@@ -58,6 +45,12 @@ Contact.init(
     id_client: {
       type: DataTypes.BIGINT,
       allowNull: false,
+      references: {
+        model: "clients",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
     name: {
       type: DataTypes.STRING,
@@ -82,6 +75,12 @@ Contact.init(
     type: {
       type: DataTypes.BIGINT,
       allowNull: false,
+      references: {
+        model: "type_contact",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE",
     },
   },
   {

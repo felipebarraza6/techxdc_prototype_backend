@@ -36,12 +36,6 @@ class Client extends Model<ClientAttributes, ClientCreationAttributes> implement
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  static associate(models: any) {
-    Client.hasMany(models.Contact, {
-      foreignKey: "id_client",
-      as: "contacts",
-    });
-  }
 }
 
 Client.init(
@@ -58,6 +52,7 @@ Client.init(
     dni: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     address: {
       type: DataTypes.STRING,
