@@ -26,7 +26,8 @@ import customerProfileRouter from './routes/customerProfileRoute';
 import clientModuleRouter from './routes/clientModuleRoute';
 import typeContactRouter from './routes/typeContactRoutes';
 import authRouter from './routes/authRoutes';
-
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocumentation from './swagger.json'
 
 applyAssociations(); // Aquí se aplican las asociaciones entre modelos
 
@@ -51,14 +52,15 @@ app.use('/api/contacts', contactRouter);
 app.use('/api/type-contacts', typeContactRouter);
 app.use('/api/modules', moduleRouter);
 app.use('/api/files', fileRouter);
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
 app.use('/api/status-tickets', statusTicketRouter); 
-app.use('/api/feedbacks', feedbackRouter);
-app.use('/api/response-tickets', responseTicketRouter);
-app.use('/api/comunas', comunaRouter);
-app.use('/api/projects', projectRouter);
-app.use('/api/financeMovements', financeMovementRouter);
-app.use('/api/quotations', quotationRouter);
-app.use('/api/catchmentPoint', catchmentPointRouter);
+app.use('/api/feedbacks', feedbackRouter); 
+app.use('/api/response-tickets', responseTicketRouter); 
+app.use('/api/comunas', comunaRouter); 
+app.use('/api/projects', projectRouter);  
+app.use('/api/financeMovements', financeMovementRouter); 
+app.use('/api/quotations', quotationRouter);  
+app.use('/api/catchmentPoint', catchmentPointRouter); 
 
 
 // Ruta de prueba

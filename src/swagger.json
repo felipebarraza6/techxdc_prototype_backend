@@ -1,0 +1,3868 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Smart Hydro 2025",
+    "description": "Documentación de la API de Telemetría Smart Hydro",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/": {
+      "get": {
+        "description": "Obtiene todos los usuarios registrados en la API",
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios obtenida exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea un nuevo usuario",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del usuario a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Usuario creado exitosamente"
+          },
+          "400": {
+            "description": "Solicitud incorrecta, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+
+    "/api/users/{id}": {
+      "get": {
+        "description": "Obtiene un usuario específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del usuario a obtener"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un usuario por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del usuario a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del usuario a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado exitosamente"
+          },
+          "400": {
+            "description": "Solicitud incorrecta, inténtalo nuevamente"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un usuario por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del usuario a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario eliminado exitosamente"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/customer-profile/": {
+      "get": {
+        "description": "Obtiene todos los perfiles de cliente",
+        "responses": {
+          "200": {
+            "description": "Perfiles obtenidos correctamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerProfile"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea un nuevo perfil de cliente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerProfile"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Perfil creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/CustomerProfile"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/customer-profile/{id}": {
+      "get": {
+        "description": "Obtiene un perfil de cliente por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil encontrado",
+            "schema": {
+              "$ref": "#/definitions/CustomerProfile"
+            }
+          },
+          "404": {
+            "description": "Perfil no encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un perfil de cliente por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerProfile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil actualizado correctamente"
+          },
+          "404": {
+            "description": "Perfil no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un perfil de cliente por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil eliminado correctamente"
+          },
+          "404": {
+            "description": "Perfil no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/tasks/": {
+      "get": {
+        "description": "Obtiene todas las tareas registradas en la API",
+        "responses": {
+          "200": {
+            "description": "Lista de tareas obtenida exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea una nueva tarea",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la tarea a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarea creada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/tasks/{id}": {
+      "get": {
+        "description": "Obtiene una tarea específica por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarea obtenida exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "404": {
+            "description": "Tarea no encontrada"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza una tarea por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la tarea a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarea actualizada exitosamente"
+          },
+          "404": {
+            "description": "Tarea no encontrada"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina una tarea por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarea eliminada exitosamente"
+          },
+          "404": {
+            "description": "Tarea no encontrada"
+          }
+        }
+      }
+    },    
+    "/api/permissions/": {
+      "get": {
+        "description": "Obtiene todos los permisos",
+        "responses": {
+          "200": {
+            "description": "Permisos obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Permission"
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontraron permisos"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea una nueva configuración de permisos",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del permiso a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Permission"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permiso creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Permission"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/permissions/{id}": {
+      "get": {
+        "description": "Obtiene un permiso específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permiso encontrado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Permission"
+            }
+          },
+          "404": {
+            "description": "Permiso no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza los permisos de un grupo/módulo por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del permiso a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Permission"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permiso actualizado exitosamente"
+          },
+          "404": {
+            "description": "Permiso no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina una configuración de permisos por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Permiso eliminado correctamente"
+          },
+          "404": {
+            "description": "Permiso no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/file-types/": {
+      "get": {
+        "description": "Obtiene todos los tipos de archivos disponibles",
+        "responses": {
+          "200": {
+            "description": "Tipos de archivos obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FileType"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea un nuevo tipo de archivo",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del tipo de archivo a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileType"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Tipo de archivo creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/FileType"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/file-types/{id}": {
+      "get": {
+        "description": "Obtiene un tipo de archivo específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo de archivo obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/FileType"
+            }
+          },
+          "404": {
+            "description": "Tipo de archivo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un tipo de archivo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del tipo de archivo a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo de archivo actualizado exitosamente"
+          },
+          "404": {
+            "description": "Tipo de archivo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un tipo de archivo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo de archivo eliminado exitosamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/groups/": {
+      "get": {
+        "description": "Obtiene todos los grupos registrados en la API",
+        "responses": {
+          "200": {
+            "description": "Lista de grupos obtenida exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Group"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea un nuevo grupo",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del grupo a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grupo creado exitosamente"
+          },
+          "404": {
+            "description": "Error de validación en los datos"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/groups/{id}": {
+      "get": {
+        "description": "Obtiene un grupo específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del grupo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grupo obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "404": {
+            "description": "Grupo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un grupo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del grupo a actualizar"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del grupo actualizado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grupo actualizado exitosamente"
+          },
+          "404": {
+            "description": "Grupo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un grupo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del grupo a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Grupo eliminado exitosamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/tickets/": {
+      "get": {
+        "description": "Obtiene los tickets registrados en el sistema",
+        "responses": {
+          "200": {
+            "description": "Tickets obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Ticket"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea un nuevo ticket",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del ticket a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ticket creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/tickets/{id}": {
+      "get": {
+        "description": "Obtiene un ticket específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          },
+          "404": {
+            "description": "Ticket no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un ticket por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del ticket a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          },
+          "404": {
+            "description": "Ticket no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un ticket por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket eliminado exitosamente"
+          },
+          "404": {
+            "description": "Ticket no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/clients/": {
+      "get": {
+        "description": "Entrega Listado de Todos Los Clientes",
+        "responses": {
+          "200": {
+            "description": "Clientes obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Client"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener clientes"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Cliente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Cliente nuevo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cliente creado exitosamente"
+          },
+          "500": {
+            "description": "Error al crear el cliente"
+          }
+        }
+      }
+    },
+    "/api/clients/{id}": {
+      "get": {
+        "description": "Obtiene un Cliente Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Cliente Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al obtener cliente"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Cliente por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Cliente a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Cliente a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente actualizado exitosamente"
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al actualizar cliente. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Cliente por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Cliente a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente eliminado exitosamente"
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al eliminar cliente (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/contacts/": {
+      "get": {
+        "description": "Entrega Listado de Contactos de Todos Los Clientes",
+        "responses": {
+          "200": {
+            "description": "Contactos de Cliente obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Contact"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener contactos"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Contacto de Cliente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Contacto Nuevo de Cliente",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contacto creado exitosamente"
+          },
+          "400":{
+            "description": "Se requiere name y email"
+          },
+          "500": {
+            "description": "Error al crear el contacto"
+          }
+        }
+      }
+    },
+    "/api/contacts/{id}": {
+      "get": {
+        "description": "Obtiene un Contacto de Cliente Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Contacto de Cliente Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contacto obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          },
+          "404": {
+            "description": "Contacto no encontrado"
+          },
+          "500": {
+            "description": "Error al obtener contactoe"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Contacto de Cliente por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Contacto de Cliente a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Contacto de Cliente a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contacto Cliente actualizado exitosamente"
+          },
+          "404": {
+            "description": "Contacto no encontrado"
+          },
+          "500": {
+            "description": "Error al actualizar contacto. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Contacto de Cliente por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Contacto de Cliente a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contacto Cliente eliminado exitosamente"
+          },
+          "404": {
+            "description": "Contacto no encontrado"
+          },
+          "500": {
+            "description": "Error al eliminar contacto (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/type-contact/": {
+      "get": {
+        "description": "Entrega Listado de Todos Los Tipos de Contactos",
+        "responses": {
+          "200": {
+            "description": "Tipos de Contactos obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TypeContact"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Tipo de Contacto",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Tipo de Contacto nuevo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TypeContact"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Tipo de Contacto creado exitosamente"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/type-contact/{id}": {
+      "get": {
+        "description": "Obtiene un Tipo de Contacto Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Tipo de Contacto Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo de Contacto obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/TypeContact"
+            }
+          },
+          "400": {
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404":{
+            "description": "Type contact not found"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Tipo de Contacto por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Tipo de Contacto a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Tipo de Contacto a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TypeContact"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo de Contacto actualizado exitosamente"
+          },
+          "400":{
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404": {
+            "description": "Type contact not found"
+          },
+          "500": {
+            "description": "Internal server error. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Tipo de Contacto por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Tipo de Contacto a Eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tipo de Contacto eliminado exitosamente"
+          },
+          "400":{
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404": {
+            "description": "Type contact not found"
+          },
+          "500": {
+            "description": "Internal server error (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/modules/": {
+      "get": {
+        "description": "Entrega Listado de Todos Los Modulos",
+        "responses": {
+          "200": {
+            "description": "Modulos obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Module"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Modulo",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Modulo nuevo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Modulo creado exitosamente"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/modules/{id}": {
+      "get": {
+        "description": "Obtiene un Modulo Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Modulo Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modulo obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          },
+          "400": {
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404":{
+            "description": "Module not found"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Modulo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Modulo a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Modulo a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Module"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modulo actualizado exitosamente"
+          },
+          "400":{
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "500": {
+            "description": "Internal server error. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Modulo por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Modulo a Eliminar"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Tipo de Contacto eliminado exitosamente"
+          },
+          "400":{
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "500": {
+            "description": "Internal server error (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/client-modules/": {
+      "get": {
+        "description": "Entrega Listado de Todos Los Modulos de Cliente",
+        "responses": {
+          "200": {
+            "description": "Modulos de Cliente obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClientModule"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Modulo de Cliente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Modulo Cliente nuevo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClientModule"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Modulo Cliente creado exitosamente"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/client-modules/{id}": {
+      "get": {
+        "description": "Obtiene un Modulo de Cliente Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Modulo Cliente Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modulo de Cliente obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/ClientModule"
+            }
+          },
+          "400": {
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404":{
+            "description": "Client module not found"
+          },
+          "500": {
+            "description": "internal server error"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Modulo de Cliente por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Modulo de Cliente a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Modulo de Cliente a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClientModule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modulo de Cliente actualizado exitosamente"
+          },
+          "400":{
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404": {
+            "description": "Client module not found"
+          },
+          "500": {
+            "description": "Internal server error. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Modulo de Cliente por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Modulo de Cliente a Eliminar"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Modulo de cliente eliminado exitosamente"
+          },
+          "400":{
+            "description": "Invalid ID format (id no es numerico)"
+          },
+          "404": {
+            "description": "Client module not found"
+          },
+          "500": {
+            "description": "Internal server error (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/response-tickets/": {
+      "get": {
+        "description": "Entrega Listado de Todos Los Tickets de Respuesta",
+        "responses": {
+          "200": {
+            "description": "Tickets de Respuesta obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResponseTicket"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener respuestas"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Ticket de Respuesta",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Tickets de Respuesta nuevo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResponseTicket"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ticket de Respuesta creado exitosamente"
+          },
+          "500": {
+            "description": "Error al crear respuesta"
+          }
+        }
+      }
+    },
+    "/api/response-tickets/{id}": {
+      "get": {
+        "description": "Obtiene un Ticket de Respuesta Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Ticket de Respuesta Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket de Respuesta obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/ResponseTicket"
+            }
+          },          
+          "404":{
+            "description": "Respuesta no encontrada"
+          },
+          "500": {
+            "description": "Error al buscar respuesta (internal server error)"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Ticket de Respuesta por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Ticket de Respuesta a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Ticket de Respuesta a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResponseTicket"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket de Respuesta actualizado exitosamente"
+          },          
+          "404": {
+            "description": "Respuesta no encontrada para actualizar"
+          },
+          "500": {
+            "description": "Error al actualizar respuesta. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Ticket de Respuesta por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Ticket de Respuesta a Eliminar"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Ticket de Respuesta eliminado exitosamente"
+          },          
+          "404": {
+            "description": "Respuesta no encontrada para eliminar"
+          },
+          "500": {
+            "description": "Error al eliminar respuesta (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/files/": {
+      "get": {
+        "description": "Obtiene todos los archivos subidos a la API",
+        "responses": {
+          "200": {
+            "description": "Archivos obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/File"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Sube un nuevo archivo",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del archivo a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/File"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Archivo creado y subido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/File"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/files/{id}": {
+      "get": {
+        "description": "Obtiene un archivo específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Archivo obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/File"
+            }
+          },
+          "404": {
+            "description": "Archivo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un archivo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del archivo a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/File"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Archivo actualizado exitosamente"
+          },
+          "404": {
+            "description": "Archivo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un archivo por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Archivo eliminado exitosamente"
+          },
+          "404": {
+            "description": "Archivo no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/status-tickets/": {
+      "post": {
+        "description": "Crea un nuevo estado de ticket",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del estado de ticket a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StatusTicket"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status del ticket registrado exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StatusTicket"
+              }
+            }
+          },
+          "400": {
+            "description": "Datos inválidos, inténtalo nuevamente"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "get": {
+        "description": "Obtiene todos los estados de tickets disponibles",
+        "responses": {
+          "200": {
+            "description": "Historial de estados de tickets obtenido exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StatusTicket"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/status-tickets/{id}": {
+      "get": {
+        "description": "Obtiene un estado de ticket específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado del ticket encontrado",
+            "schema": {
+              "$ref": "#/definitions/StatusTicket"
+            }
+          },
+          "404": {
+            "description": "Estado del ticket no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un estado de ticket por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del estado de ticket a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StatusTicket"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado actualizado correctamente"
+          },
+          "404": {
+            "description": "Estado del ticket no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un registro de estado de ticket por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado del ticket eliminado exitosamente"
+          },
+          "404": {
+            "description": "Estado del ticket no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },    
+    "/api/comunas/": {
+      "get": {
+        "description": "Entrega Listado de Todos Las Comunas o Distritos del pais",
+        "responses": {
+          "200": {
+            "description": "Comunas obtenidas exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Comuna"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener Comunas"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta una Nueva Comuna",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la Comuna",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comuna"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comuna creada exitosamente"
+          },
+          "500": {
+            "description": "Error al crear Comuna"
+          }
+        }
+      }
+    },
+    "/api/comunas/{id}": {
+      "get": {
+        "description": "Obtiene una Comuna Específica por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Comuna Buscada"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comuna obtenida exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Comuna"
+            }
+          },
+          "404": {
+            "description": "Comuna no encontrada"
+          },
+          "500": {
+            "description": "Error al obtener la Comuna"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza una Comuna por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Comuna a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Comuna a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comuna"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comuna actualizada exitosamente"
+          },
+          "404": {
+            "description": "Comuna no Actualizada"
+          },
+          "500": {
+            "description": "Error al actualizar Comuna. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina una Comuna por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Comuna a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comuna eliminada exitosamente"
+          },
+          "404": {
+            "description": "Comuna no Pudo Ser Eliminada"
+          },
+          "500": {
+            "description": "Error al eliminar Comuna (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/projects/": {
+      "get": {
+        "description": "Entrega Listado de Todos Los Proyectos",
+        "responses": {
+          "200": {
+            "description": "Proyectos obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Project"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener Proyectos"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Proyecto",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del Proyecto a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Proyecto creado exitosamente"
+          },
+          "500": {
+            "description": "Error al Crear el Proyecto"
+          }
+        }
+      }
+    },
+    "/api/projects/{id}": {
+      "get": {
+        "description": "Obtiene un Proyecto Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del Proyecto a obtener"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proyecto obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          },
+          "404": {
+            "description": "Proyecto no encontrado"
+          },
+          "500": {
+            "description": "Error al obtener Proyecto"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Proyecto por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del Proyecto a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del Proyecto a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proyecto actualizado exitosamente"
+          },
+          "404": {
+            "description": "Proyecto No Actualizado"
+          },
+          "500": {
+            "description": "Error al actualizar Proyecto. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Proyecto por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID del Proyecto a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proyecto eliminado exitosamente"
+          },
+          "404": {
+            "description": "Proyecto no Pudo Ser Eliminado"
+          },
+          "500": {
+            "description": "Error al eliminar Proyecto (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/financeMovements/": {
+      "get": {
+        "description": "Entrega Listado de Todos los Movimientos Financieros Creados",
+        "responses": {
+          "200": {
+            "description": "Movimientos Financieros obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FinanceMovement"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener Movimientos Financieros"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Movimiento Financiero",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Movimiento Financiero",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FinanceMovement"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Movimiento Financiero creado exitosamente"
+          },
+          "500": {
+            "description": "Error al crear Movimiento Financiero"
+          }
+        }
+      }
+    },
+    "/api/financeMovements/{id}": {
+      "get": {
+        "description": "Obtiene un Movimiento Financiero Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Movimiento Financiero Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movimiento Financiero obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/FinanceMovement"
+            }
+          },
+          "404": {
+            "description": "Movimiento Financiero no encontrado"
+          },
+          "500": {
+            "description": "Error al obtener Movimiento Financiero"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Movimiento Financiero por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Movimiento Financiero a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Movimiento Financiero a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FinanceMovement"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movimiento Financiero actualizado exitosamente"
+          },
+          "404": {
+            "description": "Movimiento Financiero No Actualizado"
+          },
+          "500": {
+            "description": "Error al actualizar Movimiento Financiero. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Movimiento Financiero por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Movimiento Financiero a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movimiento Financiero eliminado exitosamente"
+          },
+          "404": {
+            "description": "Movimiento Financiero no Pudo Ser Eliminado"
+          },
+          "500": {
+            "description": "Error al eliminar Movimiento Financiero (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/quotations/": {
+      "get": {
+        "description": "Entrega Listado de Todas las Cotizaciones Creadas",
+        "responses": {
+          "200": {
+            "description": "Cotizaciones obtenidas exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Quotation"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener Cotizaciones"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta una Nueva Cotización",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Cotización",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quotation"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cotizacion creada exitosamente"
+          },
+          "500": {
+            "description": "Error al crear Cotizacion"
+          }
+        }
+      }
+    },
+    "/api/quotations/{id}": {
+      "get": {
+        "description": "Obtiene una Cotización Específica por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Cotización Buscada"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cotizacion obtenida exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Quotation"
+            }
+          },
+          "404": {
+            "description": "Cotizacion no encontrada"
+          },
+          "500": {
+            "description": "Error al obtener Cotizacion"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza una Cotizacion por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Cotizacion a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Cotizacion a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quotation"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cotización actualizada exitosamente"
+          },
+          "404": {
+            "description": "Cotizacion No Actualizada"
+          },
+          "500": {
+            "description": "Error al actualizar Cotizacion. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina una Cotización por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Cotización a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cotizacion eliminada exitosamente"
+          },
+          "404": {
+            "description": "Cotizacion no Pudo Ser Eliminada"
+          },
+          "500": {
+            "description": "rror al eliminar Cotizacion (Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/catchmentPoint/": {
+      "get": {
+        "description": "Entrega Listado de Todos los puntos de Captacion Creados",
+        "responses": {
+          "200": {
+            "description": "Puntos de Captacion obtenidos exitosamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CatchmentPoint"
+              }
+            }
+          },
+          "500": {
+            "description": "Error al obtener Puntos de Captacion"
+          }
+        }
+      },
+      "post": {
+        "description": "Inserta un Nuevo Punto de Captación",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Punto de Captacion",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CatchmentPoint"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Punto de Captacion creado exitosamente"
+          },
+          "500": {
+            "description": "Error al crear Puntos de Captacion"
+          }
+        }
+      }
+    },
+    "/api/catchmentPoint/{id}": {
+      "get": {
+        "description": "Obtiene un Punto de Captación Específico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Punto de Captación Buscado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Punto de Captacion obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/CatchmentPoint"
+            }
+          },
+          "404": {
+            "description": "Punto de Captacion no encontrado"
+          },
+          "500": {
+            "description": "Error al obtener Puntos de Captacion"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un Punto de Captación por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Punto de Captación a actualizar"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de Punto de Captación a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CatchmentPoint"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Punto de Captacion actualizado exitosamente"
+          },
+          "404": {
+            "description": "Punto de Captacion No Actualizado"
+          },
+          "500": {
+            "description": "Error al actualizar Punto de Captacion. (Error del Servidor)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un Punto de Captacion por su ID, Si ID es llave Foranea no se podra eliminar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de Punto de Captacion a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Punto de Captacion eliminado exitosamente"
+          },
+          "404": {
+            "description": "Punto de Captacion no Pudo Ser Eliminado"
+          },
+          "500": {
+            "description": "Error al eliminar Punto de Captacion(Error interno del servidor)"
+          }
+        }
+      }
+    },
+    "/api/feedbacks/": {
+      "get": {
+        "description": "Obtiene todos los feedbacks de los clientes",
+        "responses": {
+          "200": {
+            "description": "Feedbacks obtenidos correctamente",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Feedback"
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "post": {
+        "description": "Crea un nuevo feedback de cliente",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Feedback creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          },
+          "400": {
+            "description": "Datos inválidos"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/api/feedbacks/{id}": {
+      "get": {
+        "description": "Obtiene un feedback por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Feedback encontrado",
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          },
+          "404": {
+            "description": "Feedback no encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Actualiza un feedback por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Feedback actualizado correctamente"
+          },
+          "404": {
+            "description": "Feedback no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "description": "Elimina un feedback por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Feedback eliminado correctamente"
+          },
+          "404": {
+            "description": "Feedback no encontrado"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+        "password",
+        "group_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "123",
+          "description": "Campo ID del usuario, generado automáticamente."
+        },
+        "username": {
+          "type": "string",
+          "example": "Juan_Pérez",
+          "description": "Nombre de usuario para el acceso al sistema"
+        },
+        "email": {
+          "type": "string",
+          "example": "juan@example.com",
+          "description": "Correo electrónico del usuario. Este campo es único."
+        },
+        "first_name": {
+          "type": "string",
+          "example": "Juan",
+          "description": "Primer nombre del usuario"
+        },
+        "last_name": {
+          "type": "string",
+          "example": "Pérez",
+          "description": "Apellido del usuario"
+        },
+        "password": {
+          "type": "string",
+          "example": "******",
+          "description": "Contraseña del usuario"
+        },
+        "is_verified": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el usuario ha verificado su cuenta"
+        },
+        "verify_token": {
+          "type": "string",
+          "example": "token123",
+          "description": "Token de verificación del usuario (opcional)"
+        },
+        "verify_token_expiration": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:34:56Z",
+          "description": "Fecha de expiración del token de verificación (opcional)"
+        },
+        "rol": {
+          "type": "string",
+          "example": "client",
+          "description": "Rol del usuario en el sistema, puede ser 'client', 'admin' o 'inner_user'"
+        },
+        "is_active": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el usuario está activo en el sistema (opcional)"
+        },
+        "last_login": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:34:56Z",
+          "description": "Fecha y hora del último inicio de sesión del usuario (opcional)"
+        },
+        "last_password_change": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:34:56Z",
+          "description": "Fecha y hora del último cambio de contraseña del usuario (opcional)"
+        },
+        "login_attempts": {
+          "type": "number",
+          "example": 0,
+          "description": "Número de intentos de inicio de sesión fallidos del usuario (opcional)"
+        },
+        "group_id": {
+          "type": "integer",
+          "example": 2,
+          "description": "ID del grupo al que pertenece el usuario (clave foránea de 'Group')."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:34:56Z",
+          "description": "Fecha y hora de creación del usuario"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:34:56Z",
+          "description": "Fecha y hora de la última actualización del usuario"
+        }
+      }
+    },
+    "Group": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del grupo, generado automáticamente."
+        },
+        "name": {
+          "type": "string",
+          "example": "Grupo A",
+          "description": "Nombre del grupo al que pertenecerá uno o varios usuarios"
+        },
+        "description": {
+          "type": "string",
+          "example": "Grupo encargado de la zona norte",
+          "description": "Descripción del grupo (opcional)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del grupo"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización del grupo"
+        }
+      }
+    },
+    "Ticket": {
+      "type": "object",
+      "required": [
+        "title",
+        "created_by",
+        "client_id",
+        "designated",
+        "priority"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del ticket, generado automáticamente."
+        },
+        "title": {
+          "type": "string",
+          "example": "Sensor no responde",
+          "description": "Título del ticket"
+        },
+        "description": {
+          "type": "string",
+          "example": "El sensor en el punto de captación ubicado en la zona Norte no está enviando datos.",
+          "description": "Descripción detallada del problema reportado en el ticket (opcional)"
+        },
+        "created_by": {
+          "type": "integer",
+          "example": 3,
+          "description": "ID del usuario que creó el ticket (clave foránea de 'User')."
+        },
+        "client_id": {
+          "type": "integer",
+          "example": 7,
+          "description": "ID del cliente asociado al ticket (clave foránea de 'Client')."
+        },
+        "designated": {
+          "type": "integer",
+          "example": 10,
+          "description": "ID del usuario designado para gestionar el ticket (clave foránea de 'User')."
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH"],
+          "example": "HIGH",
+          "description": "Prioridad del ticket, puede ser 'LOW', 'MEDIUM' o 'HIGH'"
+        },
+        "custom_fields": {
+          "type": "object",
+          "example": {
+            "sensorId": "S-123",
+            "reportType": "Análisis de falla"
+          },
+          "description": "Campos personalizados asociados al ticket, como ID del sensor o tipo de reporte (opcional)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del ticket"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización del ticket"
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "required": ["title", "status"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID de la tarea, generado automáticamente."
+        },
+        "title": {
+          "type": "string",
+          "example": "Tarea de seguimiento",
+          "description": "Título de la tarea asociada al ticket"
+        },
+        "description": {
+          "type": "string",
+          "example": "Realizar seguimiento del ticket.",
+          "description": "Descripción detallada de la tarea (opcional)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"],
+          "example": "pending",
+          "description": "Estado de la tarea, puede ser 'PENDING', 'IN_PROGRESS', 'COMPLETED' o 'CANCELLED'"
+        },
+        "created_by":{
+          "type": "integer",
+          "example": 3,
+          "description": "ID del usuario que creó la tarea (clave foránea de 'User')."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación de la tarea"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización de la tarea"
+        }
+      }
+    },
+    "StatusTicket": {
+      "type": "object",
+      "required": ["ticketId", "status", "name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del estado del ticket, generado automáticamente."
+        },
+        "ticketId": {
+          "type": "integer",
+          "example": 5,
+          "description": "ID del ticket al que pertenece este estado"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["OPEN", "IN_PROGRESS", "CLOSED", "ON_HOLD"],
+          "example": "IN_PROGRESS",
+          "description": "Estado del ticket, puede ser 'OPEN', 'IN_PROGRESS', 'CLOSED' o 'ON_HOLD'"
+        },
+        "name": {
+          "type": "string",
+          "example": "En revisión",
+          "description": "Nombre descriptivo del estado del ticket"
+        },
+        "description": {
+          "type": "string",
+          "example": "Técnico está evaluando el problema",
+          "description": "Descripción del estado del ticket (opcional)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del estado del ticket"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización del estado del ticket"
+        }
+      }
+    },
+    "File": {
+      "type": "object",
+      "required": [
+        "catchment_point_id",
+        "file_name",
+        "file_path",
+        "file_type_id",
+        "uploaded_by"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del archivo, generado automáticamente."
+        },
+        "catchment_point_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del punto de captación al que está asociado el archivo (clave foránea de 'CatchmentPoint')."
+        },
+        "file_name": {
+          "type": "string",
+          "example": "documento.pdf",
+          "description": "Nombre del archivo subido"
+        },
+        "file_path": {
+          "type": "string",
+          "example": "/uploads/documents/documento.pdf",
+          "description": "Ruta física del archivo en el servidor"
+        },
+        "file_type_id": {
+          "type": "integer",
+          "example": 2,
+          "description": "ID del tipo de archivo al que pertenece este archivo (clave foránea de 'FileType')."
+        },
+        "description": {
+          "type": "string",
+          "example": "Documento importante relacionado con el proyecto.",
+          "description": "Descripción del archivo (opcional)"
+        },
+        "expiration_date": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha de expiración del archivo (opcional)"
+        },
+        "is_valid": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el archivo es válido o no"
+        },
+        "response_ticket_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del ticket de respuesta asociado al archivo (opcional). Clave foránea de 'ResponseTicket'."
+        },
+        "quotation_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID de la cotización asociada al archivo (opcional). Clave foránea de 'Quotation'."
+        },
+        "uploaded_by": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del usuario que subió el archivo (clave foránea de 'User')."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del archivo"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización del archivo"
+        }
+      }
+    },
+    "FileType": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del tipo de archivo, generado automáticamente."
+        },
+        "name": {
+          "type": "string",
+          "example": "PDF",
+          "description": "Nombre del tipo de archivo, por ejemplo 'PDF', 'Image', etc."
+        },
+        "description": {
+          "type": "string",
+          "example": "Archivos en formato PDF",
+          "description": "Descripción del tipo de archivo (opcional)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del tipo de archivo"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización del tipo de archivo"
+        }
+      }
+    },
+    "Permission": {
+      "type": "object",
+      "required": [
+        "can_create",
+        "can_read",
+        "can_update",
+        "can_delete",
+        "group_id",
+        "module_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del permiso, generado automáticamente."
+        },
+        "can_create": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el grupo tiene permiso para crear registros en el módulo"
+        },
+        "can_read": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el grupo tiene permiso para leer registros en el módulo"
+        },
+        "can_update": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el grupo tiene permiso para actualizar registros en el módulo"
+        },
+        "can_delete": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indica si el grupo tiene permiso para eliminar registros en el módulo"
+        },
+        "group_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del grupo al que se le asignan los permisos (clave foránea de 'Group')."
+        },
+        "module_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del módulo al que se le asignan los permisos (clave foránea de 'Module')."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del permiso"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de la última actualización del permiso"
+        }
+      }
+    },
+    "Feedback": {
+      "type": "object",
+      "required": ["ticket_id", "client_id", "rating"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del feedback, generado automáticamente."
+        },
+        "ticket_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del ticket asociado al feedback (clave foránea de 'Ticket')"
+        },
+        "client_id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID del cliente que proporciona el feedback (clave foránea de 'User')"
+        },
+        "rating": {
+          "type": "integer",
+          "example": 4,
+          "description": "Calificación del feedback, de 1 a 5"
+        },
+        "comments": {
+          "type": "string",
+          "example": "Muy buena atención, el problema fue resuelto rápidamente.",
+          "description": "Comentarios adicionales del cliente sobre el servicio recibido (opcional)"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-06T12:00:00Z",
+          "description": "Fecha y hora de creación del feedback"
+        }
+      }
+    },
+    "Project": { 
+      "type": "object",
+      "required": [
+        "clientId",
+        "codeInternal",
+        "name",
+        "comunaId",
+        "startDate"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del proyecto que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "clientId": {
+          "type": "integer",
+          "description": "ID Codigo del Cliente Obtenido de la Tabla Clients, el cual debe existir previamente",
+          "example": 1
+        },
+        "codeInternal": {
+          "type": "string",
+          "description": "Código interno del Proyecto",
+          "example": "P123-2025"
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre Descriptivo del Proyecto",
+          "example": "Proyecto IansaAgro Sector San Ignacio-Ñuble"
+        },
+        "description": {
+          "type": "string",
+          "description": "Descripción larga del Proyecto",
+          "example": "Proyecto IansaAgro Sector San Ignacio-Ñuble, objetivo medir el caudal del pozo norte Predio La Aguada"
+        },
+        "comunaId": {
+          "type": "integer",
+          "description": "ID Codigo de Comuna Obtenido de la Tabla Comuna, el cual debe existir previamente",
+          "example": 1
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Fecha Inicio del Proyecto",
+          "format": "date",
+          "example": "2025-07-07"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "Fecha Finalizacion del Proyecto",
+          "format": "date",
+          "example": "2025-07-07"
+        },
+        "budgetEstimate": {
+          "type": "number",
+          "description": "Valor Presupuestado que costará la realización del Proyecto",
+          "multipleOf": 0.01,
+          "minimum": 0.01,
+          "example": 500000
+        },
+        "costReal": {
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0.01,
+          "description": "Valor Real del Proyecto",
+          "example": 300000
+        },
+        "marginReal": {
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0.01,
+          "description": "Dif. Entre el Presupuesto Estimado y el valor Real del Proyecto",
+          "example": 300000
+        },
+        "customFields": {
+          "type": "object",
+          "description": "Lista de datos relevantes del registro",
+          "example": {
+            "Cantidad Tecnicos": "10",
+            "Contacto Principal": "Jorge Zuñiga R.",
+            "Horas Diarias": 10
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "Comuna": { 
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro Comuna que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre de la Comuna",
+          "example": "Talca"
+        },
+        "codeLocation": {
+          "type": "string",
+          "description": "Puede almacenar el ubigeo (Peru) o el codigo_Dga de Chile",
+          "example": "150103"
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "CatchmentPoint": { 
+      "type": "object",
+      "required": [
+        "projectId",
+        "title",
+        "latitude",
+        "longitude",
+        "ownerUser"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro CatchmentPoint que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "projectId": {
+          "type": "integer",
+          "description": "ID Codigo de Proyecto Obtenido de la Tabla Project, el cual debe existir previamente",
+          "example": 1
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Latitud de Coordenada Geografica, ubicación del Punto de Captacion",
+          "multipleOf": 0.000001,
+          "example": -36.136545
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Longitud de Coordenada Geografica, ubicación del Punto de Captacion",
+          "multipleOf": 0.000001,
+          "example": -71.395798
+        },
+        "ownerUser": {
+          "type": "integer",
+          "description": "ID Codigo Usuario Propietario del Punto de Captación, el cual debe existir previamente",
+          "example": 1
+        },
+        "viewersUser": {
+          "type": "object",
+          "description": "Lista de ID Codigo Usuario visualizadores del Punto de Captación, los cuales deben existir previamente",
+          "example": {"usuario 1": 1, "usuario aux": 2}
+        },
+        "nettra":{
+          "type": "boolean",
+          "description": "Indica si el punto de captación es del tipo nettra",
+          "example": true,
+          "default": false
+        },
+        "twin":{
+          "type": "boolean",
+          "description": "Indica si el punto de captación es del tipo twin",
+          "example": true,
+          "default": false
+        },
+        "novus":{
+          "type": "boolean",
+          "description": "Indica si el punto de captación es del tipo novus",
+          "example": true,
+          "default": false
+        },
+        "frecuency":{
+          "type": "string",
+          "description": "indica la frecuencia de lectura del punto de captación, en minutos",
+          "example": "5"
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "Quotation": { 
+      "type": "object",
+      "required": [
+        "clientId",
+        "status",
+        "linkedProject",
+        "estimatedAmount",
+        "marginEstimate",
+        "createdBy"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro Cotizacion que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "clientId": {
+          "type": "integer",
+          "description": "ID Codigo de Cliente Obtenido de la Tabla Clients, el cual debe existir previamente",
+          "example": 1
+        },
+        "status": {
+          "type": "string",
+          "description": "Indica 1 de los 4 estados que puede tener una cotización",
+          "enum": ["DRAFT", "SENT", "APPROVED", "REJECTED"],
+          "example": "REJECTED"
+        },
+        "linkedProject": {
+          "type": "integer",
+          "description": "ID Codigo de Proyecto Obtenido de la Tabla Project asociado a la Cotización, el cual debe existir previamente",
+          "example": 1
+        },
+        "estimatedAmount":{
+          "type": "integer",
+          "description": "Monto Estimado de la Cotizacion",
+          "example": 500000
+        },
+        "marginEstimate":{
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0.01,
+          "description": "% estimado de margen dif. entre real y estimado",
+          "example": 10.5
+        },
+        "createdBy": {
+          "type": "integer",
+          "description": "ID Codigo Usuario Creador de la Cotización, el cual debe existir previamente",
+          "example": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "FinanceMovement": { 
+      "type": "object",
+      "required": [
+        "type",
+        "description",
+        "projectId",
+        "date",
+        "amount"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Movimiento Financiero y que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Indica 1 de los 3 Tipos de Movimientos Financieros",
+          "enum": ["INCOME", "EXPENSE", "ADVANCE"],
+          "example": "ADVANCE"
+        },
+        "description": {
+          "type": "string",
+          "description": "Breve Descripción del movimiento Financiero",
+          "example": "Anticipo Inicial Proyecto Santa Maria 1"
+        },
+        "projectId": {
+          "type": "integer",
+          "description": "ID Codigo de Proyecto Obtenido de la Tabla Project asociado al movimiento Finaciero, el cual debe existir previamente",
+          "example": 1
+        },
+        "date":{
+          "type": "string",
+          "format": "date-time",
+          "description": "Fecha y Hora de Transaccion",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "amount":{
+          "type": "number",
+          "multipleOf": 0.01,
+          "minimum": 0.01,
+          "description": "Monto de la Transacción, permite 2 decimales",
+          "example": 10000.50
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "Client": { 
+      "type": "object",
+      "required": [
+        "name",
+        "dni"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Cliente y que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre del Cliente",
+          "example": "Maria Eugenia Perez Spa"
+        },
+        "dni": {
+          "type": "string",
+          "description": "Rut del Cliente",
+          "example": "76450658-7"
+        },
+        "address": {
+          "type": "string",
+          "description": "Dirección del Cliente",
+          "example": "Los Acantos 1320"
+        },
+        "comuna":{
+          "type": "integer",
+          "description": "ID Codigo de Comuna Obtenido de la Tabla Comuna a la Que Pertenece la direccion del cliente, el cual debe existir previamente",
+          "example": 1
+        },
+        "phone":{
+          "type": "string",
+          "description": "Telefono del Cliente",
+          "example": "+569 7548 7845"
+        },
+        "industry":{
+          "type": "string",
+          "description": "Giro Comercial del Cliente",
+          "example": "Agroindustrial"
+        },
+        "status":{
+          "type": "string",
+          "description": "Estado del Cliente",
+          "example": "Activo"
+        },
+        "score":{
+          "type": "integer",
+          "description": "Ranking o calificación del Cliente",
+          "example": 4
+        },
+        "custom_fields":{
+          "type": "object",
+          "description": "Lista de datos relevantes del registro y no considerados en otros campos",
+          "example": {
+            "Años en la Industria": "10",
+            "Tipo de Sociedad": "spa"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "Contact": { 
+      "type": "object",
+      "required": [
+        "id_client",
+        "name",
+        "email",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Contacto de Cliente y que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "id_client":{
+          "type": "integer",
+          "description": "ID Codigo de Cliente Obtenido de la Tabla Clients asociado al Contacto, el cual debe existir previamente",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre del Contacto del Cliente",
+          "example": "Maria Eugenia Perez Solis"
+        },
+        "email": {
+          "type": "string",
+          "description": "Correo(s) Electronico del Contacto del Cliente",
+          "example": "contacto@acdfr.cl"
+        },
+        "phone":{
+          "type": "string",
+          "description": "Telefono del Cliente",
+          "example": "+569 7548 7845"
+        },
+        "position":{
+          "type": "string",
+          "description": "Cargo del Contacto del Cliente",
+          "example": "CEO"
+        },
+        "type":{
+          "type": "integer",
+          "description": "ID Codigo de Tipo de contacto Obtenido de la Tabla TypeContact asociado al Contacto, el cual debe existir previamente",
+          "example": 1
+        },
+        "custom_fields":{
+          "type": "object",
+          "description": "Lista de datos relevantes del registro y no considerados en otros campos",
+          "example": {
+            "Fecha de Ingreso a la Empresa": "01-02-2021",
+            "Estado Civil": "Casado"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "TypeContact": { 
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro TypeContact que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Descripcion del Tipo de Contacto",
+          "example": "Propietario"
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "Module": { 
+      "type": "object",
+      "required": [
+        "slug",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro Module que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "slug": {
+          "type": "string",
+          "description": "Descripcion corta o simplificada del Modulo",
+          "example": "Clientes"
+        },
+        "description":{
+          "type": "string",
+          "description": "Descripcion del Modulo",
+          "example": "Creacion de Clientes"
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "ClientModule": { 
+      "type": "object",
+      "required": [
+        "module_id",
+        "enabled_to_type",
+        "reference_id",
+        "is_enabled"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro ClientModule que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "module_id": {
+          "type": "integer",
+          "description": "ID Codigo de Modulo Obtenido de la Tabla Module asociado al Cliente, el cual debe existir previamente",
+          "example": 1
+        },
+        "enabled_to_type":{
+          "type": "string",
+          "description": "Indica 1 de los 3 Tipos",
+          "enum": ["PROJECT", "CLIENT", "QUOTE"],
+          "example": "QUOTE"
+        },
+        "reference_id":{
+          "type": "integer",
+          "description": "??",
+          "example": 1
+        },
+        "is_enabled":{
+          "type": "boolean",
+          "description": "Indica si el modulo esta Activo o no para el cliente",
+          "example": true
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "ResponseTicket": { 
+      "type": "object",
+      "required": [
+        "ticket_id",
+        "message",
+        "created_by"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true,
+          "description": "Campo ID del Registro ResponseTicket que la Base de Datos Genera Automaticamente",
+          "example": 1
+        },
+        "ticket_id": {
+          "type": "integer",
+          "description": "ID Codigo de Ticket Obtenido de la Tabla Tickets asociado a Respuesta de Ticket, el cual debe existir previamente",
+          "example": 1
+        },
+        "message":{
+          "type": "string",
+          "description": "Mensaje de Rspuesta del Ticket",
+          "example": "Ticket N° 12122 ingresado al Registro de Incidencias"
+        },
+        "created_by":{
+          "type": "integer",
+          "description": "ID Codigo de Usuario Obtenido de la Tabla Users asociado a Respuesta de Ticket, el cual debe existir previamente",
+          "example": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Creación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "readOnly": true,
+          "format": "date-time",
+          "description": "Fecha y Hora de Modificación del Registro",
+          "example": "2025-07-07T12:34:56Z"
+        }
+      }
+    },
+    "CustomerProfile": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1,
+          "description": "ID único del perfil de cliente"
+        },
+        "name": {
+          "type": "string",
+          "example": "Perfil Industrial",
+          "description": "Nombre del perfil de cliente"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-08T14:22:35.123Z",
+          "description": "Fecha de creación del perfil"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-07-08T14:22:35.123Z",
+          "description": "Fecha de última modificación del perfil"
+        }
+      }
+    }
+  }
+}
