@@ -1,5 +1,5 @@
-import { Model, DataTypes } from 'sequelize';
-import sequelize from '../config/database';
+import { Model, DataTypes, Optional } from "sequelize";
+import sequelize from "../config/database";
 
 interface ExampleAttributes {
   id: number;
@@ -7,7 +7,12 @@ interface ExampleAttributes {
   description: string;
 }
 
-class Example extends Model<ExampleAttributes> implements ExampleAttributes {
+interface ExampleCreationAttributes extends Optional<ExampleAttributes, "id"> {}
+
+class Example
+  extends Model<ExampleAttributes, ExampleCreationAttributes>
+  implements ExampleAttributes
+{
   public id!: number;
   public name!: string;
   public description!: string;
@@ -31,7 +36,7 @@ Example.init(
   },
   {
     sequelize,
-    modelName: 'Example',
+    modelName: "Example",
   }
 );
 

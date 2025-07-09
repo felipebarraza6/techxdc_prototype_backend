@@ -1,0 +1,214 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .model-box { fill: #2a2a2a; stroke: #667eea; stroke-width: 2; rx: 8; }
+      .model-title { fill: #667eea; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; }
+      .model-fields { fill: #e0e0e0; font-family: Arial, sans-serif; font-size: 10px; }
+      .relationship-line { stroke: #49cc90; stroke-width: 2; marker-end: url(#arrowhead); }
+      .relationship-label { fill: #49cc90; font-family: Arial, sans-serif; font-size: 10px; }
+      .section-title { fill: #ffffff; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#49cc90" />
+    </marker>
+  </defs>
+  
+  <!-- Fondo -->
+  <rect width="1200" height="800" fill="#0a0a0a"/>
+  
+  <!-- Título -->
+  <text x="600" y="30" text-anchor="middle" class="section-title">🗂️ Diagrama de Relaciones - Sistema de Gestión</text>
+  
+  <!-- Sección Usuarios -->
+  <text x="100" y="70" class="section-title">👥 Gestión de Usuarios</text>
+  
+  <!-- Group -->
+  <rect x="50" y="90" width="120" height="80" class="model-box"/>
+  <text x="110" y="110" text-anchor="middle" class="model-title">Group</text>
+  <text x="60" y="125" class="model-fields">• id</text>
+  <text x="60" y="140" class="model-fields">• name</text>
+  <text x="60" y="155" class="model-fields">• description</text>
+  
+  <!-- User -->
+  <rect x="220" y="90" width="120" height="80" class="model-box"/>
+  <text x="280" y="110" text-anchor="middle" class="model-title">User</text>
+  <text x="230" y="125" class="model-fields">• id</text>
+  <text x="230" y="140" class="model-fields">• username</text>
+  <text x="230" y="155" class="model-fields">• email</text>
+  <text x="230" y="170" class="model-fields">• group_id</text>
+  
+  <!-- Permission -->
+  <rect x="390" y="90" width="120" height="80" class="model-box"/>
+  <text x="450" y="110" text-anchor="middle" class="model-title">Permission</text>
+  <text x="400" y="125" class="model-fields">• id</text>
+  <text x="400" y="140" class="model-fields">• group_id</text>
+  <text x="400" y="155" class="model-fields">• module_id</text>
+  
+  <!-- Relaciones Usuarios -->
+  <line x1="170" y1="130" x2="220" y2="130" class="relationship-line"/>
+  <text x="195" y="125" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <line x1="280" y1="130" x2="390" y2="130" class="relationship-line"/>
+  <text x="335" y="125" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <!-- Sección Clientes -->
+  <text x="100" y="220" class="section-title">🏢 Gestión de Clientes</text>
+  
+  <!-- Client -->
+  <rect x="50" y="240" width="120" height="80" class="model-box"/>
+  <text x="110" y="260" text-anchor="middle" class="model-title">Client</text>
+  <text x="60" y="275" class="model-fields">• id</text>
+  <text x="60" y="290" class="model-fields">• name</text>
+  <text x="60" y="305" class="model-fields">• email</text>
+  <text x="60" y="320" class="model-fields">• phone</text>
+  
+  <!-- Contact -->
+  <rect x="220" y="240" width="120" height="80" class="model-box"/>
+  <text x="280" y="260" text-anchor="middle" class="model-title">Contact</text>
+  <text x="230" y="275" class="model-fields">• id</text>
+  <text x="230" y="290" class="model-fields">• client_id</text>
+  <text x="230" y="305" class="model-fields">• name</text>
+  <text x="230" y="320" class="model-fields">• email</text>
+  
+  <!-- TypeContact -->
+  <rect x="390" y="240" width="120" height="80" class="model-box"/>
+  <text x="450" y="260" text-anchor="middle" class="model-title">TypeContact</text>
+  <text x="400" y="275" class="model-fields">• id</text>
+  <text x="400" y="290" class="model-fields">• name</text>
+  <text x="400" y="305" class="model-fields">• description</text>
+  
+  <!-- CustomerProfile -->
+  <rect x="560" y="240" width="120" height="80" class="model-box"/>
+  <text x="620" y="260" text-anchor="middle" class="model-title">CustomerProfile</text>
+  <text x="570" y="275" class="model-fields">• id</text>
+  <text x="570" y="290" class="model-fields">• client_id</text>
+  <text x="570" y="305" class="model-fields">• preferences</text>
+  
+  <!-- Relaciones Clientes -->
+  <line x1="170" y1="280" x2="220" y2="280" class="relationship-line"/>
+  <text x="195" y="275" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <line x1="280" y1="280" x2="390" y2="280" class="relationship-line"/>
+  <text x="335" y="275" text-anchor="middle" class="relationship-label">N:1</text>
+  
+  <line x1="170" y1="280" x2="560" y2="280" class="relationship-line"/>
+  <text x="365" y="265" text-anchor="middle" class="relationship-label">1:1</text>
+  
+  <!-- Sección Proyectos -->
+  <text x="100" y="370" class="section-title">📋 Gestión de Proyectos</text>
+  
+  <!-- Project -->
+  <rect x="50" y="390" width="120" height="80" class="model-box"/>
+  <text x="110" y="410" text-anchor="middle" class="model-title">Project</text>
+  <text x="60" y="425" class="model-fields">• id</text>
+  <text x="60" y="440" class="model-fields">• client_id</text>
+  <text x="60" y="455" class="model-fields">• name</text>
+  <text x="60" y="470" class="model-fields">• budget</text>
+  
+  <!-- CatchmentPoint -->
+  <rect x="220" y="390" width="120" height="80" class="model-box"/>
+  <text x="280" y="410" text-anchor="middle" class="model-title">CatchmentPoint</text>
+  <text x="230" y="425" class="model-fields">• id</text>
+  <text x="230" y="440" class="model-fields">• project_id</text>
+  <text x="230" y="455" class="model-fields">• name</text>
+  <text x="230" y="470" class="model-fields">• location</text>
+  
+  <!-- Comuna -->
+  <rect x="390" y="390" width="120" height="80" class="model-box"/>
+  <text x="450" y="410" text-anchor="middle" class="model-title">Comuna</text>
+  <text x="400" y="425" class="model-fields">• id</text>
+  <text x="400" y="440" class="model-fields">• name</text>
+  <text x="400" y="455" class="model-fields">• region</text>
+  
+  <!-- Relaciones Proyectos -->
+  <line x1="170" y1="430" x2="220" y2="430" class="relationship-line"/>
+  <text x="195" y="425" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <line x1="280" y1="430" x2="390" y2="430" class="relationship-line"/>
+  <text x="335" y="425" text-anchor="middle" class="relationship-label">N:1</text>
+  
+  <!-- Sección Tickets -->
+  <text x="100" y="520" class="section-title">🎫 Sistema de Tickets</text>
+  
+  <!-- Ticket -->
+  <rect x="50" y="540" width="120" height="80" class="model-box"/>
+  <text x="110" y="560" text-anchor="middle" class="model-title">Ticket</text>
+  <text x="60" y="575" class="model-fields">• id</text>
+  <text x="60" y="590" class="model-fields">• title</text>
+  <text x="60" y="605" class="model-fields">• client_id</text>
+  <text x="60" y="620" class="model-fields">• priority</text>
+  
+  <!-- ResponseTicket -->
+  <rect x="220" y="540" width="120" height="80" class="model-box"/>
+  <text x="280" y="560" text-anchor="middle" class="model-title">ResponseTicket</text>
+  <text x="230" y="575" class="model-fields">• id</text>
+  <text x="230" y="590" class="model-fields">• ticket_id</text>
+  <text x="230" y="605" class="model-fields">• response</text>
+  
+  <!-- StatusTicket -->
+  <rect x="390" y="540" width="120" height="80" class="model-box"/>
+  <text x="450" y="560" text-anchor="middle" class="model-title">StatusTicket</text>
+  <text x="400" y="575" class="model-fields">• id</text>
+  <text x="400" y="590" class="model-fields">• ticket_id</text>
+  <text x="400" y="605" class="model-fields">• status</text>
+  
+  <!-- Feedback -->
+  <rect x="560" y="540" width="120" height="80" class="model-box"/>
+  <text x="620" y="560" text-anchor="middle" class="model-title">Feedback</text>
+  <text x="570" y="575" class="model-fields">• id</text>
+  <text x="570" y="590" class="model-fields">• ticket_id</text>
+  <text x="570" y="605" class="model-fields">• rating</text>
+  
+  <!-- Relaciones Tickets -->
+  <line x1="170" y1="580" x2="220" y2="580" class="relationship-line"/>
+  <text x="195" y="575" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <line x1="170" y1="580" x2="390" y2="580" class="relationship-line"/>
+  <text x="280" y="575" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <line x1="170" y1="580" x2="560" y2="580" class="relationship-line"/>
+  <text x="365" y="575" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <!-- Sección Finanzas -->
+  <text x="100" y="670" class="section-title">💰 Gestión Financiera</text>
+  
+  <!-- FinanceMovement -->
+  <rect x="50" y="690" width="120" height="80" class="model-box"/>
+  <text x="110" y="710" text-anchor="middle" class="model-title">FinanceMovement</text>
+  <text x="60" y="725" class="model-fields">• id</text>
+  <text x="60" y="740" class="model-fields">• project_id</text>
+  <text x="60" y="755" class="model-fields">• amount</text>
+  <text x="60" y="770" class="model-fields">• type</text>
+  
+  <!-- Quotation -->
+  <rect x="220" y="690" width="120" height="80" class="model-box"/>
+  <text x="280" y="710" text-anchor="middle" class="model-title">Quotation</text>
+  <text x="230" y="725" class="model-fields">• id</text>
+  <text x="230" y="740" class="model-fields">• project_id</text>
+  <text x="230" y="755" class="model-fields">• amount</text>
+  <text x="230" y="770" class="model-fields">• status</text>
+  
+  <!-- Relaciones Finanzas -->
+  <line x1="170" y1="730" x2="220" y2="730" class="relationship-line"/>
+  <text x="195" y="725" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <line x1="280" y1="730" x2="390" y2="730" class="relationship-line"/>
+  <text x="335" y="725" text-anchor="middle" class="relationship-label">1:N</text>
+  
+  <!-- Leyenda -->
+  <rect x="800" y="50" width="350" height="200" fill="#1a1a1a" stroke="#333" stroke-width="1" rx="8"/>
+  <text x="820" y="80" fill="#667eea" font-family="Arial, sans-serif" font-size="14px" font-weight="bold">📊 Leyenda de Relaciones</text>
+  
+  <line x1="820" y1="100" x2="870" y2="100" class="relationship-line"/>
+  <text x="890" y="105" fill="#e0e0e0" font-family="Arial, sans-serif" font-size="12px">1:N - Uno a Muchos</text>
+  
+  <line x1="820" y1="130" x2="870" y2="130" class="relationship-line"/>
+  <text x="890" y="135" fill="#e0e0e0" font-family="Arial, sans-serif" font-size="12px">N:1 - Muchos a Uno</text>
+  
+  <line x1="820" y1="160" x2="870" y2="160" class="relationship-line"/>
+  <text x="890" y="165" fill="#e0e0e0" font-family="Arial, sans-serif" font-size="12px">1:1 - Uno a Uno</text>
+  
+  <text x="820" y="200" fill="#49cc90" font-family="Arial, sans-serif" font-size="12px">🔄 Relaciones principales del sistema</text>
+  <text x="820" y="220" fill="#49cc90" font-family="Arial, sans-serif" font-size="12px">📦 22 modelos interconectados</text>
+  <text x="820" y="240" fill="#49cc90" font-family="Arial, sans-serif" font-size="12px">🔗 35+ relaciones definidas</text>
+</svg> 

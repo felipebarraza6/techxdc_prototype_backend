@@ -11,174 +11,196 @@ import Clients from "./Clients";
 import Comuna from "./Comuna";
 import Project from "./Projects";
 import FinanceMovement from "./financeMovement";
+import Contact from "./Contacts";
+import TypeContact from "./TypeContact";
+import ClientModule from "./ClientModule";
 
 export const applyAssociations = () => {
-    // User --- Group
-    Group.hasMany(User, {
-        foreignKey: "group_id", as: "users"
-    });
-    User.belongsTo(Group, {
-        foreignKey: "group_id", as: "group"
-    });
+  // User --- Group
+  Group.hasMany(User, {
+    foreignKey: "group_id",
+    as: "users",
+  });
+  User.belongsTo(Group, {
+    foreignKey: "group_id",
+    as: "group",
+  });
 
-    // User --- Task
-    User.hasMany(Task, {
-        foreignKey: "created_by", as: "createdTasks"
-    });
-    Task.belongsTo(User, {
-        foreignKey: "created_by", as: "creator"
-    });
+  // User --- Task
+  User.hasMany(Task, {
+    foreignKey: "created_by",
+    as: "createdTasks",
+  });
+  Task.belongsTo(User, {
+    foreignKey: "created_by",
+    as: "creator",
+  });
 
-    // Group --- Permission
-    Group.hasMany(Permission, {
-        foreignKey: "group_id", as: "permissions"
-    });
-    Permission.belongsTo(Group, {
-        foreignKey: "group_id", as: "group"
-    });
+  // Group --- Permission
+  Group.hasMany(Permission, {
+    foreignKey: "group_id",
+    as: "permissions",
+  });
+  Permission.belongsTo(Group, {
+    foreignKey: "group_id",
+    as: "group",
+  });
 
-    // User --- File (uploader)
-    User.hasMany(File, {
-        foreignKey: 'uploaded_by',
-        as: 'uploadedFiles',
-    });
-    File.belongsTo(User, {
-        foreignKey: 'uploaded_by',
-        as: 'uploader',
-    });
+  // User --- File (uploader)
+  User.hasMany(File, {
+    foreignKey: "uploaded_by",
+    as: "uploadedFiles",
+  });
+  File.belongsTo(User, {
+    foreignKey: "uploaded_by",
+    as: "uploader",
+  });
 
+  // FileType --- File
+  FileType.hasMany(File, {
+    foreignKey: "file_type_id",
+    as: "files",
+  });
+  File.belongsTo(FileType, {
+    foreignKey: "file_type_id",
+    as: "fileType",
+  });
 
-    // FileType --- File
-    FileType.hasMany(File, {
-        foreignKey: "file_type_id", as: "files"
-    });
-    File.belongsTo(FileType, {
-        foreignKey: "file_type_id", as: "fileType"
-    });
+  // CatchmentPoint --- File
+  CatchmentPoint.hasMany(File, {
+    foreignKey: "catchment_point_id",
+    as: "files",
+  });
+  File.belongsTo(CatchmentPoint, {
+    foreignKey: "catchment_point_id",
+    as: "catchmentPoint",
+  });
 
-    // CatchmentPoint --- File
-    CatchmentPoint.hasMany(File, {
-        foreignKey: 'catchment_point_id',
-        as: 'files',
-    });
-    File.belongsTo(CatchmentPoint, {
-        foreignKey: 'catchment_point_id',
-        as: 'catchmentPoint',
-    });
+  // ResponseTicket --- File
+  ResponseTicket.hasMany(File, {
+    foreignKey: "response_ticket_id",
+    as: "files",
+  });
+  File.belongsTo(ResponseTicket, {
+    foreignKey: "response_ticket_id",
+    as: "responseTicket",
+  });
 
-    // ResponseTicket --- File
-    ResponseTicket.hasMany(File, {
-        foreignKey: 'response_ticket_id',
-        as: 'files',
-    });
-    File.belongsTo(ResponseTicket, {
-        foreignKey: 'response_ticket_id',
-        as: 'responseTicket',
-    });
+  // Quotation --- File
+  Quotation.hasMany(File, {
+    foreignKey: "quotation_id",
+    as: "files",
+  });
+  File.belongsTo(Quotation, {
+    foreignKey: "quotation_id",
+    as: "quotation",
+  });
 
-    // Quotation --- File
-    Quotation.hasMany(File, {
-        foreignKey: 'quotation_id',
-        as: 'files',
-    });
-    File.belongsTo(Quotation, {
-        foreignKey: 'quotation_id',
-        as: 'quotation',
-    });
+  Comuna.hasMany(Project, {
+    foreignKey: "comunaId",
+    sourceKey: "id",
+    as: "projectComuna",
+  });
 
-    Comuna.hasMany(Project, {
-        foreignKey: "comunaId",
-        sourceKey: 'id',
-        as: "projectComuna",
-    });
+  Project.belongsTo(Comuna, {
+    foreignKey: "comunaId",
+    targetKey: "id",
+    as: "comuna",
+  });
 
-    Project.belongsTo(Comuna, {
-        foreignKey: "comunaId",
-        targetKey: "id",
-        as: "comuna",
-    });
+  Clients.hasMany(Project, {
+    foreignKey: "clientId",
+    sourceKey: "id",
+    as: "projectClient",
+  });
 
-    Clients.hasMany(Project, {
-        foreignKey: "clientId",
-        sourceKey: 'id',
-        as: "projectClient",
-    });
+  Project.belongsTo(Clients, {
+    foreignKey: "clientId",
+    targetKey: "id",
+    as: "Clients",
+  });
 
-    Project.belongsTo(Clients, {
-        foreignKey: "clientId",
-        targetKey: "id",
-        as: "Clients",
-    });
+  Project.hasMany(CatchmentPoint, {
+    foreignKey: "projectId",
+    sourceKey: "id",
+    as: "projectCatchmentPoint",
+  });
 
-    Project.hasMany(CatchmentPoint, {
-        foreignKey: "projectId",
-        sourceKey: 'id',
-        as: "projectCatchmentPoint",
-    });
+  CatchmentPoint.belongsTo(Project, {
+    foreignKey: "projectId",
+    targetKey: "id",
+    as: "Project",
+  });
 
-    CatchmentPoint.belongsTo(Project, {
-        foreignKey: "projectId",
-        targetKey: "id",
-        as: "Project",
-    });
+  User.hasMany(CatchmentPoint, {
+    foreignKey: "ownerUser",
+    sourceKey: "id",
+    as: "userCatchmentPoint",
+  });
 
-    User.hasMany(CatchmentPoint, {
-        foreignKey: "ownerUser",
-        sourceKey: 'id',
-        as: "userCatchmentPoint",
-    });
+  CatchmentPoint.belongsTo(User, {
+    foreignKey: "ownerUser",
+    targetKey: "id",
+    as: "User",
+  });
 
-    CatchmentPoint.belongsTo(User, {
-        foreignKey: "ownerUser",
-        targetKey: "id",
-        as: "User",
-    });
+  Project.hasMany(FinanceMovement, {
+    foreignKey: "projectId",
+    sourceKey: "id",
+    as: "projectFinanceMovement",
+  });
 
-    Project.hasMany(FinanceMovement, {
-        foreignKey: "projectId",
-        sourceKey: 'id',
-        as: "projectFinanceMovement",
-    });
+  FinanceMovement.belongsTo(Project, {
+    foreignKey: "projectId",
+    targetKey: "id",
+    as: "Project",
+  });
 
-    FinanceMovement.belongsTo(Project, {
-        foreignKey: "projectId",
-        targetKey: "id",
-        as: "Project",
-    });
+  Project.hasMany(Quotation, {
+    foreignKey: "linkedProject",
+    sourceKey: "id",
+    as: "projectQuotation",
+  });
 
-    Project.hasMany(Quotation, {
-        foreignKey: "linkedProject",
-        sourceKey: 'id',
-        as: "projectQuotation",
-    });
+  Quotation.belongsTo(Project, {
+    foreignKey: "linkedProject",
+    targetKey: "id",
+    as: "Project",
+  });
 
-    Quotation.belongsTo(Project, {
-        foreignKey: "linkedProject",
-        targetKey: "id",
-        as: "Project",
-    });
+  User.hasMany(Quotation, {
+    foreignKey: "createdBy",
+    sourceKey: "id",
+    as: "userQuotation",
+  });
 
-    User.hasMany(Quotation, {
-        foreignKey: "createdBy",
-        sourceKey: 'id',
-        as: "userQuotation",
-    });
+  Quotation.belongsTo(User, {
+    foreignKey: "createdBy",
+    targetKey: "id",
+    as: "User",
+  });
 
-    Quotation.belongsTo(User, {
-        foreignKey: "createdBy",
-        targetKey: "id",
-        as: "User",
-    });
+  Clients.hasMany(Quotation, {
+    foreignKey: "clientId",
+    sourceKey: "id",
+    as: "clientQuotation",
+  });
 
-    Clients.hasMany(Quotation, {
-        foreignKey: "clientId",
-        sourceKey: 'id',
-        as: "clientQuotation",
-    });
+  Quotation.belongsTo(Clients, {
+    foreignKey: "clientId",
+    targetKey: "id",
+    as: "Client",
+  });
 
-    Quotation.belongsTo(Clients, {
-        foreignKey: "clientId",
-        targetKey: "id",
-        as: "Client",
-    });
-}
+  // Contact --- Clients
+  Contact.belongsTo(Clients, { foreignKey: "id_client", as: "client" });
+  Clients.hasMany(Contact, { foreignKey: "id_client", as: "contacts" });
+  // Contact --- TypeContact
+  Contact.belongsTo(TypeContact, { foreignKey: "type", as: "typeContact" });
+  TypeContact.hasMany(Contact, {
+    foreignKey: "type",
+    as: "contactsWithThisType",
+  });
+  // ClientModule (asegurar que esté sincronizado)
+  // ... aquí puedes agregar asociaciones si ClientModule tiene relaciones ...
+};

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación de Rutas - API Backend</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7f7fa;
+            color: #222;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #2d3e50;
+            color: #fff;
+            padding: 2rem 1rem 1rem 1rem;
+            text-align: center;
+        }
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 2rem;
+        }
+        h1, h2, h3 {
+            color: #2d3e50;
+        }
+        .route-section {
+            margin-bottom: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .route-header {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        .method {
+            display: inline-block;
+            padding: 0.3em 0.8em;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        .get { background: #61affe; color: white; }
+        .post { background: #49cc90; color: white; }
+        .put { background: #fca130; color: white; }
+        .delete { background: #f93e3e; color: white; }
+        .endpoint {
+            font-family: monospace;
+            background: #f4f4f4;
+            padding: 0.5em;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        .example {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .response {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+        .nav {
+            background: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .nav a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📚 Documentación de Rutas - API Backend</h1>
+        <p>Guía completa de todos los endpoints disponibles</p>
+    </header>
+    
+    <main>
+        <div class="nav">
+            <h3>Navegación Rápida:</h3>
+            <a href="#usuarios">👥 Usuarios</a>
+            <a href="#clientes">🏢 Clientes</a>
+            <a href="#proyectos">📋 Proyectos</a>
+            <a href="#tickets">🎫 Tickets</a>
+            <a href="#archivos">📁 Archivos</a>
+            <a href="#finanzas">💰 Finanzas</a>
+            <a href="#otros">🔧 Otros</a>
+        </div>
+
+        <section id="usuarios">
+            <h2>👥 Gestión de Usuarios</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/users</span>
+                    <p>Obtener todos los usuarios</p>
+                </div>
+                <div class="example">
+                    <strong>Ejemplo:</strong> GET http://localhost:3000/api/users
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/users/:id</span>
+                    <p>Obtener usuario por ID</p>
+                </div>
+                <div class="example">
+                    <strong>Ejemplo:</strong> GET http://localhost:3000/api/users/1
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/users</span>
+                    <p>Crear nuevo usuario</p>
+                </div>
+                <div class="example">
+                    <strong>Body:</strong>
+                    <pre>{
+  "username": "usuario1",
+  "email": "usuario@ejemplo.com",
+  "first_name": "Juan",
+  "last_name": "Pérez",
+  "password": "password123",
+  "rol": "CLIENT",
+  "group_id": 1
+}</pre>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method put">PUT</span>
+                    <span class="endpoint">/api/users/:id</span>
+                    <p>Actualizar usuario</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method delete">DELETE</span>
+                    <span class="endpoint">/api/users/:id</span>
+                    <p>Eliminar usuario</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="clientes">
+            <h2>🏢 Gestión de Clientes</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/clients</span>
+                    <p>Obtener todos los clientes</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/clients</span>
+                    <p>Crear nuevo cliente</p>
+                </div>
+                <div class="example">
+                    <strong>Body:</strong>
+                    <pre>{
+  "name": "Empresa ABC",
+  "email": "contacto@empresa.com",
+  "phone": "+56912345678",
+  "address": "Av. Principal 123",
+  "custom_fields": {
+    "industry": "Tecnología",
+    "size": "Mediana"
+  }
+}</pre>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/contacts</span>
+                    <p>Obtener todos los contactos</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/contacts/client/:clientId</span>
+                    <p>Obtener contactos por cliente</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="proyectos">
+            <h2>📋 Gestión de Proyectos</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/projects</span>
+                    <p>Obtener todos los proyectos</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/projects</span>
+                    <p>Crear nuevo proyecto</p>
+                </div>
+                <div class="example">
+                    <strong>Body:</strong>
+                    <pre>{
+  "clientId": 1,
+  "codeInternal": "PROJ-001",
+  "name": "Sistema de Gestión",
+  "description": "Desarrollo de sistema integral",
+  "comunaId": 1,
+  "startDate": "2024-01-01",
+  "endDate": "2024-06-30",
+  "budgetEstimate": 50000.00
+}</pre>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/catchmentPoint</span>
+                    <p>Obtener puntos de captación</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tickets">
+            <h2>🎫 Sistema de Tickets</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/tickets</span>
+                    <p>Obtener todos los tickets</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/tickets</span>
+                    <p>Crear nuevo ticket</p>
+                </div>
+                <div class="example">
+                    <strong>Body:</strong>
+                    <pre>{
+  "title": "Problema con login",
+  "description": "Los usuarios no pueden acceder al sistema",
+  "created_by": 1,
+  "client_id": 1,
+  "designated": 2,
+  "priority": "HIGH"
+}</pre>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/response-tickets</span>
+                    <p>Obtener respuestas de tickets</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/status-tickets</span>
+                    <p>Obtener estados de tickets</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/feedbacks</span>
+                    <p>Obtener feedbacks</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="archivos">
+            <h2>📁 Gestión de Archivos</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/files</span>
+                    <p>Obtener todos los archivos</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/files</span>
+                    <p>Subir archivo</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/file-types</span>
+                    <p>Obtener tipos de archivo</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="finanzas">
+            <h2>💰 Gestión Financiera</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/financeMovements</span>
+                    <p>Obtener movimientos financieros</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/financeMovements</span>
+                    <p>Crear movimiento financiero</p>
+                </div>
+                <div class="example">
+                    <strong>Body:</strong>
+                    <pre>{
+  "type": "INCOME",
+  "amount": 10000.00,
+  "projectId": 1,
+  "description": "Pago por servicios",
+  "date": "2024-01-15"
+}</pre>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/quotations</span>
+                    <p>Obtener cotizaciones</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint">/api/quotations</span>
+                    <p>Crear cotización</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="otros">
+            <h2>🔧 Otros Endpoints</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/tasks</span>
+                    <p>Obtener todas las tareas</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/groups</span>
+                    <p>Obtener grupos de usuarios</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/permissions</span>
+                    <p>Obtener permisos</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/modules</span>
+                    <p>Obtener módulos</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/comunas</span>
+                    <p>Obtener comunas</p>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/api/customer-profile</span>
+                    <p>Obtener perfiles de cliente</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>📊 Rutas Especiales</h2>
+            
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/</span>
+                    <p>Información de la API</p>
+                </div>
+                <div class="response">
+                    <strong>Respuesta:</strong>
+                    <pre>{
+  "message": "¡Bienvenido a la API!",
+  "sqlite_path": "/path/to/database.sqlite"
+}</pre>
+                </div>
+            </div>
+
+            <div class="route-section">
+                <div class="route-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint">/summary</span>
+                    <p>Resumen del proyecto (HTML)</p>
+                </div>
+                <div class="example">
+                    <strong>Descripción:</strong> Muestra una página HTML con el resumen de cambios, problemas encontrados y soluciones aplicadas al proyecto.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>🔧 Información Técnica</h2>
+            <div class="example">
+                <h3>Base URL:</h3>
+                <p><code>http://localhost:3000</code> (o el puerto configurado)</p>
+                
+                <h3>Headers Recomendados:</h3>
+                <pre>Content-Type: application/json
+Accept: application/json</pre>
+                
+                <h3>Respuestas Estándar:</h3>
+                <pre>{
+  "success": true/false,
+  "message": "Descripción del resultado",
+  "data": {...},
+  "error": "Descripción del error (si aplica)"
+}</pre>
+            </div>
+        </section>
+    </main>
+</body>
+</html> 
