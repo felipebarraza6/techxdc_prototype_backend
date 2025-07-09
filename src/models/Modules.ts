@@ -14,12 +14,6 @@ class Module extends Model<ModuleAttributes, ModuleCreationAttributes> implement
   public slug!: string;
   public description!: string;
 
-  static associate(models: any) {
-    Module.hasMany(models.ClientModule, {
-      foreignKey: "module_id",
-      as: "clientModules",
-    });
-  }
 }
 
 Module.init(

@@ -1,8 +1,18 @@
 import Client from "../models/Clients";
 import { CreateClientRequest, UpdateClientRequest } from "../types/clientType";
-import { Op } from "sequelize";
 
 export const createClient = async (data: CreateClientRequest) => {
+  const existingClient = await Client.findOne({
+    where: { dni: data.dni }
+  });
+
+  if (existingClient) {
+    // Lanzamos error personalizado
+    const error: any = new Error("Ya existe un cliente con ese DNI");
+    error.status = 400;
+    throw error;
+  }
+
   const client = await Client.create({ ...data });
   return client;
 };

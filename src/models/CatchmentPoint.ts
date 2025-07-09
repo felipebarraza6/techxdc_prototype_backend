@@ -1,7 +1,7 @@
 import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
 
-interface catchmentPointAttributes {
+interface CatchmentPointAttributes {
     id: number;
     projectId: number;
     title: string;
@@ -12,12 +12,12 @@ interface catchmentPointAttributes {
     nettra?: boolean | null;
     twin?: boolean | null;
     novus?: boolean | null;
-    frecuency?: string  | null;
+    frecuency?: string | null;
 };
 
-export type CatchmentPointCreationAttributes = Optional<catchmentPointAttributes, 'id'>;
+export type CatchmentPointCreationAttributes = Optional<CatchmentPointAttributes, 'id'>;
 
-class CatchmentPoint extends Model<catchmentPointAttributes, CatchmentPointCreationAttributes> implements catchmentPointAttributes {
+class CatchmentPoint extends Model<CatchmentPointAttributes, CatchmentPointCreationAttributes> implements CatchmentPointAttributes {
     public id!: number;
     public projectId!: number;
     public title!: string;
@@ -42,9 +42,11 @@ CatchmentPoint.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Projects', 
+                model: 'Projects',
                 key: 'id',
             },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         title: {
             type: DataTypes.STRING,
@@ -62,14 +64,16 @@ CatchmentPoint.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Users', 
+                model: 'Users',
                 key: 'id',
             },
-        }, 
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
+        },
         viewersUser: {
             type: DataTypes.JSON,
             allowNull: true,
-        }, 
+        },
         nettra: {
             type: DataTypes.BOOLEAN,
             allowNull: false,

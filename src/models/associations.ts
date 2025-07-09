@@ -11,6 +11,12 @@ import Clients from "./Clients";
 import Comuna from "./Comuna";
 import Project from "./Projects";
 import FinanceMovement from "./financeMovement";
+import Ticket from "./Tickets";
+import TypeContact from "./TypeContact";
+import Module from "./Modules";
+import ClientModule from "./ClientModule";
+import Contact from "./Contacts";
+import Feedback from "./Feedback";
 
 export const applyAssociations = () => {
     // User --- Group
@@ -76,6 +82,18 @@ export const applyAssociations = () => {
         as: 'responseTicket',
     });
 
+    // Client --- Ticket
+    Clients.hasMany(Ticket, {
+        foreignKey: "client_id",
+        as: "tickets",
+    });
+
+    Ticket.belongsTo(Clients, {
+        foreignKey: "client_id",
+        as: "client",
+    });
+
+
     // Quotation --- File
     Quotation.hasMany(File, {
         foreignKey: 'quotation_id',
@@ -96,6 +114,15 @@ export const applyAssociations = () => {
         foreignKey: "comunaId",
         targetKey: "id",
         as: "comuna",
+    });
+
+    ResponseTicket.belongsTo(Ticket, {
+      foreignKey: "ticket_id",
+      as: "ticket",
+    });
+    Ticket.hasMany(ResponseTicket, {
+      foreignKey: "ticket_id",
+      as: "responses",
     });
 
     Clients.hasMany(Project, {
@@ -180,5 +207,50 @@ export const applyAssociations = () => {
         foreignKey: "clientId",
         targetKey: "id",
         as: "Client",
+    });
+
+    // Client --- Contact
+    Clients.hasMany(Contact, {
+        foreignKey: "id_client",
+        as: "contacts",
+    });
+
+    Contact.belongsTo(Clients, {
+        foreignKey: "id_client",
+        as: "client",
+    });
+
+    // Contact --- TypeContact
+    Contact.belongsTo(TypeContact, {
+        foreignKey: "type",
+        as: "typeContact",
+    });
+    TypeContact.hasMany(Contact, {
+        foreignKey: "type",
+        as: "contactsWithThisType",
+    });
+
+    // ClientModule --- Module
+    ClientModule.belongsTo(Module, {
+        foreignKey: "module_id",
+        as: "module",
+    });
+
+    // Feedback --- Ticket
+    Feedback.belongsTo(Ticket, {
+        foreignKey: "ticket_id",
+        as: "ticket",
+    });
+
+    // Feedback --- Client
+    Feedback.belongsTo(Clients, {
+        foreignKey: "client_id",
+        as: "client",
+    });
+
+    // Module --- ClientModule
+    Module.hasMany(ClientModule, {
+        foreignKey: "module_id",
+        as: "clientModules",
     });
 }

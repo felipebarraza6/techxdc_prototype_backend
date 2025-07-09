@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import Ticket from "./Tickets";
 
 interface ResponseTicketAttributes {
   id: number;
@@ -23,16 +22,6 @@ class ResponseTicket extends Model<ResponseTicketAttributes, ResponseTicketCreat
   public readonly created_at!: Date;
   public readonly modified_at!: Date;
 
-  static associate() {
-    ResponseTicket.belongsTo(Ticket, {
-      foreignKey: "ticket_id",
-      as: "ticket",
-    });
-    Ticket.hasMany(ResponseTicket, {
-      foreignKey: "ticket_id",
-      as: "responses",
-    });
-  }
 }
 
 ResponseTicket.init(
@@ -45,6 +34,7 @@ ResponseTicket.init(
     ticket_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
+      
     },
     message: {
       type: DataTypes.TEXT,

@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import Module from "./Modules";
 
 interface ClientModuleAttributes {
   id: number;
@@ -13,7 +12,7 @@ interface ClientModuleAttributes {
 }
 
 interface ClientModuleCreationAttributes
-  extends Optional<ClientModuleAttributes, "id" | "createdAt" | "updatedAt"> {}
+  extends Optional<ClientModuleAttributes, "id" | "createdAt" | "updatedAt"> { }
 
 class ClientModule extends Model<ClientModuleAttributes, ClientModuleCreationAttributes>
   implements ClientModuleAttributes {
@@ -26,12 +25,6 @@ class ClientModule extends Model<ClientModuleAttributes, ClientModuleCreationAtt
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  static associate() {
-    ClientModule.belongsTo(Module, {
-      foreignKey: "module_id",
-      as: "module",
-    });
-  }
 }
 
 ClientModule.init(
@@ -44,6 +37,12 @@ ClientModule.init(
     module_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
+      references: {
+        model: "modules",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+      onDelete: "CASCADE"
     },
     enabled_to_type: {
       type: DataTypes.ENUM("project", "client", "quote"),

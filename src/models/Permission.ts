@@ -66,7 +66,9 @@ Permission.init(
             references: {
                 model: Group,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         module_id: {
             type: DataTypes.INTEGER,
@@ -74,7 +76,9 @@ Permission.init(
             references: {
                 model: Module,
                 key: 'id',
-            }
+            },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         }
     },
     {

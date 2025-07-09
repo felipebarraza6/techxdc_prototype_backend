@@ -17,7 +17,6 @@ export const createClient = async (req: Request, res: Response<ApiResponse>) => 
       data: newClient,
     });
   } catch (error) {
-    console.error("Error al crear cliente:", error);
     return res.status(500).json({ 
       success: false,
       message: "Error al crear cliente",
@@ -35,7 +34,6 @@ export const getAllClients = async (_req: Request, res: Response<ApiResponse>) =
       data: clients,
     });
   } catch (error) {
-    console.error("Error al obtener clientes:", error);
     return res.status(500).json({
       success: false,
       message: "Error al obtener clientes",
@@ -60,7 +58,6 @@ export const getClientById = async (req: Request, res: Response<ApiResponse>) =>
       data: client,
     });
   } catch (error) {
-    console.error("Error al obtener cliente:", error);
     return res.status(500).json({ 
       success: false,
       message: "Error al obtener cliente",
@@ -86,7 +83,6 @@ export const updateClient = async (req: Request, res: Response<ApiResponse>) => 
       data: updated,
     });
   } catch (error) {
-    console.error("Error al actualizar cliente:", error);
     return res.status(500).json({
       success: false,
       message: "Error al actualizar cliente",
@@ -105,9 +101,11 @@ export const deleteClient = async (req: Request, res: Response<ApiResponse>) => 
         message: "Cliente no encontrado",
       });
     }
-    return res.status(204).send(); // Nada que devolver, pero todo bien
+    return res.status(204).send({
+      success: true,
+      message: "Cliente eliminado exitosamente",
+    });
   } catch (error) {
-    console.error("Error al eliminar cliente:", error);
     return res.status(500).json({
       success: false,
       message: "Error al eliminar cliente",

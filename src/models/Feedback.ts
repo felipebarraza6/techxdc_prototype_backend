@@ -1,8 +1,6 @@
 // src/models/Feedback.ts
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
-import Ticket from './Tickets';
-import Client from './Clients';
 
 interface FeedbackAttributes {
   id: number;
@@ -14,7 +12,7 @@ interface FeedbackAttributes {
 }
 
 interface FeedbackCreationAttributes
-  extends Optional<FeedbackAttributes, 'id' | 'comments' | 'created_at'> {}
+  extends Optional<FeedbackAttributes, 'id' | 'comments' | 'created_at'> { }
 
 class Feedback extends Model<FeedbackAttributes, FeedbackCreationAttributes>
   implements FeedbackAttributes {
@@ -36,16 +34,30 @@ Feedback.init(
     ticket_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'tickets', key: 'id' },
+      references: {
+        model: 'tickets',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
     client_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: { model: 'clients', key: 'id' },
+      references: {
+        model: 'clients',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
     },
     rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 1,
+        max: 5,
+      },
     },
     comments: {
       type: DataTypes.TEXT,
@@ -64,9 +76,5 @@ Feedback.init(
     timestamps: false,
   }
 );
-
-// Relacionar con Ticket y Client
-Feedback.belongsTo(Ticket, { foreignKey: 'ticket_id', as: 'ticket' });
-Feedback.belongsTo(Client, { foreignKey: 'client_id', as: 'client' });
 
 export default Feedback;

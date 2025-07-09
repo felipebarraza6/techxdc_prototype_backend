@@ -1,4 +1,6 @@
+import Client from "../models/Clients";
 import Contact from "../models/Contacts";
+import TypeContact from "../models/TypeContact";
 import { CreateContactRequest, UpdateContactRequest } from "../types/contactTypes";
 import { Op } from "sequelize";
 
@@ -9,14 +11,32 @@ export const createContact = async (data: CreateContactRequest) => {
 
 export const getAllContacts = async () => {
   const contacts = await Contact.findAll({
-    include: ["client", "typeContact"], // ← nombres definidos en las relaciones
+    include: [{
+      model: Client,
+      as: "client",
+      attributes: ["id", "name"], // control sobre lo que se expone
+    },
+    {
+      model: TypeContact,
+      as: "typeContact",
+      attributes: ["id", "type"], // solo lo necesario
+    },],
   });
   return contacts;
 };
 
 export const getContactById = async (id: number) => {
   const contact = await Contact.findByPk(id, {
-    include: ["client", "typeContact"],
+    include: [{
+      model: Client,
+      as: "client",
+      attributes: ["id", "name"], // control sobre lo que se expone
+    },
+    {
+      model: TypeContact,
+      as: "typeContact",
+      attributes: ["id", "type"], // solo lo necesario
+    },],
   });
   return contact;
 };

@@ -2,7 +2,7 @@ import { Model, DataTypes, Optional } from "sequelize";
 import sequelize from "../config/database";
 import { TypeFinanceMovement } from "../types/financeMovementTypes"
 
-interface financeMovementsAttributes {
+interface FinanceMovementsAttributes {
     id: number;
     type: TypeFinanceMovement;
     amount: number;
@@ -11,13 +11,13 @@ interface financeMovementsAttributes {
     date: Date;
 };
 
-export type FinanceMovementCreationAttributes = Optional<financeMovementsAttributes, 'id'>;
+export type FinanceMovementCreationAttributes = Optional<FinanceMovementsAttributes, 'id'>;
 
-class FinanceMovement extends Model<financeMovementsAttributes, FinanceMovementCreationAttributes> implements financeMovementsAttributes {
+class FinanceMovement extends Model<FinanceMovementsAttributes, FinanceMovementCreationAttributes> implements FinanceMovementsAttributes {
     public id!: number;
     public type!: TypeFinanceMovement;
     public projectId!: number;
-    public amount!: number;   
+    public amount!: number;
     public description!: string;
     public date!: Date;
 };
@@ -41,9 +41,11 @@ FinanceMovement.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'Projects', 
+                model: 'Projects',
                 key: 'id',
             },
+            onUpdate: "CASCADE",
+            onDelete: "CASCADE",
         },
         date: {
             type: DataTypes.DATEONLY,
