@@ -23,7 +23,10 @@ import financeMovementRouter from './routes/financeMovementRoutes'
 import quotationRouter from './routes/quotationRoutes';
 import catchmentPointRouter from './routes/catchmentPointRoutes';
 import customerProfileRouter from './routes/customerProfileRoute';
-
+import typeContactRouter from './routes/typeContactRoutes';
+import clientModuleRouter from './routes/clientModuleRoute';
+import swaggerUI from 'swagger-ui-express';
+import swaggerDocumentation from './swagger.json'
 
 applyAssociations(); // Aquí se aplican las asociaciones entre modelos
 
@@ -33,26 +36,28 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas
-app.use('/api/examples', exampleRoutes);
-app.use('/api/users', userRouter);
-app.use('/api/tasks', taskRouter);
-app.use('/api/permissions', permissionRouter);
-app.use('/api/file-types', fileTypeRouter);
-app.use('/api/groups', groupRouter);
-app.use('/api/tickets', ticketRouter);
-app.use('/api/clients', clientRouter);
-app.use('/api/customer-profile', customerProfileRouter);
-app.use('/api/contacts', contactRouter);
-app.use('/api/modules', moduleRouter);
-app.use('/api/files', fileRouter);
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation));
+app.use('/api/users', userRouter); 
+app.use('/api/tasks', taskRouter); 
+app.use('/api/permissions', permissionRouter); 
+app.use('/api/file-types', fileTypeRouter);  
+app.use('/api/groups', groupRouter);   
+app.use('/api/tickets', ticketRouter);  
+app.use('/api/clients', clientRouter);  
+app.use('/api/customer-profile', customerProfileRouter); 
+app.use('/api/contacts', contactRouter); 
+app.use('/api/type-contact', typeContactRouter); 
+app.use('/api/modules', moduleRouter);  
+app.use('/api/client-modules', clientModuleRouter); 
+app.use('/api/files', fileRouter); 
 app.use('/api/status-tickets', statusTicketRouter); 
-app.use('/api/feedbacks', feedbackRouter);
-app.use('/api/response-tickets', responseTicketRouter);
-app.use('/api/comunas', comunaRouter);
-app.use('/api/projects', projectRouter);
-app.use('/api/financeMovements', financeMovementRouter);
-app.use('/api/quotations', quotationRouter);
-app.use('/api/catchmentPoint', catchmentPointRouter);
+app.use('/api/feedbacks', feedbackRouter); 
+app.use('/api/response-tickets', responseTicketRouter); 
+app.use('/api/comunas', comunaRouter); 
+app.use('/api/projects', projectRouter);  
+app.use('/api/financeMovements', financeMovementRouter); 
+app.use('/api/quotations', quotationRouter);  
+app.use('/api/catchmentPoint', catchmentPointRouter); 
 
 
 // Ruta de prueba
