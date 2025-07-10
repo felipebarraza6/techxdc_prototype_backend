@@ -6,10 +6,33 @@ import {
 } from "../types/TicketType";
 import { ApiResponse } from "../types/apiTypes";
 import { formatError } from "../utils/formatError";
+import User from "../models/User";
+import CatchmentPoint from "../models/CatchmentPoint";
 
 export const createTicket = async (req: Request, res: Response<ApiResponse>) => {
   try {
     const data: CreateTicketRequest = req.body;
+
+    // Validar existencia de catchment point
+    const catchment = await CatchmentPoint.findByPk(data.catchment_point_id);
+    if (!catchment) {
+      return res.status(400).json({
+        success: false,
+        message: `Punto de captación con id ${data.catchment_point_id} no encontrado.`,
+      });
+    }
+
+    // (Opcional) Validar existencia de usuarios
+    const creator = await User.findByPk(data.created_by);
+    const designated = await User.findByPk(data.designated);
+
+    if (!creator || !designated) {
+      return res.status(400).json({
+        success: false,
+        message: `Usuario creador o designado no válido.`,
+      });
+    }
+
     const newTicket = await TicketService.createTicket(data);
     return res.status(201).json({
       success: true,

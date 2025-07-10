@@ -17,6 +17,7 @@ import Module from "./Modules";
 import ClientModule from "./ClientModule";
 import Contact from "./Contacts";
 import Feedback from "./Feedback";
+import CatchmentPointViewers from "./CatchmentPointViewers";
 
 export const applyAssociations = () => {
     // User --- Group
@@ -82,17 +83,17 @@ export const applyAssociations = () => {
         as: 'responseTicket',
     });
 
-    // Client --- Ticket
-    Clients.hasMany(Ticket, {
-        foreignKey: "client_id",
-        as: "tickets",
+    // Ticket --- created_by (User)
+    Ticket.belongsTo(User, {
+        foreignKey: "created_by",
+        as: "creator"
     });
 
-    Ticket.belongsTo(Clients, {
-        foreignKey: "client_id",
-        as: "client",
+    // Ticket --- designated (User)
+    Ticket.belongsTo(User, {
+        foreignKey: "designated",
+        as: "assignedUser"
     });
-
 
     // Quotation --- File
     Quotation.hasMany(File, {
@@ -117,12 +118,12 @@ export const applyAssociations = () => {
     });
 
     ResponseTicket.belongsTo(Ticket, {
-      foreignKey: "ticket_id",
-      as: "ticket",
+        foreignKey: "ticket_id",
+        as: "ticket",
     });
     Ticket.hasMany(ResponseTicket, {
-      foreignKey: "ticket_id",
-      as: "responses",
+        foreignKey: "ticket_id",
+        as: "responses",
     });
 
     Clients.hasMany(Project, {
@@ -252,5 +253,19 @@ export const applyAssociations = () => {
     Module.hasMany(ClientModule, {
         foreignKey: "module_id",
         as: "clientModules",
+    });
+
+    CatchmentPoint.belongsToMany(User, {
+        through: CatchmentPointViewers,
+        as: "viewers",
+        foreignKey: "catchment_point_id",
+        otherKey: "user_id",
+    });
+
+    User.belongsToMany(CatchmentPoint, {
+        through: CatchmentPointViewers,
+        as: "viewedCatchmentPoints",
+        foreignKey: "user_id",
+         otherKey: "catchment_point_id",
     });
 }

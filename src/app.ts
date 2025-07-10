@@ -78,7 +78,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log('✅ Conexión a SQLite establecida correctamente.');
     
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ alter: true });
     console.log('✅ Modelos sincronizados con SQLite.');
 
     app.listen(PORT, () => {

@@ -395,7 +395,7 @@
           }
         }
       }
-    },    
+    },
     "/api/permissions/": {
       "get": {
         "description": "Obtiene todos los permisos",
@@ -1063,7 +1063,7 @@
           "201": {
             "description": "Contacto creado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Se requiere name y email"
           },
           "500": {
@@ -1218,7 +1218,7 @@
           "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
-          "404":{
+          "404": {
             "description": "Type contact not found"
           },
           "500": {
@@ -1250,7 +1250,7 @@
           "200": {
             "description": "Tipo de Contacto actualizado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
           "404": {
@@ -1276,7 +1276,7 @@
           "200": {
             "description": "Tipo de Contacto eliminado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
           "404": {
@@ -1351,7 +1351,7 @@
           "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
-          "404":{
+          "404": {
             "description": "Module not found"
           },
           "500": {
@@ -1383,7 +1383,7 @@
           "200": {
             "description": "Modulo actualizado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
           "404": {
@@ -1409,7 +1409,7 @@
           "204": {
             "description": "Tipo de Contacto eliminado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
           "404": {
@@ -1484,7 +1484,7 @@
           "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
-          "404":{
+          "404": {
             "description": "Client module not found"
           },
           "500": {
@@ -1516,7 +1516,7 @@
           "200": {
             "description": "Modulo de Cliente actualizado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
           "404": {
@@ -1542,7 +1542,7 @@
           "204": {
             "description": "Modulo de cliente eliminado exitosamente"
           },
-          "400":{
+          "400": {
             "description": "Invalid ID format (id no es numerico)"
           },
           "404": {
@@ -1613,8 +1613,8 @@
             "schema": {
               "$ref": "#/definitions/ResponseTicket"
             }
-          },          
-          "404":{
+          },
+          "404": {
             "description": "Respuesta no encontrada"
           },
           "500": {
@@ -1645,7 +1645,7 @@
         "responses": {
           "200": {
             "description": "Ticket de Respuesta actualizado exitosamente"
-          },          
+          },
           "404": {
             "description": "Respuesta no encontrada para actualizar"
           },
@@ -1668,7 +1668,7 @@
         "responses": {
           "204": {
             "description": "Ticket de Respuesta eliminado exitosamente"
-          },          
+          },
           "404": {
             "description": "Respuesta no encontrada para eliminar"
           },
@@ -1934,7 +1934,7 @@
           }
         }
       }
-    },    
+    },
     "/api/comunas/": {
       "get": {
         "description": "Entrega Listado de Todos Las Comunas o Distritos del pais",
@@ -2432,129 +2432,141 @@
       }
     },
     "/api/catchmentPoint/": {
-      "get": {
-        "description": "Entrega Listado de Todos los puntos de Captacion Creados",
-        "responses": {
-          "200": {
-            "description": "Puntos de Captacion obtenidos exitosamente",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/CatchmentPoint"
-              }
-            }
-          },
-          "500": {
-            "description": "Error al obtener Puntos de Captacion"
+  "get": {
+    "tags": ["CatchmentPoint"],
+    "summary": "Obtener todos los Puntos de Captación",
+    "description": "Retorna una lista de todos los puntos de captación registrados, incluyendo sus viewers.",
+    "responses": {
+      "200": {
+        "description": "Lista de puntos de captación obtenida exitosamente",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatchmentPoint"
           }
         }
       },
-      "post": {
-        "description": "Inserta un Nuevo Punto de Captación",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Datos de Punto de Captacion",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CatchmentPoint"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Punto de Captacion creado exitosamente"
-          },
-          "500": {
-            "description": "Error al crear Puntos de Captacion"
-          }
+      "500": {
+        "description": "Error interno del servidor"
+      }
+    }
+  },
+  "post": {
+    "tags": ["CatchmentPoint"],
+    "summary": "Crear un nuevo Punto de Captación",
+    "description": "Crea un nuevo punto de captación y opcionalmente asigna viewers.",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/CatchmentPoint"
         }
       }
-    },
-    "/api/catchmentPoint/{id}": {
-      "get": {
-        "description": "Obtiene un Punto de Captación Específico por ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "ID de Punto de Captación Buscado"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Punto de Captacion obtenido exitosamente",
-            "schema": {
-              "$ref": "#/definitions/CatchmentPoint"
-            }
-          },
-          "404": {
-            "description": "Punto de Captacion no encontrado"
-          },
-          "500": {
-            "description": "Error al obtener Puntos de Captacion"
-          }
+    ],
+    "responses": {
+      "201": {
+        "description": "Punto de Captación creado exitosamente",
+        "schema": {
+          "$ref": "#/definitions/CatchmentPoint"
         }
       },
-      "put": {
-        "description": "Actualiza un Punto de Captación por su ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "ID de Punto de Captación a actualizar"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Datos de Punto de Captación a actualizar",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CatchmentPoint"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Punto de Captacion actualizado exitosamente"
-          },
-          "404": {
-            "description": "Punto de Captacion No Actualizado"
-          },
-          "500": {
-            "description": "Error al actualizar Punto de Captacion. (Error del Servidor)"
-          }
+      "500": {
+        "description": "Error al crear el punto de captación"
+      }
+    }
+  }
+},
+"/api/catchmentPoint/{id}": {
+  "get": {
+    "tags": ["CatchmentPoint"],
+    "summary": "Obtener un Punto de Captación por ID",
+    "description": "Retorna la información detallada de un punto de captación.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Punto de captación encontrado",
+        "schema": {
+          "$ref": "#/definitions/CatchmentPoint"
         }
       },
-      "delete": {
-        "description": "Elimina un Punto de Captacion por su ID, Si ID es llave Foranea no se podra eliminar",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "ID de Punto de Captacion a eliminar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Punto de Captacion eliminado exitosamente"
-          },
-          "404": {
-            "description": "Punto de Captacion no Pudo Ser Eliminado"
-          },
-          "500": {
-            "description": "Error al eliminar Punto de Captacion(Error interno del servidor)"
-          }
+      "404": {
+        "description": "Punto de captación no encontrado"
+      },
+      "500": {
+        "description": "Error al obtener el punto de captación"
+      }
+    }
+  },
+  "put": {
+    "tags": ["CatchmentPoint"],
+    "summary": "Actualizar un Punto de Captación",
+    "description": "Permite actualizar los datos de un punto de captación existente.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "integer"
+      },
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/CatchmentPoint"
         }
       }
-    },
+    ],
+    "responses": {
+      "200": {
+        "description": "Punto de captación actualizado exitosamente",
+        "schema": {
+          "$ref": "#/definitions/CatchmentPoint"
+        }
+      },
+      "404": {
+        "description": "Punto de captación no encontrado"
+      },
+      "500": {
+        "description": "Error al actualizar el punto de captación"
+      }
+    }
+  },
+  "delete": {
+    "tags": ["CatchmentPoint"],
+    "summary": "Eliminar un Punto de Captación",
+    "description": "Elimina un punto de captación por su ID.",
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Punto de captación eliminado exitosamente"
+      },
+      "404": {
+        "description": "Punto de captación no encontrado"
+      },
+      "500": {
+        "description": "Error al eliminar el punto de captación"
+      }
+    }
+  }
+},
+
     "/api/feedbacks/": {
       "get": {
         "description": "Obtiene todos los feedbacks de los clientes",
@@ -2672,74 +2684,74 @@
       }
     },
     "/api/auth/login": {
-  "post": {
-    "tags": ["Auth"],
-    "summary": "Iniciar sesión de usuario",
-    "description": "Valida credenciales y retorna un token JWT para autenticación.",
-    "consumes": ["application/json"],
-    "parameters": [
-      {
-        "in": "body",
-        "name": "credentials",
-        "description": "Credenciales de usuario para login",
-        "required": true,
-        "schema": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "example": "usuario@ejemplo.com"
-            },
-            "password": {
-              "type": "string",
-              "example": "contraseña123"
-            }
-          },
-          "required": ["email", "password"]
-        }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Inicio de sesión exitoso, retorna token JWT",
-        "schema": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string",
-              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Iniciar sesión de usuario",
+        "description": "Valida credenciales y retorna un token JWT para autenticación.",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "credentials",
+            "description": "Credenciales de usuario para login",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "usuario@ejemplo.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "contraseña123"
+                }
+              },
+              "required": ["email", "password"]
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso, retorna token JWT",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciales inválidas"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
         }
-      },
-      "401": {
-        "description": "Credenciales inválidas"
-      },
-      "500": {
-        "description": "Error interno del servidor"
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Cerrar sesión de usuario",
+        "description": "Revoca o elimina el token JWT para finalizar sesión.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logout exitoso"
+          },
+          "401": {
+            "description": "Token inválido o no autorizado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
       }
     }
-  }
-},
-"/api/auth/logout": {
-  "post": {
-    "tags": ["Auth"],
-    "summary": "Cerrar sesión de usuario",
-    "description": "Revoca o elimina el token JWT para finalizar sesión.",
-    "parameters": [],
-    "responses": {
-      "200": {
-        "description": "Logout exitoso"
-      },
-      "401": {
-        "description": "Token inválido o no autorizado"
-      },
-      "500": {
-        "description": "Error interno del servidor"
-      }
-    }
-  }
-}
   },
   "definitions": {
     "User": {
@@ -2971,7 +2983,7 @@
           "example": "pending",
           "description": "Estado de la tarea, puede ser 'PENDING', 'IN_PROGRESS', 'COMPLETED' o 'CANCELLED'"
         },
-        "created_by":{
+        "created_by": {
           "type": "integer",
           "example": 3,
           "description": "ID del usuario que creó la tarea (clave foránea de 'User')."
@@ -3244,15 +3256,9 @@
         }
       }
     },
-    "Project": { 
+    "Project": {
       "type": "object",
-      "required": [
-        "clientId",
-        "codeInternal",
-        "name",
-        "comunaId",
-        "startDate"
-      ],
+      "required": ["clientId", "codeInternal", "name", "comunaId", "startDate"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3343,11 +3349,9 @@
         }
       }
     },
-    "Comuna": { 
+    "Comuna": {
       "type": "object",
-      "required": [
-        "name"
-      ],
+      "required": ["name"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3381,89 +3385,74 @@
         }
       }
     },
-    "CatchmentPoint": { 
+    "CatchmentPoint": {
       "type": "object",
       "required": [
         "projectId",
         "title",
-        "latitude",
-        "longitude",
-        "ownerUser"
+        "ownerUser",
+        "id_api_telemetry",
+        "code_dga"
       ],
       "properties": {
         "id": {
           "type": "integer",
           "readOnly": true,
-          "description": "Campo ID del Registro CatchmentPoint que la Base de Datos Genera Automaticamente",
+          "description": "Campo ID del registro CatchmentPoint generado automáticamente por la base de datos.",
           "example": 1
         },
         "projectId": {
           "type": "integer",
-          "description": "ID Codigo de Proyecto Obtenido de la Tabla Project, el cual debe existir previamente",
+          "description": "ID del proyecto relacionado (clave foránea desde la tabla 'Project').",
           "example": 1
         },
-        "latitude": {
-          "type": "number",
-          "description": "Latitud de Coordenada Geografica, ubicación del Punto de Captacion",
-          "multipleOf": 0.000001,
-          "example": -36.136545
-        },
-        "longitude": {
-          "type": "number",
-          "description": "Longitud de Coordenada Geografica, ubicación del Punto de Captacion",
-          "multipleOf": 0.000001,
-          "example": -71.395798
+        "title": {
+          "type": "string",
+          "description": "Nombre o título del punto de captación.",
+          "example": "Pozo AquaCL"
         },
         "ownerUser": {
           "type": "integer",
-          "description": "ID Codigo Usuario Propietario del Punto de Captación, el cual debe existir previamente",
+          "description": "ID del usuario propietario del punto de captación (clave foránea desde 'User').",
           "example": 1
         },
-        "viewersUser": {
-          "type": "object",
-          "description": "Lista de ID Codigo Usuario visualizadores del Punto de Captación, los cuales deben existir previamente",
-          "example": {"usuario 1": 1, "usuario aux": 2}
+        "id_api_telemetry": {
+          "type": "integer",
+          "description": "ID del punto de captación en la API de telemetría externa.",
+          "example": 89
         },
-        "nettra":{
-          "type": "boolean",
-          "description": "Indica si el punto de captación es del tipo nettra",
-          "example": true,
-          "default": false
-        },
-        "twin":{
-          "type": "boolean",
-          "description": "Indica si el punto de captación es del tipo twin",
-          "example": true,
-          "default": false
-        },
-        "novus":{
-          "type": "boolean",
-          "description": "Indica si el punto de captación es del tipo novus",
-          "example": true,
-          "default": false
-        },
-        "frecuency":{
+        "code_dga": {
           "type": "string",
-          "description": "indica la frecuencia de lectura del punto de captación, en minutos",
-          "example": "5"
+          "description": "Código DGA del punto de captación (exactamente 8 caracteres).",
+          "example": "dga12345"
         },
         "createdAt": {
           "type": "string",
-          "readOnly": true,
           "format": "date-time",
-          "description": "Fecha y Hora de Creación del Registro",
+          "readOnly": true,
+          "description": "Fecha de creación del registro.",
           "example": "2025-07-07T12:34:56Z"
         },
         "updatedAt": {
           "type": "string",
-          "readOnly": true,
           "format": "date-time",
-          "description": "Fecha y Hora de Modificación del Registro",
+          "readOnly": true,
+          "description": "Fecha de la última modificación del registro.",
           "example": "2025-07-07T12:34:56Z"
         }
       }
     },
-    "Quotation": { 
+    "UserSummary": {
+      "type": "object",
+      "description": "Información del ID del usuario viewer.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "Quotation": {
       "type": "object",
       "required": [
         "clientId",
@@ -3496,12 +3485,12 @@
           "description": "ID Codigo de Proyecto Obtenido de la Tabla Project asociado a la Cotización, el cual debe existir previamente",
           "example": 1
         },
-        "estimatedAmount":{
+        "estimatedAmount": {
           "type": "integer",
           "description": "Monto Estimado de la Cotizacion",
           "example": 500000
         },
-        "marginEstimate":{
+        "marginEstimate": {
           "type": "number",
           "multipleOf": 0.01,
           "minimum": 0.01,
@@ -3529,15 +3518,9 @@
         }
       }
     },
-    "FinanceMovement": { 
+    "FinanceMovement": {
       "type": "object",
-      "required": [
-        "type",
-        "description",
-        "projectId",
-        "date",
-        "amount"
-      ],
+      "required": ["type", "description", "projectId", "date", "amount"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3561,18 +3544,18 @@
           "description": "ID Codigo de Proyecto Obtenido de la Tabla Project asociado al movimiento Finaciero, el cual debe existir previamente",
           "example": 1
         },
-        "date":{
+        "date": {
           "type": "string",
           "format": "date-time",
           "description": "Fecha y Hora de Transaccion",
           "example": "2025-07-07T12:34:56Z"
         },
-        "amount":{
+        "amount": {
           "type": "number",
           "multipleOf": 0.01,
           "minimum": 0.01,
           "description": "Monto de la Transacción, permite 2 decimales",
-          "example": 10000.50
+          "example": 10000.5
         },
         "createdAt": {
           "type": "string",
@@ -3590,12 +3573,9 @@
         }
       }
     },
-    "Client": { 
+    "Client": {
       "type": "object",
-      "required": [
-        "name",
-        "dni"
-      ],
+      "required": ["name", "dni"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3618,32 +3598,32 @@
           "description": "Dirección del Cliente",
           "example": "Los Acantos 1320"
         },
-        "comuna":{
+        "comuna": {
           "type": "integer",
           "description": "ID Codigo de Comuna Obtenido de la Tabla Comuna a la Que Pertenece la direccion del cliente, el cual debe existir previamente",
           "example": 1
         },
-        "phone":{
+        "phone": {
           "type": "string",
           "description": "Telefono del Cliente",
           "example": "+569 7548 7845"
         },
-        "industry":{
+        "industry": {
           "type": "string",
           "description": "Giro Comercial del Cliente",
           "example": "Agroindustrial"
         },
-        "status":{
+        "status": {
           "type": "string",
           "description": "Estado del Cliente",
           "example": "Activo"
         },
-        "score":{
+        "score": {
           "type": "integer",
           "description": "Ranking o calificación del Cliente",
           "example": 4
         },
-        "custom_fields":{
+        "custom_fields": {
           "type": "object",
           "description": "Lista de datos relevantes del registro y no considerados en otros campos",
           "example": {
@@ -3667,14 +3647,9 @@
         }
       }
     },
-    "Contact": { 
+    "Contact": {
       "type": "object",
-      "required": [
-        "id_client",
-        "name",
-        "email",
-        "type"
-      ],
+      "required": ["id_client", "name", "email", "type"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3682,7 +3657,7 @@
           "description": "Campo ID del Contacto de Cliente y que la Base de Datos Genera Automaticamente",
           "example": 1
         },
-        "id_client":{
+        "id_client": {
           "type": "integer",
           "description": "ID Codigo de Cliente Obtenido de la Tabla Clients asociado al Contacto, el cual debe existir previamente",
           "example": 1
@@ -3697,22 +3672,22 @@
           "description": "Correo(s) Electronico del Contacto del Cliente",
           "example": "contacto@acdfr.cl"
         },
-        "phone":{
+        "phone": {
           "type": "string",
           "description": "Telefono del Cliente",
           "example": "+569 7548 7845"
         },
-        "position":{
+        "position": {
           "type": "string",
           "description": "Cargo del Contacto del Cliente",
           "example": "CEO"
         },
-        "type":{
+        "type": {
           "type": "integer",
           "description": "ID Codigo de Tipo de contacto Obtenido de la Tabla TypeContact asociado al Contacto, el cual debe existir previamente",
           "example": 1
         },
-        "custom_fields":{
+        "custom_fields": {
           "type": "object",
           "description": "Lista de datos relevantes del registro y no considerados en otros campos",
           "example": {
@@ -3736,11 +3711,9 @@
         }
       }
     },
-    "TypeContact": { 
+    "TypeContact": {
       "type": "object",
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3769,12 +3742,9 @@
         }
       }
     },
-    "Module": { 
+    "Module": {
       "type": "object",
-      "required": [
-        "slug",
-        "description"
-      ],
+      "required": ["slug", "description"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3787,7 +3757,7 @@
           "description": "Descripcion corta o simplificada del Modulo",
           "example": "Clientes"
         },
-        "description":{
+        "description": {
           "type": "string",
           "description": "Descripcion del Modulo",
           "example": "Creacion de Clientes"
@@ -3808,7 +3778,7 @@
         }
       }
     },
-    "ClientModule": { 
+    "ClientModule": {
       "type": "object",
       "required": [
         "module_id",
@@ -3828,18 +3798,18 @@
           "description": "ID Codigo de Modulo Obtenido de la Tabla Module asociado al Cliente, el cual debe existir previamente",
           "example": 1
         },
-        "enabled_to_type":{
+        "enabled_to_type": {
           "type": "string",
           "description": "Indica 1 de los 3 Tipos",
           "enum": ["PROJECT", "CLIENT", "QUOTE"],
           "example": "QUOTE"
         },
-        "reference_id":{
+        "reference_id": {
           "type": "integer",
           "description": "??",
           "example": 1
         },
-        "is_enabled":{
+        "is_enabled": {
           "type": "boolean",
           "description": "Indica si el modulo esta Activo o no para el cliente",
           "example": true
@@ -3860,13 +3830,9 @@
         }
       }
     },
-    "ResponseTicket": { 
+    "ResponseTicket": {
       "type": "object",
-      "required": [
-        "ticket_id",
-        "message",
-        "created_by"
-      ],
+      "required": ["ticket_id", "message", "created_by"],
       "properties": {
         "id": {
           "type": "integer",
@@ -3879,12 +3845,12 @@
           "description": "ID Codigo de Ticket Obtenido de la Tabla Tickets asociado a Respuesta de Ticket, el cual debe existir previamente",
           "example": 1
         },
-        "message":{
+        "message": {
           "type": "string",
           "description": "Mensaje de Rspuesta del Ticket",
           "example": "Ticket N° 12122 ingresado al Registro de Incidencias"
         },
-        "created_by":{
+        "created_by": {
           "type": "integer",
           "description": "ID Codigo de Usuario Obtenido de la Tabla Users asociado a Respuesta de Ticket, el cual debe existir previamente",
           "example": 1
