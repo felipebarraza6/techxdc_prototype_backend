@@ -7,7 +7,7 @@ interface TicketAttributes {
   title: string;
   description?: string;
   created_by: number;
-  client_id: number;
+  catchment_point_id: number;
   designated: number;
   priority: TicketPriority;
   custom_fields?: object | null;
@@ -26,7 +26,7 @@ class Ticket extends Model<TicketAttributes, TicketCreationAttributes>
   public title!: string;
   public description?: string;
   public created_by!: number;
-  public client_id!: number;
+  public catchment_point_id!: number;
   public designated!: number;
   public priority!: TicketPriority;
   public custom_fields?: object | null;
@@ -61,11 +61,11 @@ Ticket.init(
       onUpdate: "CASCADE",
       onDelete: "CASCADE",
     },
-    client_id: {
+    catchment_point_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "clients",
+        model: "catchmentPoint",
         key: "id",
       },
       onUpdate: "CASCADE",

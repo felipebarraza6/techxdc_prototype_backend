@@ -1,4 +1,6 @@
+import CatchmentPoint from "../models/CatchmentPoint";
 import Ticket from "../models/Tickets";
+import User from "../models/User";
 import { CreateTicketRequest, UpdateTicketRequest } from "../types/TicketType";
 
 export const createTicket = async (data: CreateTicketRequest) => {
@@ -12,7 +14,25 @@ export const getAllTickets = async () => {
 };
 
 export const getTicketById = async (id: number) => {
-  const ticket = await Ticket.findByPk(id);
+  const ticket = await Ticket.findByPk(id, {
+    include: [
+      {
+        model: User,
+        as: "creator",
+        attributes: ["id", "name", "email"]
+      },
+      {
+        model: User,
+        as: "assignedUser",
+        attributes: ["id", "name", "email"]
+      },
+      {
+        model: CatchmentPoint,
+        as: "catchmentPoint",
+        attributes: ["id", "title", "code_dga"]
+      }
+    ]
+  });
   return ticket;
 };
 

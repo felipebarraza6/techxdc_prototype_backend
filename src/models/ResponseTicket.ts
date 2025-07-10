@@ -5,7 +5,7 @@ interface ResponseTicketAttributes {
   id: number;
   ticket_id: number;
   message: string;
-  created_by: string;
+  created_by: number;
   created_at?: Date;
   modified_at?: Date;
 }
@@ -18,7 +18,7 @@ class ResponseTicket extends Model<ResponseTicketAttributes, ResponseTicketCreat
   public id!: number;
   public ticket_id!: number;
   public message!: string;
-  public created_by!: string;
+  public created_by!: number;
   public readonly created_at!: Date;
   public readonly modified_at!: Date;
 
@@ -34,15 +34,26 @@ ResponseTicket.init(
     ticket_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
-      
+      references: {
+        model: 'tickets',
+        key: 'id'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'      
     },
     message: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
     created_by: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     created_at: {
       type: DataTypes.DATE,
