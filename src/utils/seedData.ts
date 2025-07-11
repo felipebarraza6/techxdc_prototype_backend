@@ -12,6 +12,10 @@ import CatchmentPoint from "../models/CatchmentPoint";
 
 // Importar las asociaciones
 import { applyAssociations } from "../models/associations";
+import { TicketPriority } from "../types/TicketType";
+import Ticket from "../models/Tickets";
+import File from "../models/File";
+import FileType from "../models/FileType";
 
 /**
  * 🌱 Script de seeding para crear datos de prueba
@@ -75,11 +79,59 @@ export const seedDatabase = async () => {
     // 6. Crear Punto de Captación
     const catchmentPoint = await CatchmentPoint.create({
       projectId: project.id,
-      title: "Punto de Captación Principal",
+      title: "P1",
       ownerUser: user.id,
       id_api_telemetry: 114,
-      code_dga: "12345678",
+      code_dga: "0601-964",
       token_api_telemetry: "22984860397712d467987e2ea66a9e64e45a9ea8",
+    });
+
+    // 7. Ticket de prueba
+    const ticket = await Ticket.create({
+      title: "Suspensión de servicio",
+      description: "Se solicita suspensión de telemetría.",
+      created_by: user.id,
+      catchment_point_id: catchmentPoint.id,
+      designated: user.id,
+      priority: TicketPriority.LOW,
+    });
+
+    const ticket_secondary = await Ticket.create({
+      title: "Revisar datalogger",
+      description: "Assitencia tecnica en terreno con logger.",
+      created_by: user.id,
+      catchment_point_id: catchmentPoint.id,
+      designated: user.id,
+      priority: TicketPriority.HIGH,
+    });
+
+    // 8. Alerta de prueba
+    const file_type = await FileType.create({
+      name: "pdf",
+      description: "Archivo PDF",
+    });
+
+    // 10. File de prueba
+    // ❗ El error ocurre porque el modelo File requiere el campo 'uploaded_by' como obligatorio.
+    //    Este campo representa el ID del usuario que subió el archivo y debe ser proporcionado al crear un File.
+    //    Debes agregar 'uploaded_by: user.id' (o el usuario que corresponda) en el objeto de creación.
+
+    // Archivo de prueba principal
+    const file = await File.create({
+      catchment_point_id: catchmentPoint.id,
+      file_path: "https://example.com/file.pdf",
+      file_name: "file.pdf",
+      file_type_id: file_type.id,
+      uploaded_by: user.id, // 👈 Campo obligatorio agregado
+    });
+
+    // Archivo de prueba secundario
+    const file_secondary = await File.create({
+      catchment_point_id: catchmentPoint.id,
+      file_path: "https://example.com/file.pdf",
+      file_name: "file.pdf",
+      file_type_id: file_type.id,
+      uploaded_by: user.id, // 👈 Campo obligatorio agregado
     });
 
     console.log(
