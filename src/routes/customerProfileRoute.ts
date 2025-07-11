@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { getAllCustomerProfiles, getCustomerProfileById, createCustomerProfile, updateCustomerProfile, deleteCustomerProfile } from "../controllers/customerProfileController";
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 const customerProfileRouter = Router();
 
-customerProfileRouter.get("/", getAllCustomerProfiles);
-customerProfileRouter.get("/:id", getCustomerProfileById);  
-customerProfileRouter.post("/", createCustomerProfile);
-customerProfileRouter.put("/:id", updateCustomerProfile);
-customerProfileRouter.delete("/:id", deleteCustomerProfile);
+customerProfileRouter.get("/", authenticateToken, getAllCustomerProfiles);
+customerProfileRouter.get("/:id", authenticateToken, getCustomerProfileById);  
+customerProfileRouter.post("/", authenticateToken, createCustomerProfile);
+customerProfileRouter.put("/:id", authenticateToken, updateCustomerProfile);
+customerProfileRouter.delete("/:id", authenticateToken, deleteCustomerProfile);
 
 export default customerProfileRouter;
