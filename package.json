@@ -8,7 +8,11 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "reset-db": "ts-node scripts/reset-db.ts",
+    "seed": "ts-node scripts/seed.ts",
+    "seed:clear": "ts-node scripts/seed.ts --clear",
+    "setup-dev": "ts-node scripts/setup-dev.ts"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

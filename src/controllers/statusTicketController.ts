@@ -8,8 +8,10 @@ import { ApiResponse } from "../types/apiTypes";
 import { formatError } from "../utils/formatError";
 
 // Crear un nuevo estado de ticket
-export const createStatusTicket = async (req: Request, res: Response<ApiResponse>) => {
-  console.log("📦 Body recibido:", req.body);
+export const createStatusTicket = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
   try {
     const data: CreateStatusTicketRequest = req.body;
     const statusTicket = await statusTicketService.createStatusTicket(data);
@@ -30,7 +32,10 @@ export const createStatusTicket = async (req: Request, res: Response<ApiResponse
 };
 
 // Obtener todos los estados de tickets
-export const getAllStatusTickets = async (_req: Request, res: Response<ApiResponse>) => {
+export const getAllStatusTickets = async (
+  _req: Request,
+  res: Response<ApiResponse>
+) => {
   try {
     const statusTickets = await statusTicketService.getAllStatusTickets();
     return res.status(200).json({
@@ -49,7 +54,10 @@ export const getAllStatusTickets = async (_req: Request, res: Response<ApiRespon
 };
 
 // Obtener un estado de ticket por ID
-export const getStatusTicketById = async (req: Request, res: Response<ApiResponse>) => {
+export const getStatusTicketById = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
@@ -83,7 +91,10 @@ export const getStatusTicketById = async (req: Request, res: Response<ApiRespons
 };
 
 // Actualizar un estado de ticket
-export const updateStatusTicket = async (req: Request, res: Response<ApiResponse>) => {
+export const updateStatusTicket = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
@@ -94,7 +105,10 @@ export const updateStatusTicket = async (req: Request, res: Response<ApiResponse
       });
     }
     const data: UpdateStatusTicketRequest = req.body;
-    const updatedStatusTicket = await statusTicketService.updateStatusTicket(id, data);
+    const updatedStatusTicket = await statusTicketService.updateStatusTicket(
+      id,
+      data
+    );
     if (!updatedStatusTicket) {
       return res.status(404).json({
         success: false,
@@ -118,7 +132,10 @@ export const updateStatusTicket = async (req: Request, res: Response<ApiResponse
 };
 
 // Eliminar un estado de ticket
-export const deleteStatusTicket = async (req: Request, res: Response<ApiResponse>) => {
+export const deleteStatusTicket = async (
+  req: Request,
+  res: Response<ApiResponse>
+) => {
   try {
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
