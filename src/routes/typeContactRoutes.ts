@@ -6,13 +6,14 @@ import {
   updateTypeContact,
   deleteTypeContact,
 } from '../controllers/typeContactController';
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 const typeContactRouter = Router();
 
-typeContactRouter.post('/', createTypeContact);
-typeContactRouter.get('/', getAllTypeContacts);
-typeContactRouter.get('/:id', getTypeContactById);
-typeContactRouter.put('/:id', updateTypeContact);
-typeContactRouter.delete('/:id', deleteTypeContact);
+typeContactRouter.post('/', authenticateToken, createTypeContact);
+typeContactRouter.get('/', authenticateToken, getAllTypeContacts);
+typeContactRouter.get('/:id', authenticateToken, getTypeContactById);
+typeContactRouter.put('/:id', authenticateToken, updateTypeContact);
+typeContactRouter.delete('/:id', authenticateToken, deleteTypeContact);
 
 export default typeContactRouter;

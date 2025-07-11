@@ -12,22 +12,23 @@ import {
   getContactsByName,
   getContactsByCustomField
 } from '../controllers/contactController';
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 const contactRouter = Router();
 
-contactRouter.get('/', getAllContacts);
-contactRouter.get('/:id', getContactById);
-contactRouter.post('/', createContact);
-contactRouter.put('/:id', updateContact);
-contactRouter.delete('/:id', deleteContact);
+contactRouter.get('/', authenticateToken, getAllContacts);
+contactRouter.get('/:id', authenticateToken, getContactById);
+contactRouter.post('/', authenticateToken, createContact);
+contactRouter.put('/:id', authenticateToken, updateContact);
+contactRouter.delete('/:id', authenticateToken, deleteContact);
 
 // Extras
-contactRouter.get('/client/:clientId', getContactsByClientId);
-contactRouter.get('/type/:typeId', getContactsByType);
-contactRouter.get('/search/email', getContactsByEmail);
-contactRouter.get('/search/phone', getContactsByPhone);
-contactRouter.get('/search/name', getContactsByName);
-contactRouter.get('/search/custom', getContactsByCustomField);
+contactRouter.get('/client/:clientId', authenticateToken, getContactsByClientId);
+contactRouter.get('/type/:typeId', authenticateToken, getContactsByType);
+contactRouter.get('/search/email', authenticateToken, getContactsByEmail);
+contactRouter.get('/search/phone', authenticateToken, getContactsByPhone);
+contactRouter.get('/search/name', authenticateToken, getContactsByName);
+contactRouter.get('/search/custom', authenticateToken, getContactsByCustomField);
 
 export default contactRouter;
 // Este archivo define las rutas para manejar contactos, incluyendo operaciones CRUD y filtros adicionales.

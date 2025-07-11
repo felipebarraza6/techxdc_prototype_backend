@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { getAllFiles, getFileById, createFile, updateFile, deleteFile } from "../controllers/fileController";
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 const fileRouter = Router();
 
-fileRouter.get("/", getAllFiles);
-fileRouter.get("/:id", getFileById);
-fileRouter.post("/", createFile);
-fileRouter.put("/:id", updateFile);
-fileRouter.delete("/:id", deleteFile);
+fileRouter.get("/", authenticateToken, getAllFiles);
+fileRouter.get("/:id", authenticateToken, getFileById);
+fileRouter.post("/", authenticateToken, createFile);
+fileRouter.put("/:id", authenticateToken, updateFile);
+fileRouter.delete("/:id", authenticateToken, deleteFile);
 
-export default fileRouter; 
+export default fileRouter;

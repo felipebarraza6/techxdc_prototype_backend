@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { createFinanceMovement, deleteFinanceMovement, getAllFinanceMovement, getFinanceMovementById, updateFinanceMovement } 
 from "../controllers/financeMovementController";
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 const financeMovementRouter = Router();
 
-financeMovementRouter.get("/", getAllFinanceMovement);
-financeMovementRouter.get("/:id", getFinanceMovementById);
-financeMovementRouter.post("/", createFinanceMovement);
-financeMovementRouter.put("/:id", updateFinanceMovement);
-financeMovementRouter.delete("/:id", deleteFinanceMovement);
+financeMovementRouter.get("/", authenticateToken, getAllFinanceMovement);
+financeMovementRouter.get("/:id", authenticateToken, getFinanceMovementById);
+financeMovementRouter.post("/", authenticateToken, createFinanceMovement);
+financeMovementRouter.put("/:id", authenticateToken, updateFinanceMovement);
+financeMovementRouter.delete("/:id", authenticateToken, deleteFinanceMovement);
 
 export default financeMovementRouter;
